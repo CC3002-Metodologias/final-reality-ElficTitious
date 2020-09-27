@@ -1,10 +1,11 @@
-package com.github.cc3002;
+package com.github.ElficTitious;
 
-import com.github.cc3002.finalreality.model.character.ICharacter;
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
-import com.github.cc3002.finalreality.model.weapon.WeaponType;
+import com.github.ElficTitious.finalreality.model.weapon.WeaponType;
+import com.github.ElficTitious.finalreality.model.character.ICharacter;
+import com.github.ElficTitious.finalreality.model.character.player.CharacterClass;
+import com.github.ElficTitious.finalreality.model.character.player.PlayerCharacter;
+import com.github.ElficTitious.finalreality.model.weapon.Weapon;
+
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
