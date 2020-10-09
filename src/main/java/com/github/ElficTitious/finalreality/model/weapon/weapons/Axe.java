@@ -1,6 +1,6 @@
 package com.github.ElficTitious.finalreality.model.weapon.weapons;
 
-import com.github.ElficTitious.finalreality.model.character.ICharacter1;
+import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
 import com.github.ElficTitious.finalreality.model.weapon.AbstractWeapon;
 
 public class Axe extends AbstractWeapon {
@@ -13,8 +13,8 @@ public class Axe extends AbstractWeapon {
     }
 
     @Override
-    public void equipToCharacter(ICharacter1 character) {
-        character.equipAxe(this);
+    public void equipToPlayerCharacter(IPlayerCharacter playerCharacter) {
+        playerCharacter.equipAxe(this);
     }
 
     @Override

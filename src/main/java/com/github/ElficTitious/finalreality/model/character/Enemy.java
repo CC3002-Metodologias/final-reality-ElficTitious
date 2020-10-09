@@ -34,34 +34,7 @@ public class Enemy implements ICharacter{
         this.turnsQueue = turnsQueue;
     }
 
-    /**
-     * Returns the weight of this enemy.
-     */
-    public int getWeight() {
-        return weight;
-    }
 
-    /**
-     * Returns the attack power of this enemy.
-     */
-    public int getAttackPower() {
-        return attackPower;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getHealthPoints() {
-        return healthPoints;
-    }
-
-    @Override
-    public int getDefense() {
-        return defense;
-    }
 
     @Override
     public void waitTurn() {
@@ -77,5 +50,44 @@ public class Enemy implements ICharacter{
     private void addToQueue() {
         turnsQueue.add(this);
         scheduledExecutor.shutdown();
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Enemy)) {
+            return false;
+        }
+        final Enemy enemy = (Enemy) o;
+        return getWeight() == enemy.getWeight() &&
+                getAttackPower() == enemy.getAttackPower() &&
+                getDefense() == enemy.getDefense() &&
+                getHealthPoints() == enemy.getHealthPoints() &&
+                getName().equals(enemy.getName());
+    }
+
+    /**
+     * Returns this enemy's name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    public int getHealthPoints() {
+        return healthPoints;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public int getAttackPower() {
+        return attackPower;
     }
 }

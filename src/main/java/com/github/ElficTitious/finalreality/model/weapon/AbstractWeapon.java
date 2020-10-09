@@ -16,20 +16,17 @@ public abstract class AbstractWeapon implements IWeapon{
     }
 
     @Override
+    public abstract boolean equals(final Object o);
+
     public String getName() {
         return name;
     }
 
-    @Override
     public int getDamage() {
         return damage;
     }
 
-    @Override
     public int getWeight() {
         return weight;
     }
-
-    @Override
-    public abstract boolean equals(final Object o);
 }

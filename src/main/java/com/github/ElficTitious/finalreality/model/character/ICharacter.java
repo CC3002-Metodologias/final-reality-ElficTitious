@@ -15,19 +15,4 @@ public interface ICharacter {
      * seconds before adding the character to the queue.
      */
     void waitTurn();
-
-    /**
-     * Returns this character's name.
-     */
-    String getName();
-
-    /**
-     * Returns this character's health points.
-     */
-    int getHealthPoints();
-
-    /**
-     * Returns this character's defense.
-     */
-    int getDefense();
 }
