@@ -1,7 +1,7 @@
 package com.github.ElficTitious.finalreality.model.weapon;
 
 
-import com.github.ElficTitious.finalreality.model.character.ICharacter;
+import com.github.ElficTitious.finalreality.model.character.ICharacter1;
 
 /**
  * This represents a weapon from the game.
@@ -28,5 +28,5 @@ public interface IWeapon {
      * @param character
      *      character which you want to equip the weapon.
      */
-    void equipToCharacter(ICharacter character);
+    void equipToCharacter(ICharacter1 character);
 }

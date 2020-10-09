@@ -1,7 +1,7 @@
 package com.github.ElficTitious.finalreality.model.character.player;
 
-import com.github.ElficTitious.finalreality.model.character.AbstractCharacter;
-import com.github.ElficTitious.finalreality.model.character.ICharacter;
+import com.github.ElficTitious.finalreality.model.character.AbstractCharacter1;
+import com.github.ElficTitious.finalreality.model.character.ICharacter1;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ignacio Slater Muñoz.
  * @author <Your name>
  */
-public class PlayerCharacter extends AbstractCharacter {
+public class PlayerCharacter1 extends AbstractCharacter1 {
 
   /**
    * Creates a new character.
@@ -24,9 +24,9 @@ public class PlayerCharacter extends AbstractCharacter {
    * @param characterClass
    *     the class of this character
    */
-  public PlayerCharacter(@NotNull String name,
-      @NotNull BlockingQueue<ICharacter> turnsQueue,
-      final CharacterClass characterClass) {
+  public PlayerCharacter1(@NotNull String name,
+                          @NotNull BlockingQueue<ICharacter1> turnsQueue,
+                          final CharacterClass characterClass) {
     super(turnsQueue, name, characterClass);
   }
 
@@ -40,10 +40,10 @@ public class PlayerCharacter extends AbstractCharacter {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof PlayerCharacter)) {
+    if (!(o instanceof PlayerCharacter1)) {
       return false;
     }
-    final PlayerCharacter that = (PlayerCharacter) o;
+    final PlayerCharacter1 that = (PlayerCharacter1) o;
     return getCharacterClass() == that.getCharacterClass()
         && getName().equals(that.getName());
   }
