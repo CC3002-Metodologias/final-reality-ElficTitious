@@ -1,5 +1,6 @@
 package com.github.ElficTitious.finalreality.model.weapon.weapons;
 
+import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.weapon.AbstractWeapon;
 
 public class Staff extends AbstractWeapon {
@@ -12,5 +13,14 @@ public class Staff extends AbstractWeapon {
     public Staff(final String name, final int damage, final int magicDamage, final int weight) {
         super(name, damage, weight);
         this.magicDamage = magicDamage;
+    }
+
+    public int getMagicDamage() {
+        return magicDamage;
+    }
+
+    @Override
+    public void equipToCharacter(ICharacter character) {
+        character.equipStaff(this);
     }
 }
