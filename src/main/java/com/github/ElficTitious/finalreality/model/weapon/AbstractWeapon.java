@@ -29,4 +29,7 @@ public abstract class AbstractWeapon implements IWeapon{
     public int getWeight() {
         return weight;
     }
+
+    @Override
+    public abstract boolean equals(final Object o);
 }

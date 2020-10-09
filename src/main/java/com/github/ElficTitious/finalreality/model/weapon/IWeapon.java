@@ -23,5 +23,10 @@ public interface IWeapon {
      */
     int getWeight();
 
+    /**
+     * Equips a given weapon determined by the class to the character given as parameter.
+     * @param character
+     *      character which you want to equip the weapon.
+     */
     void equipToCharacter(ICharacter character);
 }
