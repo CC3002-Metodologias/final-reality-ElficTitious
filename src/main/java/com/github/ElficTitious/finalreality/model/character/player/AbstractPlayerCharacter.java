@@ -11,17 +11,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public abstract class AbstactPlayerCharacter implements IPlayerCharacter {
+public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     protected final BlockingQueue<ICharacter> turnsQueue;
     private ScheduledExecutorService scheduledExecutor;
     private final String name;
-    private final int healthPoints;
-    private final int defense;
+    private int healthPoints;
+    private int defense;
     private IWeapon equippedWeapon = null;
 
 
-    public AbstactPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
+    public AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
                                   int healthPoints, int defense) {
         this.name = name;
         this.healthPoints = healthPoints;
@@ -55,6 +55,10 @@ public abstract class AbstactPlayerCharacter implements IPlayerCharacter {
      */
     public IWeapon getEquippedWeapon() {
         return equippedWeapon;
+    }
+
+    protected void setEquippedWeapon(IWeapon weapon) {
+        this.equippedWeapon = weapon;
     }
 
     @Override
