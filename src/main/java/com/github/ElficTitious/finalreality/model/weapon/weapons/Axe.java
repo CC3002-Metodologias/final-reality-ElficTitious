@@ -16,20 +16,4 @@ public class Axe extends AbstractWeapon {
     public void equipToPlayerCharacter(IPlayerCharacter playerCharacter) {
         playerCharacter.equipAxe(this);
     }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Axe)) {
-            return false;
-        }
-        final Axe axe = (Axe) o;
-        return getDamage() == axe.getDamage() &&
-                getWeight() == axe.getWeight() &&
-                getName().equals(axe.getName());
-    }
-
-
 }

@@ -16,18 +16,4 @@ public class Bow extends AbstractWeapon {
     public void equipToPlayerCharacter(IPlayerCharacter playerCharacter) {
         playerCharacter.equipBow(this);
     }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Bow)) {
-            return false;
-        }
-        final Bow bow = (Bow) o;
-        return getDamage() == bow.getDamage() &&
-                getWeight() == bow.getWeight() &&
-                getName().equals(bow.getName());
-    }
 }

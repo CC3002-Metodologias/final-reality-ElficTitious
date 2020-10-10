@@ -16,18 +16,4 @@ public class Knife extends AbstractWeapon {
     public void equipToPlayerCharacter(IPlayerCharacter playerCharacter) {
         playerCharacter.equipKnife(this);
     }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Knife)) {
-            return false;
-        }
-        final Knife knife = (Knife) o;
-        return getDamage() == knife.getDamage() &&
-                getWeight() == knife.getWeight() &&
-                getName().equals(knife.getName());
-    }
 }

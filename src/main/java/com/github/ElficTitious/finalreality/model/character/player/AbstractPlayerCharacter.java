@@ -100,4 +100,10 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         turnsQueue.add(this);
         scheduledExecutor.shutdown();
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

@@ -1,5 +1,7 @@
 package com.github.ElficTitious.finalreality.model.weapon;
 
+import com.github.ElficTitious.finalreality.model.weapon.weapons.Sword;
+
 public abstract class AbstractWeapon implements IWeapon{
 
     private final String name;
@@ -16,7 +18,18 @@ public abstract class AbstractWeapon implements IWeapon{
     }
 
     @Override
-    public abstract boolean equals(final Object o);
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        else if (!(o instanceof IWeapon)) {
+            return false;
+        }
+        final IWeapon weapon = (IWeapon) o;
+        return getWeight() == weapon.getWeight() &&
+                getName().equals(weapon.getName());
+    }
 
     public String getName() {
         return name;

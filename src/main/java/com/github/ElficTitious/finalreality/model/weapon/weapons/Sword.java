@@ -16,18 +16,4 @@ public class Sword extends AbstractWeapon {
     public void equipToPlayerCharacter(IPlayerCharacter playerCharacter) {
         playerCharacter.equipSword(this);
     }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Sword)) {
-            return false;
-        }
-        final Sword sword = (Sword) o;
-        return getDamage() == sword.getDamage() &&
-                getWeight() == sword.getWeight() &&
-                getName().equals(sword.getName());
-    }
 }

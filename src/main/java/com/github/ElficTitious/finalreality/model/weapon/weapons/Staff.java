@@ -23,19 +23,4 @@ public class Staff extends AbstractWeapon {
     public void equipToPlayerCharacter(IPlayerCharacter playerCharacter) {
         playerCharacter.equipStaff(this);
     }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Staff)) {
-            return false;
-        }
-        final Staff staff = (Staff) o;
-        return getDamage() == staff.getDamage() &&
-                getMagicDamage() == staff.getMagicDamage() &&
-                getWeight() == staff.getWeight() &&
-                getName().equals(staff.getName());
-    }
 }
