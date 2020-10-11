@@ -4,5 +4,8 @@ import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 
 public abstract class AbstractWeaponTest {
 
-    public abstract void checkConstruction();
+    public void checkConstruction(IWeapon expectedWeapon, IWeapon testEqualWeapon,
+                                  IWeapon sameClassDifferentWeapon, IWeapon differentClassWeapon) {
+
+    }
 }
