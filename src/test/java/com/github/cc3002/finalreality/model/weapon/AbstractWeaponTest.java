@@ -15,4 +15,16 @@ public abstract class AbstractWeaponTest {
         assertNotEquals(expectedWeapon, differentNameWeapon);
         assertNotEquals(expectedWeapon, differentTypeWeapon);
     }
+
+    void checkHashCode(IWeapon expectedWeapon, IWeapon sameHashWeapon,
+                       IWeapon differentHashWeapon) {
+        assertEquals(expectedWeapon.hashCode(), sameHashWeapon.hashCode());
+        assertNotEquals(expectedWeapon.hashCode(), differentHashWeapon.hashCode());
+    }
+
+    void checkGetDamage(IWeapon expectedWeapon, IWeapon sameDamageWeapon,
+                        IWeapon differentDamageWeapon) {
+        assertEquals(expectedWeapon.getDamage(), sameDamageWeapon.getDamage());
+        assertNotEquals(expectedWeapon.getDamage(), differentDamageWeapon.getDamage());
+    }
 }
