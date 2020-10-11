@@ -6,7 +6,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.github.ElficTitious.finalreality.model.character.player.CharacterClass;
 import org.jetbrains.annotations.NotNull;
 
 public class Enemy implements ICharacter{
@@ -34,8 +33,6 @@ public class Enemy implements ICharacter{
         this.turnsQueue = turnsQueue;
     }
 
-
-
     @Override
     public void waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
@@ -52,22 +49,6 @@ public class Enemy implements ICharacter{
         scheduledExecutor.shutdown();
     }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Enemy)) {
-            return false;
-        }
-        final Enemy enemy = (Enemy) o;
-        return getWeight() == enemy.getWeight() &&
-                getAttackPower() == enemy.getAttackPower() &&
-                getDefense() == enemy.getDefense() &&
-                getHealthPoints() == enemy.getHealthPoints() &&
-                getName().equals(enemy.getName());
-    }
-
     /**
      * Returns this enemy's name.
      */
@@ -75,19 +56,49 @@ public class Enemy implements ICharacter{
         return name;
     }
 
+    /**
+     * Returns this enemy's health points.
+     */
     public int getHealthPoints() {
         return healthPoints;
     }
 
+    /**
+     * Returns this enemy's defense.
+     */
     public int getDefense() {
         return defense;
     }
 
+    /**
+     * Returns this enemy's weight.
+     */
     public int getWeight() {
         return weight;
     }
 
+    /**
+     * Returns this enemy's attack power.
+     */
     public int getAttackPower() {
         return attackPower;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Enemy)) {
+            return false;
+        }
+        final var enemy = (Enemy) obj;
+        return getWeight() == enemy.getWeight() &&
+                getName().equals(enemy.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Enemy.class, getName(), getWeight());
     }
 }

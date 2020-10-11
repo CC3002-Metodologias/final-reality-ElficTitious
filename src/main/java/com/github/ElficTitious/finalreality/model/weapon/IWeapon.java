@@ -17,17 +17,17 @@ public interface IWeapon {
     void equipToPlayerCharacter(IPlayerCharacter playerCharacter);
 
     /**
-     * Returns this weapon's name.
-     */
-    public String getName();
-
-    /**
-     * Returns this weapon's damage.
-     */
-    public int getDamage();
-
-    /**
      * Returns this weapon's weight.
      */
-    public int getWeight();
+    int getWeight();
+
+    /**
+     * Returns this weapon's type.
+     */
+    String getType();
+
+    /**
+     * Returns this weapon's name.
+     */
+    String getName();
 }

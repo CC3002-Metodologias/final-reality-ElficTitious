@@ -31,4 +31,14 @@ public interface IPlayerCharacter extends ICharacter {
      * Equips a given staff to a player character.
      */
     void equipStaff(Staff staff);
+
+    /**
+     * Returns this player character's name.
+     */
+    String getName();
+
+    /**
+     * Returns this player character's type.
+     */
+    String getType();
 }

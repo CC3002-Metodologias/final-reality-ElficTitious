@@ -1,11 +1,13 @@
 package com.github.ElficTitious.finalreality.model.character.player;
 
+import com.github.ElficTitious.finalreality.model.character.player.playercharacters.DarkWizard;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.weapon.AbstractWeapon;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -29,9 +31,7 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         this.turnsQueue = turnsQueue;
     }
 
-    /**
-     * Returns this player character's name.
-     */
+    @Override
     public String getName() {
         return name;
     }
@@ -101,9 +101,22 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         scheduledExecutor.shutdown();
     }
 
-
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof IPlayerCharacter)) {
+            return false;
+        }
+        final var playerCharacter = (IPlayerCharacter) obj;
+        return getName().equals(playerCharacter.getName()) &&
+                getType().equals(playerCharacter.getType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getType(), getName());
     }
 }
