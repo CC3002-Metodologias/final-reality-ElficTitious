@@ -35,6 +35,15 @@ public class WeaponTest {
 
     @Test
     void constructionTest() {
-
+        assertEquals(expectedAxe, testAxe);
+        assertEquals(expectedAxe.hashCode(), testAxe.hashCode());
+        assertEquals(expectedStaff, testStaff);
+        assertEquals(expectedStaff.hashCode(), testStaff.hashCode());
+        assertEquals(expectedSword, testSword);
+        assertEquals(expectedSword.hashCode(), testSword.hashCode());
+        assertEquals(expectedBow, testBow);
+        assertEquals(expectedBow.hashCode(), testBow.hashCode());
+        assertEquals(expectedKnife, testKnife);
+        assertEquals(expectedKnife.hashCode(), testKnife.hashCode());
     }
 }
