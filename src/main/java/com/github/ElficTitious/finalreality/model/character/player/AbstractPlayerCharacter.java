@@ -50,9 +50,7 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         return defense;
     }
 
-    /**
-     * Returns this player character's equipped weapon.
-     */
+    @Override
     public IWeapon getEquippedWeapon() {
         return equippedWeapon;
     }

@@ -4,6 +4,7 @@ import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -14,6 +15,7 @@ public class AbstractPlayerCharacterTest {
 
     protected BlockingQueue<ICharacter> turnsQueue;
     protected ScheduledExecutorService scheduledExecutor;
+    protected List<IPlayerCharacter> testPlayerCharacters;
 
     protected void checkEquals(final IPlayerCharacter expectedPlayerCharacter,
                                      final IPlayerCharacter equalPlayerCharacter,
@@ -31,5 +33,10 @@ public class AbstractPlayerCharacterTest {
         assertEquals(expectedPlayerCharacter.hashCode(), sameHashPlayerCharacter.hashCode());
         assertNotEquals(expectedPlayerCharacter.hashCode(),
                 differentHashPlayerCharacter.hashCode());
+    }
+
+    void checkSuccessfulEquipWeapon(final IPlayerCharacter playerCharacter, final IWeapon weapon) {
+        weapon.equipToPlayerCharacter(playerCharacter);
+        assertEquals(weapon, playerCharacter.getEquippedWeapon());
     }
 }

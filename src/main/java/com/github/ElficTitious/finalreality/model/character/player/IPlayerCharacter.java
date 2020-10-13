@@ -33,6 +33,11 @@ public interface IPlayerCharacter extends ICharacter {
     void equipStaff(Staff staff);
 
     /**
+     * Returns this player character's equipped weapon.
+     */
+    IWeapon getEquippedWeapon();
+
+    /**
      * Returns this player character's name.
      */
     String getName();
