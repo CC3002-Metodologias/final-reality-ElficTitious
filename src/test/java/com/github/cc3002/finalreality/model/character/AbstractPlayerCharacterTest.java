@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AbstractPlayerCharacterTest {
 
@@ -35,8 +34,15 @@ public class AbstractPlayerCharacterTest {
                 differentHashPlayerCharacter.hashCode());
     }
 
-    void checkSuccessfulEquipWeapon(final IPlayerCharacter playerCharacter, final IWeapon weapon) {
-        weapon.equipToPlayerCharacter(playerCharacter);
-        assertEquals(weapon, playerCharacter.getEquippedWeapon());
+    void checkSuccessfulEquipWeapon(final IPlayerCharacter playerCharacter,
+                                    final IWeapon equippableWeapon) {
+        equippableWeapon.equipToPlayerCharacter(playerCharacter);
+        assertEquals(equippableWeapon, playerCharacter.getEquippedWeapon());
+    }
+
+    void checkUnsuccessfulEquipWeapon(final IPlayerCharacter playerCharacter,
+                                    final IWeapon unequippableWeapon) {
+        unequippableWeapon.equipToPlayerCharacter(playerCharacter);
+        assertNull(playerCharacter.getEquippedWeapon());
     }
 }
