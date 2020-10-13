@@ -41,4 +41,14 @@ public interface IPlayerCharacter extends ICharacter {
      * Returns this player character's name.
      */
     String getName();
+
+    /**
+     * Returns this player character's health points.
+     */
+    int getHealthPoints();
+
+    /**
+     * Returns this player character's defense.
+     */
+    int getDefense();
 }

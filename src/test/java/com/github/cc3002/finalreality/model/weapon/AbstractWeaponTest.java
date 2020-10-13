@@ -1,31 +1,60 @@
 package com.github.cc3002.finalreality.model.weapon;
 
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
+import com.github.ElficTitious.finalreality.model.weapon.weapons.Axe;
+import com.github.ElficTitious.finalreality.model.weapon.weapons.Sword;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class AbstractWeaponTest {
 
-    void checkEquals(IWeapon expectedWeapon, IWeapon equalWeapon,
-                     IWeapon differentWeightWeapon, IWeapon differentNameWeapon,
-                     IWeapon differentClassWeapon) {
-        assertEquals(expectedWeapon, expectedWeapon);
-        assertEquals(expectedWeapon, equalWeapon);
-        assertNotEquals(expectedWeapon, differentWeightWeapon);
-        assertNotEquals(expectedWeapon, differentNameWeapon);
-        assertNotEquals(expectedWeapon, differentClassWeapon);
+
+    private static final String AXE_NAME  = "Test Axe";
+    private static final String SECOND_AXE_NAME  = "Second Test Axe";
+    protected static final int DAMAGE  = 15;
+    private static final int SECOND_DAMAGE  = 20;
+    protected static final int WEIGHT  = 30;
+    private static final int SECOND_WEIGHT  = 25;
+
+    private Axe testAxe;
+    private Axe testAxeDifferentName;
+    private Axe testAxeDifferentWeight;
+    private Axe testAxeDifferentDamage;
+    private Sword testSwordWithAxeName;
+
+    @BeforeEach
+    void setUp() {
+        testAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
+        testAxeDifferentName = new Axe(SECOND_AXE_NAME, DAMAGE, WEIGHT);
+        testAxeDifferentWeight = new Axe(AXE_NAME, DAMAGE, SECOND_WEIGHT);
+        testAxeDifferentDamage = new Axe(AXE_NAME, SECOND_DAMAGE, WEIGHT);
+        testSwordWithAxeName = new Sword(AXE_NAME, DAMAGE, WEIGHT);
     }
 
-    void checkHashCode(IWeapon expectedWeapon, IWeapon sameHashWeapon,
-                       IWeapon differentHashWeapon) {
-        assertEquals(expectedWeapon.hashCode(), sameHashWeapon.hashCode());
-        assertNotEquals(expectedWeapon.hashCode(), differentHashWeapon.hashCode());
+    @Test
+    void equalsTest() {
+        var expectedTestAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
+        assertEquals(expectedTestAxe, expectedTestAxe);
+        assertEquals(expectedTestAxe, testAxe);
+        assertNotEquals(expectedTestAxe, testAxeDifferentName);
+        assertNotEquals(expectedTestAxe, testAxeDifferentWeight);
+        assertNotEquals(expectedTestAxe, testSwordWithAxeName);
     }
 
-    void checkGetDamage(IWeapon expectedWeapon, IWeapon sameDamageWeapon,
-                        IWeapon differentDamageWeapon) {
-        assertEquals(expectedWeapon.getDamage(), sameDamageWeapon.getDamage());
-        assertNotEquals(expectedWeapon.getDamage(), differentDamageWeapon.getDamage());
+    @Test
+    void hashCodeTest() {
+        var expectedTestAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
+        assertEquals(expectedTestAxe.hashCode(), testAxe.hashCode());
+        assertNotEquals(expectedTestAxe.hashCode(), testAxeDifferentName.hashCode());
+    }
+
+    @Test
+    void getDamageTest() {
+        var expectedTestAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
+        assertEquals(expectedTestAxe.getDamage(), testAxe.getDamage());
+        assertNotEquals(expectedTestAxe.getDamage(), testAxeDifferentDamage.getDamage());
     }
 }
