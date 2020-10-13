@@ -3,6 +3,7 @@ package com.github.cc3002.finalreality.model.character;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
+import com.github.cc3002.finalreality.model.weapon.WeaponTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,6 @@ public class AbstractPlayerCharacterTest {
 
     protected BlockingQueue<ICharacter> turnsQueue;
     protected ScheduledExecutorService scheduledExecutor;
-    protected List<IPlayerCharacter> testPlayerCharacters;
 
     protected void checkEquals(final IPlayerCharacter expectedPlayerCharacter,
                                      final IPlayerCharacter equalPlayerCharacter,
@@ -46,10 +46,5 @@ public class AbstractPlayerCharacterTest {
                                     final IWeapon unequippableWeapon) {
         unequippableWeapon.equipToPlayerCharacter(playerCharacter);
         assertNull(playerCharacter.getEquippedWeapon());
-    }
-
-    void basicSetUp() {
-        turnsQueue = new LinkedBlockingQueue<>();
-        testPlayerCharacters = new ArrayList<>();
     }
 }

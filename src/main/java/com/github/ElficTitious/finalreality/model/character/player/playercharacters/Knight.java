@@ -1,4 +1,4 @@
-package com.github.ElficTitious.finalreality.model.character.player.playercharacters.physicalplayercharacters;
+package com.github.ElficTitious.finalreality.model.character.player.playercharacters;
 
 
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
