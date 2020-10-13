@@ -27,6 +27,7 @@ public class WeaponTest extends AbstractWeaponTest{
     private Axe testAxeDifferentDamage;
     private Bow testBow;
     private Sword testSword;
+    private Sword testSwordAxeName;
     private Staff testStaff;
     private Staff testStaffDifferentMagicDamage;
     private Knife testKnife;
@@ -40,6 +41,7 @@ public class WeaponTest extends AbstractWeaponTest{
         testAxeDifferentDamage = new Axe(AXE_NAME, SECOND_DAMAGE, WEIGHT);
         testBow = new Bow(BOW_NAME, DAMAGE, WEIGHT);
         testSword = new Sword(SWORD_NAME, DAMAGE, WEIGHT);
+        testSwordAxeName = new Sword(AXE_NAME, DAMAGE, WEIGHT);
         testStaff = new Staff(STAFF_NAME, DAMAGE, MAGIC_DAMAGE, WEIGHT);
         testStaffDifferentMagicDamage = new Staff(STAFF_NAME, DAMAGE, SECOND_MAGIC_DAMAGE, WEIGHT);
         testKnife = new Knife(KNIFE_NAME, DAMAGE, WEIGHT);
@@ -62,13 +64,14 @@ public class WeaponTest extends AbstractWeaponTest{
     @Test
     void equalsTest() {
         var expectedAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
-        checkEquals(expectedAxe, testAxe, testAxeDifferentWeight, testAxeDifferentName, testSword);
+        checkEquals(expectedAxe, testAxe, testAxeDifferentWeight,
+                testAxeDifferentName, testSwordAxeName);
     }
 
     @Test
     void hashCodeTest() {
         var expectedAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
-        checkHashCode(expectedAxe, testAxe, testAxeDifferentName);
+        checkHashCode(expectedAxe, testAxe, testSwordAxeName);
     }
 
     @Test

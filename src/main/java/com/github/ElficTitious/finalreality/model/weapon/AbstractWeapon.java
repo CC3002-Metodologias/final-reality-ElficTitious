@@ -46,11 +46,11 @@ public abstract class AbstractWeapon implements IWeapon{
         final var weapon = (IWeapon) obj;
         return getWeight() == weapon.getWeight() &&
                 getName().equals(weapon.getName()) &&
-                getType().equals(weapon.getType());
+                getClass() == weapon.getClass();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getType(), getName(), getWeight());
+        return Objects.hash(getClass(), getName(), getWeight());
     }
 }

@@ -8,12 +8,12 @@ public abstract class AbstractWeaponTest {
 
     void checkEquals(IWeapon expectedWeapon, IWeapon equalWeapon,
                      IWeapon differentWeightWeapon, IWeapon differentNameWeapon,
-                     IWeapon differentTypeWeapon) {
+                     IWeapon differentClassWeapon) {
         assertEquals(expectedWeapon, expectedWeapon);
         assertEquals(expectedWeapon, equalWeapon);
         assertNotEquals(expectedWeapon, differentWeightWeapon);
         assertNotEquals(expectedWeapon, differentNameWeapon);
-        assertNotEquals(expectedWeapon, differentTypeWeapon);
+        assertNotEquals(expectedWeapon, differentClassWeapon);
     }
 
     void checkHashCode(IWeapon expectedWeapon, IWeapon sameHashWeapon,

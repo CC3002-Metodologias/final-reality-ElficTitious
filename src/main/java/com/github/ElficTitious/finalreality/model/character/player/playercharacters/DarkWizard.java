@@ -14,7 +14,6 @@ import java.util.concurrent.BlockingQueue;
 public class DarkWizard extends AbstractPlayerCharacter {
 
     private int mana;
-    private final String type = "Dark Wizard";
 
     public DarkWizard(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
                       int healthPoints, int defense, int mana) {
@@ -25,11 +24,6 @@ public class DarkWizard extends AbstractPlayerCharacter {
 
     public int getMana() {
         return mana;
-    }
-
-    @Override
-    public String getType() {
-        return type;
     }
 
     @Override

@@ -112,11 +112,11 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         }
         final var playerCharacter = (IPlayerCharacter) obj;
         return getName().equals(playerCharacter.getName()) &&
-                getType().equals(playerCharacter.getType());
+                getClass() == playerCharacter.getClass();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getType(), getName());
+        return Objects.hash(getClass(), getName());
     }
 }

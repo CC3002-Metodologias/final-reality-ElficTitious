@@ -12,16 +12,9 @@ import java.util.concurrent.BlockingQueue;
 
 public class Thief extends AbstractPlayerCharacter {
 
-    private final String type = "Thief";
-
     public Thief(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
                  int healthPoints, int defense) {
         super(turnsQueue, name, healthPoints, defense);
-    }
-
-    @Override
-    public String getType() {
-        return type;
     }
 
     @Override

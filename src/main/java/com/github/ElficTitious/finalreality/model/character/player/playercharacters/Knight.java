@@ -14,16 +14,9 @@ import java.util.concurrent.BlockingQueue;
 
 public class Knight extends AbstractPlayerCharacter {
 
-    private final String type = "Knight";
-
     public Knight(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
                   int healthPoints, int defense) {
         super(turnsQueue, name, healthPoints, defense);
-    }
-
-    @Override
-    public String getType() {
-        return type;
     }
 
     @Override

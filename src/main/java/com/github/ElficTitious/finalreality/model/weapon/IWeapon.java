@@ -27,11 +27,6 @@ public interface IWeapon {
     int getDamage();
 
     /**
-     * Returns this weapon's type.
-     */
-    String getType();
-
-    /**
      * Returns this weapon's name.
      */
     String getName();
