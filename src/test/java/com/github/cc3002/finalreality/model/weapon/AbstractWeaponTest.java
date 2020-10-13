@@ -1,10 +1,11 @@
 package com.github.cc3002.finalreality.model.weapon;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 
-public abstract class AbstractWeaponTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+public class AbstractWeaponTest {
 
     void checkEquals(IWeapon expectedWeapon, IWeapon equalWeapon,
                      IWeapon differentWeightWeapon, IWeapon differentNameWeapon,

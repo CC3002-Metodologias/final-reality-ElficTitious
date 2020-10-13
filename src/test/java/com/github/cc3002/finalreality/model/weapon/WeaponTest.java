@@ -1,13 +1,14 @@
 package com.github.cc3002.finalreality.model.weapon;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 public class WeaponTest extends AbstractWeaponTest{
+
     private static final String AXE_NAME  = "Test Axe";
     private static final String SECOND_AXE_NAME  = "Second Test Axe";
     private static final String BOW_NAME  = "Test Bow";
