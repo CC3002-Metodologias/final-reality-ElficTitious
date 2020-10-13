@@ -1,39 +1,22 @@
 package com.github.ElficTitious.finalreality.model.character.player.playercharacters;
 
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
-import com.github.ElficTitious.finalreality.model.character.player.AbstractPlayerCharacter;
-import com.github.ElficTitious.finalreality.model.character.player.IMages;
-import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
-import com.github.ElficTitious.finalreality.model.weapon.weapons.Axe;
+import com.github.ElficTitious.finalreality.model.character.player.AbstractMageCharacter;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.Knife;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.Staff;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
-public class DarkWizard extends AbstractPlayerCharacter implements IMages {
-
-    private int mana;
+public class DarkWizard extends AbstractMageCharacter {
 
     public DarkWizard(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
                       int healthPoints, int defense, int mana) {
-        super(turnsQueue, name, healthPoints, defense);
-        this.mana = mana;
-    }
-
-    @Override
-    public int getMana() {
-        return mana;
+        super(turnsQueue, name, healthPoints, defense, mana);
     }
 
     @Override
     public void equipKnife(Knife knife) {
-        super.equipKnife(knife);
-    }
-
-    @Override
-    public void equipStaff(Staff staff) {
-        super.equipStaff(staff);
+        super.setEquippedWeapon(knife);
     }
 }

@@ -19,16 +19,16 @@ public class Thief extends AbstractPlayerCharacter {
 
     @Override
     public void equipSword(Sword sword) {
-        super.equipSword(sword);
+        super.setEquippedWeapon(sword);
     }
 
     @Override
     public void equipStaff(Staff staff) {
-        super.equipStaff(staff);
+        super.setEquippedWeapon(staff);
     }
 
     @Override
     public void equipBow(Bow bow) {
-        super.equipBow(bow);
+        super.setEquippedWeapon(bow);
     }
 }
