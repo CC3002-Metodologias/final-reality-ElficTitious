@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class WeaponTest extends AbstractWeaponTest{
+public class  WeaponTest extends AbstractWeaponTest{
 
     private static final String AXE_NAME  = "Test Axe";
     private static final String SECOND_AXE_NAME  = "Second Test Axe";
