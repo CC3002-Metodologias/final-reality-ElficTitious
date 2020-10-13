@@ -4,8 +4,10 @@ import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,5 +46,10 @@ public class AbstractPlayerCharacterTest {
                                     final IWeapon unequippableWeapon) {
         unequippableWeapon.equipToPlayerCharacter(playerCharacter);
         assertNull(playerCharacter.getEquippedWeapon());
+    }
+
+    void basicSetUp() {
+        turnsQueue = new LinkedBlockingQueue<>();
+        testPlayerCharacters = new ArrayList<>();
     }
 }
