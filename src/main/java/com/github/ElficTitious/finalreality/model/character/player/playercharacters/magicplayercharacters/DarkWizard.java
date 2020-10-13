@@ -1,4 +1,4 @@
-package com.github.ElficTitious.finalreality.model.character.player.playercharacters;
+package com.github.ElficTitious.finalreality.model.character.player.playercharacters.magicplayercharacters;
 
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.AbstractMageCharacter;

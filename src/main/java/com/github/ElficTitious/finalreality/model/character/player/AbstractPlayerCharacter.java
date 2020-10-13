@@ -1,8 +1,6 @@
 package com.github.ElficTitious.finalreality.model.character.player;
 
-import com.github.ElficTitious.finalreality.model.character.player.playercharacters.DarkWizard;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
-import com.github.ElficTitious.finalreality.model.weapon.AbstractWeapon;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
 import org.jetbrains.annotations.NotNull;
