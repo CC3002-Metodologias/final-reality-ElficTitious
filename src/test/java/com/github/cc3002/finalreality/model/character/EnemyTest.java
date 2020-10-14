@@ -91,7 +91,7 @@ public class EnemyTest {
     }
 
     /**
-     * Checks that the getHealthPoints method works as intended.
+     * Checks that the {@code getHealthPoints} method works as intended.
      */
     @Test
     void getHealthPointsTest() {
@@ -101,7 +101,7 @@ public class EnemyTest {
     }
 
     /**
-     * Checks that the getDefense method works as intended.
+     * Checks that the {@code getDefense} method works as intended.
      */
     @Test
     void getDefenseTest() {
@@ -111,7 +111,7 @@ public class EnemyTest {
     }
 
     /**
-     * Checks that the getAttackPower method works as intended.
+     * Checks that the {@code getAttackPower} method works as intended.
      */
     @Test
     void getAttackPowerTest() {

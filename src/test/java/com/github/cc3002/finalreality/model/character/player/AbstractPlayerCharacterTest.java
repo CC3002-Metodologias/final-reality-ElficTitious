@@ -120,7 +120,7 @@ public class AbstractPlayerCharacterTest {
     }
 
     /**
-     * Checks that the getHealthPoints method works as intended.
+     * Checks that the {@code getHealthPoints} method works as intended.
      */
     @Test
     void getHealthPointsTest() {
@@ -129,7 +129,7 @@ public class AbstractPlayerCharacterTest {
     }
 
     /**
-     * Checks that the getDefense method works as intended.
+     * Checks that the {@code getDefense} method works as intended.
      */
     @Test
     void getDefenseTest() {

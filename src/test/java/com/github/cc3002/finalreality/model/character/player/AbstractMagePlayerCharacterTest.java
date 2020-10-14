@@ -31,7 +31,7 @@ public class AbstractMagePlayerCharacterTest extends AbstractPlayerCharacterTest
     }
 
     /**
-     * Checks that the getMana method works as intended.
+     * Checks that the {@code getMana} method works as intended.
      */
     @Test
     void getManaTest() {

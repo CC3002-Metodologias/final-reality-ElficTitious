@@ -9,6 +9,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+/**
+ * A class that holds a set of tests for the {@code AbstractWeapon} class.
+ *
+ * @author Ignacio Slater Muñoz.
+ * @author Ismael Correa Arellano.
+ * @see com.github.ElficTitious.finalreality.model.weapon.AbstractWeapon
+ */
 public class AbstractWeaponTest {
 
 
@@ -24,6 +31,10 @@ public class AbstractWeaponTest {
     private Axe testAxeDifferentDamage;
     private Sword testSwordWithAxeName;
 
+    /**
+     * Setup method.
+     * Creates new test weapons.
+     */
     @BeforeEach
     void BasicSetUp() {
         testAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
@@ -32,6 +43,10 @@ public class AbstractWeaponTest {
         testSwordWithAxeName = new Sword(AXE_NAME, DAMAGE, WEIGHT);
     }
 
+    /**
+     * Checks that the equals method from the {@code AbstractWeapon} class works
+     * as intended.
+     */
     @Test
     void equalsTest() {
         var expectedTestAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
@@ -42,6 +57,10 @@ public class AbstractWeaponTest {
         assertNotEquals(expectedTestAxe, testSwordWithAxeName);
     }
 
+    /**
+     * Checks that the hashCode method from the {@code AbstractWeapon} class works
+     * as intended, that is, according to the definition of the equals method.
+     */
     @Test
     void hashCodeTest() {
         var expectedTestAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
@@ -49,6 +68,9 @@ public class AbstractWeaponTest {
         assertNotEquals(expectedTestAxe.hashCode(), testAxeDifferentName.hashCode());
     }
 
+    /**
+     * Checks that the {@code getDamage} method works as intended.
+     */
     @Test
     void getDamageTest() {
         var expectedTestAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
