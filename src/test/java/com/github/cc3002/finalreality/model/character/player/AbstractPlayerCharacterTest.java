@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Set of tests for the {@code AbstractPlayerCharacter} class.
+ * A class that holds a set of tests for the {@code AbstractPlayerCharacter} class.
  *
  * @author Ignacio Slater Muñoz.
  * @author Ismael Correa Arellano.
@@ -51,7 +51,10 @@ public class AbstractPlayerCharacterTest {
     private Thief testThiefWithKnightName;
     private Knight testKnightDifferentName;
 
-
+    /**
+     * Setup method.
+     * Creates new weapons, player characters and a linked blocking queue.
+     */
     @BeforeEach
     void basicSetUp() {
         turnsQueue = new LinkedBlockingQueue<>();
@@ -90,6 +93,9 @@ public class AbstractPlayerCharacterTest {
         }
     }
 
+    /**
+     * Checks that the equals method from the AbstractPlayerCharacter class works as intended.
+     */
     @Test
     void equalsTest() {
         var expectedTestKnight = new Knight(turnsQueue, KNIGHT_NAME, HEALTH_POINTS, DEFENSE);
@@ -100,6 +106,10 @@ public class AbstractPlayerCharacterTest {
         assertNotEquals(expectedTestKnight, testAxe);
     }
 
+    /**
+     * Checks that the hashCode method from the AbstractPlayerCharacter class works as intended, that is,
+     * according to the definition of the equals method.
+     */
     @Test
     void hashCodeTest() {
         var expectedTestKnight = new Knight(turnsQueue, KNIGHT_NAME, HEALTH_POINTS, DEFENSE);
@@ -108,24 +118,50 @@ public class AbstractPlayerCharacterTest {
                 testKnightDifferentName.hashCode());
     }
 
+    /**
+     * Checks that the getHealthPoints method works as intended.
+     */
     @Test
     void getHealthPointsTest() {
         var expectedTestKnight = new Knight(turnsQueue, KNIGHT_NAME, HEALTH_POINTS, DEFENSE);
         assertEquals(expectedTestKnight.getHealthPoints(), testKnight.getHealthPoints());
     }
 
+    /**
+     * Checks that the getDefense method works as intended.
+     */
     @Test
     void getDefenseTest() {
         var expectedTestKnight = new Knight(turnsQueue, KNIGHT_NAME, HEALTH_POINTS, DEFENSE);
         assertEquals(expectedTestKnight.getDefense(), testKnight.getDefense());
     }
 
+    /**
+     * Checks that an equippable weapon (given the class of the character which we want equip
+     * it to) gets in fact equipped. To do so, in the process we check also that the double
+     * dispatch scheme implemented works properly.
+     *
+     * @param playerCharacter
+     * Player character which we want to equip the {@param equippableWeapon}.
+     * @param equippableWeapon
+     * Weapon of a class that is equippable by the class of {@param playerCharacter}.
+     */
     public void checkSuccessfulEquipWeapon(final IPlayerCharacter playerCharacter,
                                     final IWeapon equippableWeapon) {
         equippableWeapon.equipToPlayerCharacter(playerCharacter);
         assertEquals(equippableWeapon, playerCharacter.getEquippedWeapon());
     }
 
+    /**
+     * Checks that an unequippable weapon (given the class of the character which we want to try
+     * equip it to) doesn't get in fact equipped. To do so, in the process we check also that
+     * the double dispatch scheme implemented works properly.
+     *
+     * @param playerCharacter
+     * Player character which we want to try equip the {@param unequippableWeapon}.
+     * @param unequippableWeapon
+     * Weapon of a class that is unequippable by the class of {@param playerCharacter}.
+     */
     public void checkUnsuccessfulEquipWeapon(final IPlayerCharacter playerCharacter,
                                     final IWeapon unequippableWeapon) {
         unequippableWeapon.equipToPlayerCharacter(playerCharacter);
