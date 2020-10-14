@@ -12,6 +12,13 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A class that holds a set of tests for the {@code Enemy} class.
+ *
+ * @author Ignacio Slater Muñoz.
+ * @author Ismael Correa Arellano.
+ * @see Enemy
+ */
 public class EnemyTest {
 
     protected BlockingQueue<ICharacter> turnsQueue;
@@ -35,6 +42,10 @@ public class EnemyTest {
 
     protected Axe testAxe;
 
+    /**
+     * Setup method.
+     * Creates new enemies, a linked blocking queue and a test weapon.
+     */
     @BeforeEach
     void setUp() {
         turnsQueue = new LinkedBlockingQueue<>();
@@ -69,6 +80,9 @@ public class EnemyTest {
         }
     }
 
+    /**
+     * Checks that the {@code Enemy} constructor works properly.
+     */
     @Test
     void constructionTest() {
         var expectedTestEnemy = new Enemy(turnsQueue, ENEMY_NAME, HEALTH_POINTS, DEFENSE,
@@ -76,6 +90,9 @@ public class EnemyTest {
         assertEquals(expectedTestEnemy, testEnemy);
     }
 
+    /**
+     * Checks that the getHealthPoints method works as intended.
+     */
     @Test
     void getHealthPointsTest() {
         var expectedTestEnemy = new Enemy(turnsQueue, ENEMY_NAME, HEALTH_POINTS, DEFENSE,
@@ -83,6 +100,9 @@ public class EnemyTest {
         assertEquals(expectedTestEnemy.getHealthPoints(), testEnemy.getHealthPoints());
     }
 
+    /**
+     * Checks that the getDefense method works as intended.
+     */
     @Test
     void getDefenseTest() {
         var expectedTestEnemy = new Enemy(turnsQueue, ENEMY_NAME, HEALTH_POINTS, DEFENSE,
@@ -90,6 +110,9 @@ public class EnemyTest {
         assertEquals(expectedTestEnemy.getDefense(), testEnemy.getDefense());
     }
 
+    /**
+     * Checks that the getAttackPower method works as intended.
+     */
     @Test
     void getAttackPowerTest() {
         var expectedTestEnemy = new Enemy(turnsQueue, ENEMY_NAME, HEALTH_POINTS, DEFENSE,
@@ -97,6 +120,10 @@ public class EnemyTest {
         assertEquals(expectedTestEnemy.getAttackPower(), testEnemy.getAttackPower());
     }
 
+    /**
+     * Checks that the equals method from the {@code Enemy} class works
+     * as intended.
+     */
     @Test
     void equalsTest() {
         var expectedTestEnemy = new Enemy(turnsQueue, ENEMY_NAME, HEALTH_POINTS, DEFENSE,
@@ -108,6 +135,10 @@ public class EnemyTest {
         assertNotEquals(expectedTestEnemy, testAxe);
     }
 
+    /**
+     * Checks that the hashCode method from the {@code Enemy} class works
+     * as intended, that is, according to the definition of the equals method.
+     */
     @Test
     void hashCodeTest() {
         var expectedTestEnemy = new Enemy(turnsQueue, ENEMY_NAME, HEALTH_POINTS, DEFENSE,

@@ -94,7 +94,8 @@ public class AbstractPlayerCharacterTest {
     }
 
     /**
-     * Checks that the equals method from the AbstractPlayerCharacter class works as intended.
+     * Checks that the equals method from the {@code AbstractPlayerCharacter} class works
+     * as intended.
      */
     @Test
     void equalsTest() {
@@ -107,8 +108,8 @@ public class AbstractPlayerCharacterTest {
     }
 
     /**
-     * Checks that the hashCode method from the AbstractPlayerCharacter class works as intended, that is,
-     * according to the definition of the equals method.
+     * Checks that the hashCode method from the {@code AbstractPlayerCharacter} class works
+     * as intended, that is, according to the definition of the equals method.
      */
     @Test
     void hashCodeTest() {
