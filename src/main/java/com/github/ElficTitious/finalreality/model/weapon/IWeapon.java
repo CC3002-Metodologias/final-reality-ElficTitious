@@ -5,12 +5,16 @@ import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharac
 
 /**
  * This represents a weapon from the game.
+ *
+ * @author Ismael Correa Arellano.
  */
 public interface IWeapon {
 
     /**
      * Equips a given weapon determined by it's class to the player character given as parameter.
-     * (double dispatch scheme).
+     * It sends a message to the player character, which determines if the weapon is equippable
+     * or not (double dispatch scheme).
+     *
      * @param playerCharacter
      *      player character which you want to equip the weapon.
      */

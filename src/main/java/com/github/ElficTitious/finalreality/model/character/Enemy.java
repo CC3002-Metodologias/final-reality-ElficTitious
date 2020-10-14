@@ -8,6 +8,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A class that holds the information and behaviour of all enemies in the game.
+ *
+ * @author Ismael Correa Arellano.
+ */
 public class Enemy implements ICharacter{
 
     protected final BlockingQueue<ICharacter> turnsQueue;
@@ -84,19 +89,28 @@ public class Enemy implements ICharacter{
         return attackPower;
     }
 
+    /**
+     * Method that compares two enemies, returning if they are equal or not.
+     */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
+        if (this == obj) { //If the Object is exactly the enemy, then they are equal.
             return true;
         }
         if (!(obj instanceof Enemy)) {
             return false;
         }
+        /* An enemy is defined equal to another one if they have the
+        same name and same weight.
+        */
         final var enemy = (Enemy) obj;
         return getWeight() == enemy.getWeight() &&
                 getName().equals(enemy.getName());
     }
 
+    /**
+     * Returns this enemy's hashCode (according to the definition of the equals method).
+     */
     @Override
     public int hashCode() {
         return Objects.hash(Enemy.class, getName(), getWeight());

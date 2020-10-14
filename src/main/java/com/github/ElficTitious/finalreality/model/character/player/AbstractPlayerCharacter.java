@@ -11,6 +11,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * An Abstract class that holds the common behaviour and information of all characters
+ * controlled by the player in the game.
+ *
+ * @author Ignacio Slater Muñoz.
+ * @author Ismael Correa Arellano.
+ */
 public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     protected final BlockingQueue<ICharacter> turnsQueue;
@@ -21,6 +28,9 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     private IWeapon equippedWeapon = null;
 
 
+    /**
+     * Creates a player character with a name, a base damage and weight (uses the superclass constructor).
+     */
     public AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
                                   int healthPoints, int defense) {
         this.name = name;
@@ -53,6 +63,13 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         return equippedWeapon;
     }
 
+    /**
+     * Sets the {@code equippedWeapon} of this player character to the weapon given
+     * as parameter.
+     *
+     * @param weapon
+     * weapon which we want to set as {@code equippedWeapon} of this character.
+     */
     protected void setEquippedWeapon(IWeapon weapon) {
         this.equippedWeapon = weapon;
     }

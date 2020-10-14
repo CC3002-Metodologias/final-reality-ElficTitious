@@ -5,12 +5,18 @@ import com.github.ElficTitious.finalreality.model.weapon.AbstractWeapon;
 
 import java.util.Objects;
 
+/**
+ * A class that holds the information and behaviour of all staves in the game.
+ *
+ * @author Ismael Correa Arellano.
+ */
 public class Staff extends AbstractWeapon {
 
     private final int magicDamage;
 
     /**
-     * Creates a Staff with a name, a base damage, a base magic damage and weight.
+     * Creates a Staff with a name, a base damage, a base magic damage and weight
+     * (uses the superclass constructor).
      */
     public Staff(final String name, final int damage, final int magicDamage, final int weight) {
         super(name, damage, weight);

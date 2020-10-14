@@ -4,7 +4,11 @@ import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
 
-
+/**
+ * This represents a character from the game controlled by the player.
+ *
+ * @author Ismael Correa Arellano.
+ */
 public interface IPlayerCharacter extends ICharacter {
 
     /**

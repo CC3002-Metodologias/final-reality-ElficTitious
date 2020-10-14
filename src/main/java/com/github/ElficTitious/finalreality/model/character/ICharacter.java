@@ -4,6 +4,8 @@ package com.github.ElficTitious.finalreality.model.character;
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
+ *
+ * @author Ismael Correa Arellano.
  */
 public interface ICharacter {
 
