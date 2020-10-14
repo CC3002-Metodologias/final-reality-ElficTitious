@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,6 +37,8 @@ public class EnemyTest {
 
     @BeforeEach
     void setUp() {
+        turnsQueue = new LinkedBlockingQueue<>();
+
         testEnemy = new Enemy(turnsQueue, ENEMY_NAME, HEALTH_POINTS, DEFENSE,
                 WEIGHT, ATTACK_POWER);
         testEnemyDifferentName = new Enemy(turnsQueue, SECOND_ENEMY_NAME, HEALTH_POINTS, DEFENSE,
@@ -57,10 +60,10 @@ public class EnemyTest {
             // acceptable error margin.
             // We're testing that the character waits approximately 1 second.
             Thread.sleep(900);
+            assertEquals(0, turnsQueue.size());
+            Thread.sleep(200);
             assertEquals(1, turnsQueue.size());
             assertEquals(testEnemy, turnsQueue.peek());
-            Thread.sleep(200);
-            assertEquals(0, turnsQueue.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
