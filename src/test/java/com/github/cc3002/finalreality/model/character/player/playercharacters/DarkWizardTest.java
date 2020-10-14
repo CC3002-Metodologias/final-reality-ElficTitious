@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DarkWizardTest extends AbstractMagePlayerCharacterTest {
 
@@ -30,6 +31,7 @@ public class DarkWizardTest extends AbstractMagePlayerCharacterTest {
 
     @Test
     void equipWeaponTest() {
+        assertNull(testDarkWizard.getEquippedWeapon());
         checkSuccessfulEquipWeapon(testDarkWizard, testStaff);
         checkSuccessfulEquipWeapon(testDarkWizard, testKnife);
         checkUnsuccessfulEquipWeapon(testDarkWizard, testAxe);

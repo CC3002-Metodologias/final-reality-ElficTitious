@@ -27,6 +27,7 @@ public class EngineerTest extends AbstractPlayerCharacterTest {
 
     @Test
     void equipWeaponTest() {
+        assertNull(testEngineer.getEquippedWeapon());
         checkUnsuccessfulEquipWeapon(testEngineer, testStaff);
         checkUnsuccessfulEquipWeapon(testEngineer, testKnife);
         checkSuccessfulEquipWeapon(testEngineer, testAxe);

@@ -87,7 +87,7 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     public void waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutor
-                .schedule(this::addToQueue, equippedWeapon.getWeight() / 10, TimeUnit.SECONDS);
+                .schedule(this::addToQueue, getEquippedWeapon().getWeight() / 10, TimeUnit.SECONDS);
     }
 
     /**

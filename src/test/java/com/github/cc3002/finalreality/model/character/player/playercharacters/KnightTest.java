@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class KnightTest extends AbstractPlayerCharacterTest {
 
@@ -27,6 +28,7 @@ public class KnightTest extends AbstractPlayerCharacterTest {
 
     @Test
     void equipWeaponTest() {
+        assertNull(testKnight.getEquippedWeapon());
         checkUnsuccessfulEquipWeapon(testKnight, testStaff);
         checkSuccessfulEquipWeapon(testKnight, testKnife);
         checkSuccessfulEquipWeapon(testKnight, testAxe);
