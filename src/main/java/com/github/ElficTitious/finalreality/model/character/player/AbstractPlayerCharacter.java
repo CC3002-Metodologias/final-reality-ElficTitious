@@ -77,7 +77,6 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         System.out.println("Not possible to equip this weapon.");
     }
 
-
     @Override
     public void equipStaff(Staff staff) {
         System.out.println("Not possible to equip this weapon.");

@@ -1,5 +1,6 @@
 package com.github.ElficTitious.finalreality.model.character.player;
 
+
 public interface IMageCharacter {
 
     /**
