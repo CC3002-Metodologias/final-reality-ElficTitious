@@ -15,6 +15,13 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Set of tests for the {@code AbstractPlayerCharacter} class.
+ *
+ * @author Ignacio Slater Muñoz.
+ * @author Ismael Correa Arellano.
+ * @see com.github.ElficTitious.finalreality.model.character.player.AbstractPlayerCharacter
+ */
 public class AbstractPlayerCharacterTest {
 
     protected BlockingQueue<ICharacter> turnsQueue;
@@ -43,6 +50,7 @@ public class AbstractPlayerCharacterTest {
     private Knight testKnight;
     private Thief testThiefWithKnightName;
     private Knight testKnightDifferentName;
+
 
     @BeforeEach
     void basicSetUp() {
