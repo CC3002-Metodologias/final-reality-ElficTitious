@@ -22,9 +22,9 @@ public class Enemy implements ICharacter{
      * Creates a new enemy with a name, a weight and the queue with the characters ready to
      * play.
      */
-    public Enemy(@NotNull final String name, final int healthPoints,
-                  final int defense, final int weight, final int attackPower,
-                  @NotNull final BlockingQueue<ICharacter> turnsQueue) {
+    public Enemy(@NotNull final BlockingQueue<ICharacter> turnsQueue,
+                 @NotNull final String name, final int healthPoints, final int defense,
+                 final int weight, final int attackPower) {
         this.name = name;
         this.healthPoints = healthPoints;
         this.defense = defense;

@@ -15,7 +15,6 @@ public class AbstractWeaponTest {
     private static final String AXE_NAME  = "Test Axe";
     private static final String SECOND_AXE_NAME  = "Second Test Axe";
     protected static final int DAMAGE  = 15;
-    private static final int SECOND_DAMAGE  = 20;
     protected static final int WEIGHT  = 30;
     private static final int SECOND_WEIGHT  = 25;
 
@@ -26,11 +25,10 @@ public class AbstractWeaponTest {
     private Sword testSwordWithAxeName;
 
     @BeforeEach
-    void setUp() {
+    void BasicSetUp() {
         testAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
         testAxeDifferentName = new Axe(SECOND_AXE_NAME, DAMAGE, WEIGHT);
         testAxeDifferentWeight = new Axe(AXE_NAME, DAMAGE, SECOND_WEIGHT);
-        testAxeDifferentDamage = new Axe(AXE_NAME, SECOND_DAMAGE, WEIGHT);
         testSwordWithAxeName = new Sword(AXE_NAME, DAMAGE, WEIGHT);
     }
 
@@ -55,6 +53,5 @@ public class AbstractWeaponTest {
     void getDamageTest() {
         var expectedTestAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
         assertEquals(expectedTestAxe.getDamage(), testAxe.getDamage());
-        assertNotEquals(expectedTestAxe.getDamage(), testAxeDifferentDamage.getDamage());
     }
 }
