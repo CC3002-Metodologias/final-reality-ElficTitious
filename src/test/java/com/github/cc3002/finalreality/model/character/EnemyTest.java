@@ -18,7 +18,7 @@ public class EnemyTest {
 
     private static final String ENEMY_NAME = "Test Enemy";
     private static final String SECOND_ENEMY_NAME = "Second Test Enemy";
-    private static final int WEIGHT = 100;
+    private static final int WEIGHT = 10;
     private static final int SECOND_WEIGHT = 120;
     private static final int HEALTH_POINTS = 100;
     private static final int DEFENSE = 50;
@@ -43,6 +43,27 @@ public class EnemyTest {
         testEnemyDifferentWeight = new Enemy(turnsQueue, ENEMY_NAME, HEALTH_POINTS, DEFENSE,
                 SECOND_WEIGHT, ATTACK_POWER);
         testAxe = new Axe(AXE_NAME, DAMAGE, AXE_WEIGHT);
+    }
+
+    /**
+     * Checks that the character waits the appropriate amount of time for it's turn.
+     */
+    @Test
+    void waitTurnTest() {
+        assertTrue(turnsQueue.isEmpty());
+        testEnemy.waitTurn();
+        try {
+            // Thread.sleep is not accurate so this values may be changed to adjust the
+            // acceptable error margin.
+            // We're testing that the character waits approximately 1 second.
+            Thread.sleep(900);
+            assertEquals(1, turnsQueue.size());
+            assertEquals(testEnemy, turnsQueue.peek());
+            Thread.sleep(200);
+            assertEquals(0, turnsQueue.size());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

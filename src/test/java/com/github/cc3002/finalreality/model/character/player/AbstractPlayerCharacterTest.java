@@ -26,7 +26,7 @@ public class AbstractPlayerCharacterTest {
     private static final String KNIFE_NAME  = "Test Knife";
     private static final int DAMAGE  = 15;
     private static final int MAGIC_DAMAGE  = 15;
-    private static final int WEIGHT  = 30;
+    private static final int WEIGHT  = 10;
 
     private static final String KNIGHT_NAME = "Test Knight";
     private static final String SECOND_KNIGHT_NAME = "Second Test Knight";
@@ -70,10 +70,10 @@ public class AbstractPlayerCharacterTest {
             // acceptable error margin.
             // We're testing that the character waits approximately 1 second.
             Thread.sleep(900);
-            Assertions.assertEquals(0, turns.size());
+            assertEquals(1, turnsQueue.size());
+            assertEquals(testKnight, turnsQueue.peek());
             Thread.sleep(200);
-            Assertions.assertEquals(1, turns.size());
-            Assertions.assertEquals(testCharacters.get(0), turns.peek());
+            assertEquals(0, turnsQueue.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
