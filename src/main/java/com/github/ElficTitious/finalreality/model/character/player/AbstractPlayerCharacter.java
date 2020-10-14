@@ -29,7 +29,8 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
 
     /**
-     * Creates a player character with a name, a base damage and weight (uses the superclass constructor).
+     * Creates a new player character with a name, a given amount of health points, a given amount
+     * of defense and the queue with the characters ready to play.
      */
     public AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
                                   int healthPoints, int defense) {
@@ -74,6 +75,11 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         this.equippedWeapon = weapon;
     }
 
+    /*
+    By default we define that equipping any weapon isn't possible (independent of the
+    class that's trying to equip it).
+     */
+
     @Override
     public void equipAxe(Axe axe) {
         System.out.println("Not possible to equip this weapon.");
@@ -114,20 +120,29 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         scheduledExecutor.shutdown();
     }
 
+    /**
+     * Method that compares two player characters, returning if they are equal or not.
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj) { //If the Object is exactly the player character, then they are equal.
             return true;
         }
 
         if (!(obj instanceof IPlayerCharacter)) {
             return false;
         }
+        /* A player character is defined equal to another one if they belong to the same class
+        and have the same name.
+        */
         final var playerCharacter = (IPlayerCharacter) obj;
         return getName().equals(playerCharacter.getName()) &&
                 getClass() == playerCharacter.getClass();
     }
 
+    /**
+     * Returns this player character's hashCode (according to the definition of the equals method).
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getClass(), getName());

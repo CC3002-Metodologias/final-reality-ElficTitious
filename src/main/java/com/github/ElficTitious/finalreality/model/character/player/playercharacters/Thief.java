@@ -10,8 +10,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * A class that holds the information and behaviour of all Thieves in the game.
+ *
+ * @author Ismael Correa Arellano.
+ */
 public class Thief extends AbstractPlayerCharacter {
 
+    /**
+     * Creates a Thief with a name, a given amount of health points, a given amount
+     * of defense and the queue with the characters ready to play.
+     */
     public Thief(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
                  int healthPoints, int defense) {
         super(turnsQueue, name, healthPoints, defense);
@@ -19,16 +28,16 @@ public class Thief extends AbstractPlayerCharacter {
 
     @Override
     public void equipSword(Sword sword) {
-        super.setEquippedWeapon(sword);
+        super.setEquippedWeapon(sword); //We set the equipped weapon to the given sword.
     }
 
     @Override
     public void equipStaff(Staff staff) {
-        super.setEquippedWeapon(staff);
+        super.setEquippedWeapon(staff); //We set the equipped weapon to the given staff.
     }
 
     @Override
     public void equipBow(Bow bow) {
-        super.setEquippedWeapon(bow);
+        super.setEquippedWeapon(bow); //We set the equipped weapon to the given bow.
     }
 }
