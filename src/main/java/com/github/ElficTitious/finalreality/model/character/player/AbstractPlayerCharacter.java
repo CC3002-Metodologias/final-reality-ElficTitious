@@ -92,6 +92,7 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     @Override
     public void equipSword(Sword sword) {
+
     }
 
     @Override
