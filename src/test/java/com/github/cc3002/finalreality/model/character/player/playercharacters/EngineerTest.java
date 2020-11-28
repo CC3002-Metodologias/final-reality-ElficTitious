@@ -21,6 +21,7 @@ public class EngineerTest extends AbstractPlayerCharacterTest {
     private static final String ENGINEER_NAME = "Test Engineer";
 
     private Engineer testEngineer;
+    private Engineer deadTestEngineer;
 
     /**
      * Setup method.
@@ -29,6 +30,8 @@ public class EngineerTest extends AbstractPlayerCharacterTest {
     @BeforeEach
     void setUp() {
         testEngineer = new Engineer(turnsQueue, ENGINEER_NAME, HEALTH_POINTS, DEFENSE);
+        deadTestEngineer = new Engineer(turnsQueue, ENGINEER_NAME, DEPLETED_HEALTH_POINTS,
+                DEFENSE);
     }
 
     /**
@@ -54,5 +57,7 @@ public class EngineerTest extends AbstractPlayerCharacterTest {
         checkSuccessfulEquipWeapon(testEngineer, testAxe);
         checkSuccessfulEquipWeapon(testEngineer, testBow);
         checkUnsuccessfulEquipWeapon(testEngineer, testSword);
+        checkUnsuccessfulEquipWeapon(deadTestEngineer, testAxe);
+        checkUnsuccessfulEquipWeapon(deadTestEngineer, testBow);
     }
 }

@@ -39,6 +39,7 @@ public class AbstractPlayerCharacterTest {
     private static final String KNIGHT_NAME = "Test Knight";
     private static final String SECOND_KNIGHT_NAME = "Second Test Knight";
     protected static final int HEALTH_POINTS = 120;
+    protected static final int DEPLETED_HEALTH_POINTS = 0;
     protected static final int DEFENSE = 50;
 
     protected Axe testAxe;

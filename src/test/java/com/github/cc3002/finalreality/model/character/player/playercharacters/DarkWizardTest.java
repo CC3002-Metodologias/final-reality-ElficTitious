@@ -22,6 +22,7 @@ public class DarkWizardTest extends AbstractMagePlayerCharacterTest {
     private static final String DARK_WIZARD_NAME = "Test Dark Wizard";
 
     private DarkWizard testDarkWizard;
+    private DarkWizard deadTestDarkWizard;
 
     /**
      * Setup method.
@@ -30,6 +31,8 @@ public class DarkWizardTest extends AbstractMagePlayerCharacterTest {
     @BeforeEach
     void setUp() {
         testDarkWizard = new DarkWizard(turnsQueue, DARK_WIZARD_NAME, HEALTH_POINTS,
+                DEFENSE, MANA);
+        deadTestDarkWizard = new DarkWizard(turnsQueue, DARK_WIZARD_NAME, DEPLETED_HEALTH_POINTS,
                 DEFENSE, MANA);
     }
 
@@ -57,5 +60,7 @@ public class DarkWizardTest extends AbstractMagePlayerCharacterTest {
         checkUnsuccessfulEquipWeapon(testDarkWizard, testAxe);
         checkUnsuccessfulEquipWeapon(testDarkWizard, testBow);
         checkUnsuccessfulEquipWeapon(testDarkWizard, testSword);
+        checkUnsuccessfulEquipWeapon(deadTestDarkWizard, testStaff);
+        checkUnsuccessfulEquipWeapon(deadTestDarkWizard, testKnife);
     }
 }
