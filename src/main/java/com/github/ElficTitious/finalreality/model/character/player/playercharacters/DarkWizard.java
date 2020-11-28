@@ -26,6 +26,8 @@ public class DarkWizard extends AbstractMagePlayerCharacter {
 
     @Override
     public void equipKnife(Knife knife) {
-        super.setEquippedWeapon(knife); //We set the equipped weapon to the given knife.
+        if (this.isAlive()) { //if this dark wizard is alive
+            super.setEquippedWeapon(knife); //We set the equipped weapon to the given knife.
+        }
     }
 }

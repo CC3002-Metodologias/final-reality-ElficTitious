@@ -45,6 +45,11 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         return name;
     }
 
+    @Override
+    public boolean isAlive() {
+        return this.getHealthPoints() > 0;
+    }
+
     /**
      * Returns this player character's health points.
      */
@@ -82,27 +87,26 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     @Override
     public void equipAxe(Axe axe) {
-        System.out.println("Not possible to equip this weapon.");
+
     }
 
     @Override
     public void equipSword(Sword sword) {
-        System.out.println("Not possible to equip this weapon.");
     }
 
     @Override
     public void equipBow(Bow bow) {
-        System.out.println("Not possible to equip this weapon.");
+
     }
 
     @Override
     public void equipKnife(Knife knife) {
-        System.out.println("Not possible to equip this weapon.");
+
     }
 
     @Override
     public void equipStaff(Staff staff) {
-        System.out.println("Not possible to equip this weapon.");
+
     }
 
     @Override

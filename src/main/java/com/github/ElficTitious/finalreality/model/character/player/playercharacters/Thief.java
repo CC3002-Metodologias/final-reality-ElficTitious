@@ -28,16 +28,22 @@ public class Thief extends AbstractPlayerCharacter {
 
     @Override
     public void equipSword(Sword sword) {
-        super.setEquippedWeapon(sword); //We set the equipped weapon to the given sword.
+        if (this.isAlive()) { //if this thief is alive
+            super.setEquippedWeapon(sword); //We set the equipped weapon to the given sword.
+        }
     }
 
     @Override
     public void equipStaff(Staff staff) {
-        super.setEquippedWeapon(staff); //We set the equipped weapon to the given staff.
+        if (this.isAlive()) { //if this thief is alive
+            super.setEquippedWeapon(staff); //We set the equipped weapon to the given staff.
+        }
     }
 
     @Override
     public void equipBow(Bow bow) {
-        super.setEquippedWeapon(bow); //We set the equipped weapon to the given bow.
+        if (this.isAlive()) { //if this thief is alive
+            super.setEquippedWeapon(bow); //We set the equipped weapon to the given bow.
+        }
     }
 }

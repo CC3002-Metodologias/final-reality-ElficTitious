@@ -27,11 +27,15 @@ public class Engineer extends AbstractPlayerCharacter {
 
     @Override
     public void equipAxe(Axe axe) {
-        super.setEquippedWeapon(axe); //We set the equipped weapon to the given axe.
+        if (this.isAlive()) { //if this engineer is alive
+            super.setEquippedWeapon(axe); //We set the equipped weapon to the given axe.
+        }
     }
 
     @Override
     public void equipBow(Bow bow) {
-        super.setEquippedWeapon(bow); //We set the equipped weapon to the given bow.
+        if (this.isAlive()) { //if this engineer is alive
+            super.setEquippedWeapon(bow); //We set the equipped weapon to the given bow.
+        }
     }
 }

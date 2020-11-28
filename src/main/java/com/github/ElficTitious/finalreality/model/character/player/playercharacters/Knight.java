@@ -30,16 +30,22 @@ public class Knight extends AbstractPlayerCharacter {
 
     @Override
     public void equipAxe(Axe axe) {
-        super.setEquippedWeapon(axe); //We set the equipped weapon to the given axe.
+        if (this.isAlive()) { //if this knight is alive
+            super.setEquippedWeapon(axe); //We set the equipped weapon to the given axe.
+        }
     }
 
     @Override
     public void equipSword(Sword sword) {
-        super.setEquippedWeapon(sword); //We set the equipped weapon to the given sword.
+        if (this.isAlive()) { //if this knight is alive
+            super.setEquippedWeapon(sword); //We set the equipped weapon to the given sword.
+        }
     }
 
     @Override
     public void equipKnife(Knife knife) {
-        super.setEquippedWeapon(knife); //We set the equipped weapon to the given knife.
+        if (this.isAlive()) { //if this knight is alive
+            super.setEquippedWeapon(knife); //We set the equipped weapon to the given knife.
+        }
     }
 }

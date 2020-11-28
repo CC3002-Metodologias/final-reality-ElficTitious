@@ -47,6 +47,11 @@ public interface IPlayerCharacter extends ICharacter {
     String getName();
 
     /**
+     * Checks if this player character is alive.
+     */
+    boolean isAlive();
+
+    /**
      * Returns this player character's health points.
      */
     int getHealthPoints();

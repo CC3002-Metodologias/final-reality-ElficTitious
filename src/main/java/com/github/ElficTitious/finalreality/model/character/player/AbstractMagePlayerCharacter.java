@@ -34,6 +34,8 @@ public abstract class AbstractMagePlayerCharacter extends AbstractPlayerCharacte
 
     @Override
     public void equipStaff(Staff staff) {
-        super.setEquippedWeapon(staff); //We set the equipped weapon to the given staff.
+        if (this.isAlive()) { //if the mage player character is alive
+            super.setEquippedWeapon(staff); //We set the equipped weapon to the given staff.
+        }
     }
 }
