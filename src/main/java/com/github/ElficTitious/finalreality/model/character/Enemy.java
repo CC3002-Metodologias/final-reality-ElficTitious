@@ -18,7 +18,7 @@ public class Enemy implements ICharacter{
     protected final BlockingQueue<ICharacter> turnsQueue;
     private ScheduledExecutorService scheduledExecutor;
     private final String name;
-    private final int healthPoints;
+    private int healthPoints;
     private final int defense;
     private final int weight;
     private final int attackPower;
@@ -36,6 +36,20 @@ public class Enemy implements ICharacter{
         this.weight = weight;
         this.attackPower = attackPower;
         this.turnsQueue = turnsQueue;
+    }
+
+    @Override
+    public void attack(ICharacter character) {
+        character.beingAttacked(this);
+    }
+
+    @Override
+    public void beingAttacked(ICharacter character) {
+        if (this.isAlive()) {
+            int currentHP = this.getHealthPoints();
+            int damage = character.getAttackPower() - this.getDefense();
+            this.setHealthPoints(currentHP - damage);
+        }
     }
 
     @Override
@@ -59,6 +73,13 @@ public class Enemy implements ICharacter{
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Checks if this enemy is alive.
+     */
+    public boolean isAlive() {
+        return this.getHealthPoints() > 0;
     }
 
     /**
@@ -87,6 +108,13 @@ public class Enemy implements ICharacter{
      */
     public int getAttackPower() {
         return attackPower;
+    }
+
+    /**
+     * Sets this enemy's health points to the given integer.
+     */
+    public void setHealthPoints(int newHP) {
+        this.healthPoints = newHP;
     }
 
     /**

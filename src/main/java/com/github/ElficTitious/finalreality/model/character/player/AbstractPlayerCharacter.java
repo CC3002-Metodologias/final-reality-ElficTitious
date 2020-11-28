@@ -65,6 +65,18 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     }
 
     @Override
+    public int getAttackPower() {
+        IWeapon equippedWeapon = this.getEquippedWeapon();
+        if (equippedWeapon == null) {
+            return 0;
+        }
+        else {
+            return equippedWeapon.getDamage();
+        }
+    }
+
+
+    @Override
     public IWeapon getEquippedWeapon() {
         return equippedWeapon;
     }
@@ -78,6 +90,13 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
      */
     protected void setEquippedWeapon(IWeapon weapon) {
         this.equippedWeapon = weapon;
+    }
+
+    /**
+     * Sets this player character's health points to the given integer.
+     */
+    public void setHealthPoints(int newHP) {
+        this.healthPoints = newHP;
     }
 
     /*
@@ -108,6 +127,20 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     @Override
     public void equipStaff(Staff staff) {
 
+    }
+
+    @Override
+    public void attack(ICharacter character) {
+        character.beingAttacked(this);
+    }
+
+    @Override
+    public void beingAttacked(ICharacter character) {
+        if (this.isAlive()) {
+            int currentHP = this.getHealthPoints();
+            int damage = character.getAttackPower() - this.getDefense();
+            this.setHealthPoints(currentHP - damage);
+        }
     }
 
     @Override
