@@ -143,7 +143,7 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     public void beingAttacked(ICharacter character) {
         if (this.isAlive()) {
             int currentHP = this.getHealthPoints();
-            int damage = character.getAttackPower() - this.getDefense();
+            int damage = Math.max(0, character.getAttackPower() - this.getDefense());
             /*In order to not diminish the HP below zero, we define health points after
              * being attacked as follows*/
             int afterAttackHP = Math.max(0, currentHP - damage);

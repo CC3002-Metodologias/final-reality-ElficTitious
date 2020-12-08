@@ -44,8 +44,8 @@ public class KnightTest extends AbstractPlayerCharacterTest {
     /**
      * Checks that the weapons that are equippable by this class get equipped and those who aren't
      * don't get equipped.
-     * Uses the {@code checkSuccesfulEquipWeapon} and {@code checkUnsuccesfulEquipWeapon} methods
-     * defined in the {@code AbstractPlayerCharacterTest} class.
+     * Uses the {@code checkSuccesfulEquipWeapon} method defined in the
+     * {@code AbstractPlayerCharacterTest} class.
      */
     @Test
     void equipWeaponTest() {

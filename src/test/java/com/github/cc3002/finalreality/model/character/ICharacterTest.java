@@ -14,7 +14,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * A class that holds a set of tests for the methods defined in the {@code ICharacter} interface.
+ * A class that holds a set of tests for the methods defined in the {@code ICharacter} interface
+ * not tested in other classes (mainly combat methods).
  *
  * @author Ismael Correa Arellano.
  * @see com.github.ElficTitious.finalreality.model.character.ICharacter
@@ -57,15 +58,30 @@ public class ICharacterTest {
 
     @Test
     void combatTest() {
+        // First we check the Knight attacking the enemy character.
         testKnight.attack(testEnemy);
         assertEquals(testEnemy.getHealthPoints(), HEALTH_POINTS);
         testKnight.equipAxe(testAxe);
-        int testEnemyNewHP = testEnemy.getHealthPoints() + testEnemy.getDefense() -
-                testKnight.getAttackPower();
         testKnight.attack(testEnemy);
-        assertEquals(testEnemy.getHealthPoints(), testEnemyNewHP);
+        assertEquals(75, testEnemy.getHealthPoints());
         testEnemy.setHealthPoints(1);
         testKnight.attack(testEnemy);
-        assertEquals(testEnemy.getHealthPoints(), testEnemyNewHP);
+        assertEquals(0, testEnemy.getHealthPoints());
+        assertThrows(AssertionError.class, () -> testKnight.attack(testEnemy));
+        testKnight.setHealthPoints(0);
+        testEnemy.setHealthPoints(HEALTH_POINTS);
+        assertThrows(AssertionError.class, () -> testKnight.attack(testEnemy));
+
+        // Now we check the enemy character attacking the Knight.
+        testKnight.setHealthPoints(HEALTH_POINTS);
+        testEnemy.attack(testKnight);
+        assertEquals(85, testKnight.getHealthPoints());
+        testKnight.setHealthPoints(1);
+        testEnemy.attack(testKnight);
+        assertEquals(0, testKnight.getHealthPoints());
+        assertThrows(AssertionError.class, () -> testEnemy.attack(testKnight));
+        testEnemy.setHealthPoints(0);
+        testKnight.setHealthPoints(HEALTH_POINTS);
+        assertThrows(AssertionError.class, () -> testEnemy.attack(testKnight));
     }
 }
