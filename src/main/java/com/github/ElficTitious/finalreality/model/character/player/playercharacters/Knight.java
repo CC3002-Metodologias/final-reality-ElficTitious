@@ -33,6 +33,9 @@ public class Knight extends AbstractPlayerCharacter {
         if (this.isAlive()) { //if this knight is alive
             super.setEquippedWeapon(axe); //We set the equipped weapon to the given axe.
         }
+        else {
+            throw new AssertionError("Dead Character");
+        }
     }
 
     @Override
@@ -40,12 +43,18 @@ public class Knight extends AbstractPlayerCharacter {
         if (this.isAlive()) { //if this knight is alive
             super.setEquippedWeapon(sword); //We set the equipped weapon to the given sword.
         }
+        else {
+            throw new AssertionError("Dead Character");
+        }
     }
 
     @Override
     public void equipKnife(Knife knife) {
         if (this.isAlive()) { //if this knight is alive
             super.setEquippedWeapon(knife); //We set the equipped weapon to the given knife.
+        }
+        else {
+            throw new AssertionError();
         }
     }
 }

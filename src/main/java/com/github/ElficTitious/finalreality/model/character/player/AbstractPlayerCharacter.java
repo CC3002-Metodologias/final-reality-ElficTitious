@@ -106,32 +106,37 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     @Override
     public void equipAxe(Axe axe) {
-
+        throw new AssertionError("Unequippable Weapon");
     }
 
     @Override
     public void equipSword(Sword sword) {
-
+        throw new AssertionError("Unequippable Weapon");
     }
 
     @Override
     public void equipBow(Bow bow) {
-
+        throw new AssertionError("Unequippable Weapon");
     }
 
     @Override
     public void equipKnife(Knife knife) {
-
+        throw new AssertionError("Unequippable Weapon");
     }
 
     @Override
     public void equipStaff(Staff staff) {
-
+        throw new AssertionError("Unequippable Weapon");
     }
 
     @Override
     public void attack(ICharacter character) {
-        character.beingAttacked(this);
+        if (this.isAlive()) {
+            character.beingAttacked(this);
+        }
+        else {
+            throw new AssertionError();
+        }
     }
 
     @Override
@@ -139,7 +144,13 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         if (this.isAlive()) {
             int currentHP = this.getHealthPoints();
             int damage = character.getAttackPower() - this.getDefense();
-            this.setHealthPoints(currentHP - damage);
+            /*In order to not diminish the HP below zero, we define health points after
+             * being attacked as follows*/
+            int afterAttackHP = Math.max(0, currentHP - damage);
+            this.setHealthPoints(afterAttackHP);
+        }
+        else {
+            throw new AssertionError();
         }
     }
 

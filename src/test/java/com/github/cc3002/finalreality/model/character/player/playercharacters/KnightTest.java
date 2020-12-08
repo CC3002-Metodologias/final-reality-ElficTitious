@@ -6,8 +6,7 @@ import com.github.cc3002.finalreality.model.character.player.AbstractPlayerChara
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * A class that holds a set of tests for the {@code Knight} class.
@@ -51,13 +50,13 @@ public class KnightTest extends AbstractPlayerCharacterTest {
     @Test
     void equipWeaponTest() {
         assertNull(testKnight.getEquippedWeapon());
-        checkUnsuccessfulEquipWeapon(testKnight, testStaff);
+        assertThrows(AssertionError.class, () -> testKnight.equipStaff(testStaff));
         checkSuccessfulEquipWeapon(testKnight, testKnife);
         checkSuccessfulEquipWeapon(testKnight, testAxe);
-        checkUnsuccessfulEquipWeapon(testKnight, testBow);
+        assertThrows(AssertionError.class, () -> testKnight.equipBow(testBow));
         checkSuccessfulEquipWeapon(testKnight, testSword);
-        checkUnsuccessfulEquipWeapon(deadTestKnight, testKnife);
-        checkUnsuccessfulEquipWeapon(deadTestKnight, testAxe);
-        checkUnsuccessfulEquipWeapon(deadTestKnight, testSword);
+        assertThrows(AssertionError.class, () -> deadTestKnight.equipKnife(testKnife));
+        assertThrows(AssertionError.class, () -> deadTestKnight.equipAxe(testAxe));
+        assertThrows(AssertionError.class, () -> deadTestKnight.equipSword(testSword));
     }
 }

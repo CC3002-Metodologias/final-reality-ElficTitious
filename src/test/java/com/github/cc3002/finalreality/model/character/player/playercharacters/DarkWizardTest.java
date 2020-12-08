@@ -7,8 +7,7 @@ import com.github.cc3002.finalreality.model.character.player.AbstractPlayerChara
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * A class that holds a set of tests for the {@code DarkWizard} class.
@@ -57,10 +56,10 @@ public class DarkWizardTest extends AbstractMagePlayerCharacterTest {
         assertNull(testDarkWizard.getEquippedWeapon());
         checkSuccessfulEquipWeapon(testDarkWizard, testStaff);
         checkSuccessfulEquipWeapon(testDarkWizard, testKnife);
-        checkUnsuccessfulEquipWeapon(testDarkWizard, testAxe);
-        checkUnsuccessfulEquipWeapon(testDarkWizard, testBow);
-        checkUnsuccessfulEquipWeapon(testDarkWizard, testSword);
-        checkUnsuccessfulEquipWeapon(deadTestDarkWizard, testStaff);
-        checkUnsuccessfulEquipWeapon(deadTestDarkWizard, testKnife);
+        assertThrows(AssertionError.class, () -> testDarkWizard.equipAxe(testAxe));
+        assertThrows(AssertionError.class, () -> testDarkWizard.equipBow(testBow));
+        assertThrows(AssertionError.class, () -> testDarkWizard.equipSword(testSword));
+        assertThrows(AssertionError.class, () -> deadTestDarkWizard.equipStaff(testStaff));
+        assertThrows(AssertionError.class, () -> deadTestDarkWizard.equipKnife(testKnife));
     }
 }

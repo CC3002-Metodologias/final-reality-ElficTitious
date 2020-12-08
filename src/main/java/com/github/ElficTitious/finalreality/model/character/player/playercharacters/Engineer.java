@@ -30,12 +30,18 @@ public class Engineer extends AbstractPlayerCharacter {
         if (this.isAlive()) { //if this engineer is alive
             super.setEquippedWeapon(axe); //We set the equipped weapon to the given axe.
         }
+        else {
+            throw new AssertionError("Dead Character");
+        }
     }
 
     @Override
     public void equipBow(Bow bow) {
         if (this.isAlive()) { //if this engineer is alive
             super.setEquippedWeapon(bow); //We set the equipped weapon to the given bow.
+        }
+        else {
+            throw new AssertionError();
         }
     }
 }

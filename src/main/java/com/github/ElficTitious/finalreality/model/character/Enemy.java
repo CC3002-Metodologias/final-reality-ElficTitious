@@ -40,7 +40,12 @@ public class Enemy implements ICharacter{
 
     @Override
     public void attack(ICharacter character) {
-        character.beingAttacked(this);
+        if (this.isAlive()) {
+            character.beingAttacked(this);
+        }
+        else {
+            throw new AssertionError();
+        }
     }
 
     @Override
@@ -48,7 +53,13 @@ public class Enemy implements ICharacter{
         if (this.isAlive()) {
             int currentHP = this.getHealthPoints();
             int damage = character.getAttackPower() - this.getDefense();
-            this.setHealthPoints(currentHP - damage);
+            /*In order to not diminish the HP below zero, we define health points after
+            * being attacked as follows*/
+            int afterAttackHP = Math.max(0, currentHP - damage);
+            this.setHealthPoints(afterAttackHP);
+        }
+        else {
+            throw new AssertionError();
         }
     }
 

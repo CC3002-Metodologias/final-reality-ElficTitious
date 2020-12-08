@@ -37,5 +37,8 @@ public abstract class AbstractMagePlayerCharacter extends AbstractPlayerCharacte
         if (this.isAlive()) { //if the mage player character is alive
             super.setEquippedWeapon(staff); //We set the equipped weapon to the given staff.
         }
+        else {
+            throw new AssertionError();
+        }
     }
 }

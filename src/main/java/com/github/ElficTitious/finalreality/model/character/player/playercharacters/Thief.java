@@ -31,6 +31,9 @@ public class Thief extends AbstractPlayerCharacter {
         if (this.isAlive()) { //if this thief is alive
             super.setEquippedWeapon(sword); //We set the equipped weapon to the given sword.
         }
+        else {
+            throw new AssertionError("Dead Character");
+        }
     }
 
     @Override
@@ -38,12 +41,18 @@ public class Thief extends AbstractPlayerCharacter {
         if (this.isAlive()) { //if this thief is alive
             super.setEquippedWeapon(staff); //We set the equipped weapon to the given staff.
         }
+        else {
+            throw new AssertionError("Dead Character");
+        }
     }
 
     @Override
     public void equipBow(Bow bow) {
         if (this.isAlive()) { //if this thief is alive
             super.setEquippedWeapon(bow); //We set the equipped weapon to the given bow.
+        }
+        else {
+            throw new AssertionError();
         }
     }
 }
