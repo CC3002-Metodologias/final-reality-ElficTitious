@@ -56,6 +56,9 @@ public class ICharacterTest {
         testAxe = new Axe(AXE_NAME, DAMAGE, AXE_WEIGHT);
     }
 
+    /**
+     * Checks that the combat methods attack() and beingAttacked() work as intended.
+     */
     @Test
     void combatTest() {
         // First we check the Knight attacking the enemy character.
