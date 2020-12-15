@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Inventory {
 
-    ArrayList<IWeapon> inventory;
+    private ArrayList<IWeapon> inventory;
 
     /**
      * Creates an inventory implemented as an array list of IWeapons.
@@ -29,10 +29,9 @@ public class Inventory {
     }
 
     /**
-     * Method that removes the weapon given as a parameter from the inventory returning it.
+     * Method that removes the weapon given as a parameter from the inventory.
      */
-    public IWeapon takeWeapon(IWeapon weapon) {
+    public void removeWeapon(IWeapon weapon) {
         inventory.remove(weapon);
-        return weapon;
     }
 }

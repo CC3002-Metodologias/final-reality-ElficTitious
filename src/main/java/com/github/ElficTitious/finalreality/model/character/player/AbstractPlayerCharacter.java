@@ -50,16 +50,12 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         return this.getHealthPoints() > 0;
     }
 
-    /**
-     * Returns this player character's health points.
-     */
+    @Override
     public int getHealthPoints() {
         return healthPoints;
     }
 
-    /**
-     * Returns this player character's defense.
-     */
+    @Override
     public int getDefense() {
         return defense;
     }

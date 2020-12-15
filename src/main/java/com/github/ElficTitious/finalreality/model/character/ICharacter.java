@@ -40,4 +40,19 @@ public interface ICharacter {
      * Returns this character's attack power.
      */
     int getAttackPower();
+
+    /**
+     * Returns this character's name.
+     */
+    public String getName();
+
+    /**
+     * Returns this character's health points.
+     */
+    public int getHealthPoints();
+
+    /**
+     * Returns this character's defense.
+     */
+    public int getDefense();
 }

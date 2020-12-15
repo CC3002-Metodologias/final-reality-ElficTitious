@@ -79,9 +79,7 @@ public class Enemy implements ICharacter{
         scheduledExecutor.shutdown();
     }
 
-    /**
-     * Returns this enemy's name.
-     */
+    @Override
     public String getName() {
         return name;
     }
@@ -93,16 +91,12 @@ public class Enemy implements ICharacter{
         return this.getHealthPoints() > 0;
     }
 
-    /**
-     * Returns this enemy's health points.
-     */
+    @Override
     public int getHealthPoints() {
         return healthPoints;
     }
 
-    /**
-     * Returns this enemy's defense.
-     */
+    @Override
     public int getDefense() {
         return defense;
     }

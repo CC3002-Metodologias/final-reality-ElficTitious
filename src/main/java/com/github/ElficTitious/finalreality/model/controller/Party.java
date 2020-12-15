@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Party {
 
-    ArrayList<ICharacter> party;
+    private ArrayList<ICharacter> party;
 
     /**
      * Creates a party implemented as an array list of ICharacters.
