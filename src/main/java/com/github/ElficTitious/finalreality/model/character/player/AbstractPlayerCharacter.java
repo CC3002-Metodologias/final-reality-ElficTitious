@@ -1,10 +1,13 @@
 package com.github.ElficTitious.finalreality.model.character.player;
 
+import com.github.ElficTitious.finalreality.model.controller.CharacterDeathHandler;
+import com.github.ElficTitious.finalreality.model.controller.IEventHandler;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.beans.PropertyChangeSupport;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
@@ -26,6 +29,9 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     private int healthPoints;
     private int defense;
     private IWeapon equippedWeapon = null;
+
+    private final PropertyChangeSupport playerCharacterDeathEvent =
+            new PropertyChangeSupport(this);
 
 
     /**
@@ -102,51 +108,45 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     @Override
     public void equipAxe(Axe axe) {
-        throw new AssertionError("Unequippable Weapon");
+        ;
     }
 
     @Override
     public void equipSword(Sword sword) {
-        throw new AssertionError("Unequippable Weapon");
+        ;
     }
 
     @Override
     public void equipBow(Bow bow) {
-        throw new AssertionError("Unequippable Weapon");
+        ;
     }
 
     @Override
     public void equipKnife(Knife knife) {
-        throw new AssertionError("Unequippable Weapon");
+        ;
     }
 
     @Override
     public void equipStaff(Staff staff) {
-        throw new AssertionError("Unequippable Weapon");
+        ;
     }
 
     @Override
     public void attack(ICharacter character) {
-        if (this.isAlive()) {
-            character.beingAttacked(this);
-        }
-        else {
-            throw new AssertionError();
-        }
+        character.beingAttacked(this);
     }
 
     @Override
     public void beingAttacked(ICharacter character) {
-        if (this.isAlive()) {
-            int currentHP = this.getHealthPoints();
-            int damage = Math.max(0, character.getAttackPower() - this.getDefense());
-            /*In order to not diminish the HP below zero, we define health points after
-             * being attacked as follows*/
-            int afterAttackHP = Math.max(0, currentHP - damage);
-            this.setHealthPoints(afterAttackHP);
-        }
-        else {
-            throw new AssertionError();
+        int currentHP = this.getHealthPoints();
+        int damage = Math.max(0, character.getAttackPower() - this.getDefense());
+        /*In order to not diminish the HP below zero, we define health points after
+          being attacked as follows*/
+        int afterAttackHP = Math.max(0, currentHP - damage);
+        this.setHealthPoints(afterAttackHP);
+        if (!this.isAlive()) {
+            playerCharacterDeathEvent.firePropertyChange("Dead character",
+                    null, this);
         }
     }
 
@@ -191,5 +191,9 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     @Override
     public int hashCode() {
         return Objects.hash(getClass(), getName());
+    }
+
+    public void addListener(IEventHandler handler) {
+        playerCharacterDeathEvent.addPropertyChangeListener(handler);
     }
 }

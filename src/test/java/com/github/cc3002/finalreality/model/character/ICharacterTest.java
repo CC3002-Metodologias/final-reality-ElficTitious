@@ -70,10 +70,6 @@ public class ICharacterTest {
         testEnemy.setHealthPoints(1);
         testKnight.attack(testEnemy);
         assertEquals(0, testEnemy.getHealthPoints());
-        assertThrows(AssertionError.class, () -> testKnight.attack(testEnemy));
-        testKnight.setHealthPoints(0);
-        testEnemy.setHealthPoints(HEALTH_POINTS);
-        assertThrows(AssertionError.class, () -> testKnight.attack(testEnemy));
 
         // Now we check the enemy character attacking the Knight.
         testKnight.setHealthPoints(HEALTH_POINTS);
@@ -82,9 +78,5 @@ public class ICharacterTest {
         testKnight.setHealthPoints(1);
         testEnemy.attack(testKnight);
         assertEquals(0, testKnight.getHealthPoints());
-        assertThrows(AssertionError.class, () -> testEnemy.attack(testKnight));
-        testEnemy.setHealthPoints(0);
-        testKnight.setHealthPoints(HEALTH_POINTS);
-        assertThrows(AssertionError.class, () -> testEnemy.attack(testKnight));
     }
 }

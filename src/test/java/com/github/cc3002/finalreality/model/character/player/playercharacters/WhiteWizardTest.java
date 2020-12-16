@@ -22,7 +22,6 @@ public class WhiteWizardTest extends AbstractMagePlayerCharacterTest {
     private static final String WHITE_WIZARD_NAME = "Test White Wizard";
 
     private WhiteWizard testWhiteWizard;
-    private WhiteWizard deadTestWhiteWizard;
 
     /**
      * Setup method.
@@ -32,8 +31,6 @@ public class WhiteWizardTest extends AbstractMagePlayerCharacterTest {
     void setUp() {
         testWhiteWizard = new WhiteWizard(turnsQueue, WHITE_WIZARD_NAME, HEALTH_POINTS,
                 DEFENSE, MANA);
-        deadTestWhiteWizard = new WhiteWizard(turnsQueue, WHITE_WIZARD_NAME,
-                DEPLETED_HEALTH_POINTS, DEFENSE, MANA);
     }
 
     /**
@@ -56,10 +53,9 @@ public class WhiteWizardTest extends AbstractMagePlayerCharacterTest {
     void equipWeaponTest() {
         assertNull(testWhiteWizard.getEquippedWeapon());
         checkSuccessfulEquipWeapon(testWhiteWizard, testStaff);
-        assertThrows(AssertionError.class, () -> testWhiteWizard.equipKnife(testKnife));
-        assertThrows(AssertionError.class, () -> testWhiteWizard.equipAxe(testAxe));
-        assertThrows(AssertionError.class, () -> testWhiteWizard.equipBow(testBow));
-        assertThrows(AssertionError.class, () -> testWhiteWizard.equipSword(testSword));
-        assertThrows(AssertionError.class, () -> deadTestWhiteWizard.equipStaff(testStaff));
+        checkUnsuccessfulEquipWeapon(testWhiteWizard, testKnife);
+        checkUnsuccessfulEquipWeapon(testWhiteWizard, testAxe);
+        checkUnsuccessfulEquipWeapon(testWhiteWizard, testBow);
+        checkUnsuccessfulEquipWeapon(testWhiteWizard, testSword);
     }
 }

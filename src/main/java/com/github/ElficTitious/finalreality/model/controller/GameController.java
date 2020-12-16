@@ -118,4 +118,16 @@ public class GameController {
     public void startTimer(ICharacter character) {
         character.waitTurn();
     }
+
+    public boolean checkLoss(IPlayerCharacter playerCharacter) {
+        playerParty.removeCharacter(playerCharacter);
+        return playerParty.getPartySize() == 0;
+    }
+
+    public boolean checkVictory(Enemy enemy) {
+        enemyParty.removeCharacter(enemy);
+        return enemyParty.getPartySize() == 0;
+    }
+
+
 }

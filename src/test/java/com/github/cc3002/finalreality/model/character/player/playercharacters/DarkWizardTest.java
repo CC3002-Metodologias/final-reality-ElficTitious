@@ -21,7 +21,6 @@ public class DarkWizardTest extends AbstractMagePlayerCharacterTest {
     private static final String DARK_WIZARD_NAME = "Test Dark Wizard";
 
     private DarkWizard testDarkWizard;
-    private DarkWizard deadTestDarkWizard;
 
     /**
      * Setup method.
@@ -30,8 +29,6 @@ public class DarkWizardTest extends AbstractMagePlayerCharacterTest {
     @BeforeEach
     void setUp() {
         testDarkWizard = new DarkWizard(turnsQueue, DARK_WIZARD_NAME, HEALTH_POINTS,
-                DEFENSE, MANA);
-        deadTestDarkWizard = new DarkWizard(turnsQueue, DARK_WIZARD_NAME, DEPLETED_HEALTH_POINTS,
                 DEFENSE, MANA);
     }
 
@@ -56,10 +53,8 @@ public class DarkWizardTest extends AbstractMagePlayerCharacterTest {
         assertNull(testDarkWizard.getEquippedWeapon());
         checkSuccessfulEquipWeapon(testDarkWizard, testStaff);
         checkSuccessfulEquipWeapon(testDarkWizard, testKnife);
-        assertThrows(AssertionError.class, () -> testDarkWizard.equipAxe(testAxe));
-        assertThrows(AssertionError.class, () -> testDarkWizard.equipBow(testBow));
-        assertThrows(AssertionError.class, () -> testDarkWizard.equipSword(testSword));
-        assertThrows(AssertionError.class, () -> deadTestDarkWizard.equipStaff(testStaff));
-        assertThrows(AssertionError.class, () -> deadTestDarkWizard.equipKnife(testKnife));
+        checkUnsuccessfulEquipWeapon(testDarkWizard, testAxe);
+        checkUnsuccessfulEquipWeapon(testDarkWizard, testBow);
+        checkUnsuccessfulEquipWeapon(testDarkWizard, testSword);
     }
 }

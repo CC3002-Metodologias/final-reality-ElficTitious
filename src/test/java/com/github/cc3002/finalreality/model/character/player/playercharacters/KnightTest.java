@@ -20,7 +20,6 @@ public class KnightTest extends AbstractPlayerCharacterTest {
     private static final String KNIGHT_NAME = "Test Knight";
 
     private Knight testKnight;
-    private Knight deadTestKnight;
 
     /**
      * Setup method.
@@ -29,7 +28,6 @@ public class KnightTest extends AbstractPlayerCharacterTest {
     @BeforeEach
     void setUp() {
         testKnight = new Knight(turnsQueue, KNIGHT_NAME, HEALTH_POINTS, DEFENSE);
-        deadTestKnight = new Knight(turnsQueue, KNIGHT_NAME, DEPLETED_HEALTH_POINTS, DEFENSE);
     }
 
     /**
@@ -50,13 +48,10 @@ public class KnightTest extends AbstractPlayerCharacterTest {
     @Test
     void equipWeaponTest() {
         assertNull(testKnight.getEquippedWeapon());
-        assertThrows(AssertionError.class, () -> testKnight.equipStaff(testStaff));
+        checkUnsuccessfulEquipWeapon(testKnight, testStaff);
         checkSuccessfulEquipWeapon(testKnight, testKnife);
         checkSuccessfulEquipWeapon(testKnight, testAxe);
-        assertThrows(AssertionError.class, () -> testKnight.equipBow(testBow));
+        checkUnsuccessfulEquipWeapon(testKnight, testBow);
         checkSuccessfulEquipWeapon(testKnight, testSword);
-        assertThrows(AssertionError.class, () -> deadTestKnight.equipKnife(testKnife));
-        assertThrows(AssertionError.class, () -> deadTestKnight.equipAxe(testAxe));
-        assertThrows(AssertionError.class, () -> deadTestKnight.equipSword(testSword));
     }
 }

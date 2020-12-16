@@ -33,7 +33,11 @@ public class Party {
     /**
      * Method that removes the character given as a parameter from the party.
      */
-    void removeCharacter(ICharacter character) {
+    public void removeCharacter(ICharacter character) {
         party.remove(character);
+    }
+
+    public int getPartySize() {
+        return party.size();
     }
 }

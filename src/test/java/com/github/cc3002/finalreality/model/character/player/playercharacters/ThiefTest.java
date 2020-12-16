@@ -21,7 +21,6 @@ public class ThiefTest extends AbstractPlayerCharacterTest {
     private static final String THIEF_NAME = "Test Thief";
 
     private Thief testThief;
-    private Thief deadTestThief;
 
     /**
      * Setup method.
@@ -30,7 +29,6 @@ public class ThiefTest extends AbstractPlayerCharacterTest {
     @BeforeEach
     void setUp() {
         testThief = new Thief(turnsQueue, THIEF_NAME, HEALTH_POINTS, DEFENSE);
-        deadTestThief = new Thief(turnsQueue, THIEF_NAME, DEPLETED_HEALTH_POINTS, DEFENSE);
     }
 
     /**
@@ -52,12 +50,9 @@ public class ThiefTest extends AbstractPlayerCharacterTest {
     void equipWeaponTest() {
         assertNull(testThief.getEquippedWeapon());
         checkSuccessfulEquipWeapon(testThief, testStaff);
-        assertThrows(AssertionError.class, () -> testThief.equipKnife(testKnife));
-        assertThrows(AssertionError.class, () -> testThief.equipAxe(testAxe));
+        checkUnsuccessfulEquipWeapon(testThief, testKnife);
+        checkUnsuccessfulEquipWeapon(testThief, testAxe);
         checkSuccessfulEquipWeapon(testThief, testBow);
         checkSuccessfulEquipWeapon(testThief, testSword);
-        assertThrows(AssertionError.class, () -> deadTestThief.equipStaff(testStaff));
-        assertThrows(AssertionError.class, () -> deadTestThief.equipBow(testBow));
-        assertThrows(AssertionError.class, () -> deadTestThief.equipSword(testSword));
     }
 }

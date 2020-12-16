@@ -1,11 +1,13 @@
 package com.github.ElficTitious.finalreality.model.character;
 
+import java.beans.PropertyChangeSupport;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.github.ElficTitious.finalreality.model.controller.IEventHandler;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -22,6 +24,9 @@ public class Enemy implements ICharacter{
     private final int defense;
     private final int weight;
     private final int attackPower;
+
+    private final PropertyChangeSupport enemyDeathEvent =
+            new PropertyChangeSupport(this);
 
     /**
      * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -40,26 +45,20 @@ public class Enemy implements ICharacter{
 
     @Override
     public void attack(ICharacter character) {
-        if (this.isAlive()) {
-            character.beingAttacked(this);
-        }
-        else {
-            throw new AssertionError();
-        }
+        character.beingAttacked(this);
     }
 
     @Override
     public void beingAttacked(ICharacter character) {
-        if (this.isAlive()) {
-            int currentHP = this.getHealthPoints();
-            int damage = Math.max(0, character.getAttackPower() - this.getDefense());
-            /*In order to not diminish the HP below zero, we define health points after
-            * being attacked as follows*/
-            int afterAttackHP = Math.max(0, currentHP - damage);
-            this.setHealthPoints(afterAttackHP);
-        }
-        else {
-            throw new AssertionError();
+        int currentHP = this.getHealthPoints();
+        int damage = Math.max(0, character.getAttackPower() - this.getDefense());
+        /*In order to not diminish the HP below zero, we define health points after
+          being attacked as follows*/
+        int afterAttackHP = Math.max(0, currentHP - damage);
+        this.setHealthPoints(afterAttackHP);
+        if (!this.isAlive()) {
+            enemyDeathEvent.firePropertyChange("Dead enemy",
+                    null, this);
         }
     }
 
@@ -147,5 +146,9 @@ public class Enemy implements ICharacter{
     @Override
     public int hashCode() {
         return Objects.hash(Enemy.class, getName(), getWeight());
+    }
+
+    public void addListener(IEventHandler handler) {
+        enemyDeathEvent.addPropertyChangeListener(handler);
     }
 }

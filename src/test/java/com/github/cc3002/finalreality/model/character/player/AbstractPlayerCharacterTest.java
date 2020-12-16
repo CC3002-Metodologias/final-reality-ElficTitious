@@ -153,4 +153,20 @@ public class AbstractPlayerCharacterTest {
         equippableWeapon.equipToPlayerCharacter(playerCharacter);
         assertEquals(equippableWeapon, playerCharacter.getEquippedWeapon());
     }
+
+    /**
+     * Checks that an unequippable weapon (given the class of the character which we want to try
+     * equip it to) doesn't get in fact equipped. To do so, in the process we check also that
+     * the double dispatch scheme implemented works properly.
+     *
+     * @param playerCharacter
+     * Player character which we want to try equip the {@param unequippableWeapon}.
+     * @param unequippableWeapon
+     * Weapon of a class that is unequippable by the class of {@param playerCharacter}.
+     */
+    public void checkUnsuccessfulEquipWeapon(final IPlayerCharacter playerCharacter,
+                                             final IWeapon unequippableWeapon) {
+        unequippableWeapon.equipToPlayerCharacter(playerCharacter);
+        assertNotEquals(unequippableWeapon, playerCharacter.getEquippedWeapon());
+    }
 }
