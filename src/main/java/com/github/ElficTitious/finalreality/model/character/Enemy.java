@@ -62,6 +62,10 @@ public class Enemy implements ICharacter{
         }
     }
 
+    public void turn() {
+
+    }
+
     @Override
     public void waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();

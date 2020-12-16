@@ -1,6 +1,6 @@
 package com.github.ElficTitious.finalreality.model.character.player;
 
-import com.github.ElficTitious.finalreality.model.controller.CharacterDeathHandler;
+import com.github.ElficTitious.finalreality.model.controller.PlayerCharacterDeathHandler;
 import com.github.ElficTitious.finalreality.model.controller.IEventHandler;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
@@ -148,6 +148,10 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
             playerCharacterDeathEvent.firePropertyChange("Dead character",
                     null, this);
         }
+    }
+
+    public void turn() {
+
     }
 
     @Override

@@ -28,7 +28,12 @@ public class GameController {
     private Inventory inventory;
     private Party playerParty;
     private Party enemyParty;
+    private CharacterFactory characterFactory;
+    private WeaponFactory weaponFactory;
     protected final BlockingQueue<ICharacter> turnsQueue;
+    private PlayerCharacterDeathHandler playerCharacterDeathHandler;
+    private EnemyDeathHandler enemyDeathHandler;
+
 
     /**
      * Creates a controller with an inventory, player and enemy parties and a queue to control
@@ -39,50 +44,11 @@ public class GameController {
         this.playerParty = new Party();
         this.enemyParty = new Party();
         this.turnsQueue = new LinkedBlockingQueue<>();
-    }
-
-    //Character getters:
-
-    public String getName(ICharacter character) {
-        return character.getName();
-    }
-
-    public int getHealthPoints(ICharacter character) {
-        return character.getHealthPoints();
-    }
-
-    public int getDefense(ICharacter character) {
-        return character.getDefense();
-    }
-
-    public int getMana(IMageCharacter mage) {
-        return mage.getMana();
-    }
-
-    public int getWeight(Enemy enemy) {
-        return enemy.getWeight();
-    }
-
-    public int getAttackPower(Enemy enemy) {
-        return enemy.getAttackPower();
-    }
-
-    //Weapon getters:
-
-    public String getName(IWeapon weapon) {
-        return weapon.getName();
-    }
-
-    public int getDamage(IWeapon weapon) {
-        return weapon.getDamage();
-    }
-
-    public int getWeight(IWeapon weapon) {
-        return weapon.getWeight();
-    }
-
-    public int getMagicDamage(Staff staff) {
-        return staff.getMagicDamage();
+        this.playerCharacterDeathHandler = new PlayerCharacterDeathHandler(this);
+        this.enemyDeathHandler = new EnemyDeathHandler(this);
+        this.characterFactory = new CharacterFactory(turnsQueue, playerCharacterDeathHandler,
+                enemyDeathHandler);
+        this.weaponFactory = new WeaponFactory();
     }
 
     //Equip weapon method:
