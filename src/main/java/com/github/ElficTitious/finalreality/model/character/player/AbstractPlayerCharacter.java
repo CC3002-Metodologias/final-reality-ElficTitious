@@ -1,7 +1,6 @@
 package com.github.ElficTitious.finalreality.model.character.player;
 
-import com.github.ElficTitious.finalreality.model.controller.PlayerCharacterDeathHandler;
-import com.github.ElficTitious.finalreality.model.controller.IEventHandler;
+import com.github.ElficTitious.finalreality.model.controller.handlers.IEventHandler;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
@@ -31,6 +30,8 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     private IWeapon equippedWeapon = null;
 
     private final PropertyChangeSupport playerCharacterDeathEvent =
+            new PropertyChangeSupport(this);
+    private final PropertyChangeSupport playerTurnEvent =
             new PropertyChangeSupport(this);
 
 
@@ -150,8 +151,9 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         }
     }
 
+    @Override
     public void turn() {
-
+        playerTurnEvent.firePropertyChange("Player Turn", null, null);
     }
 
     @Override
@@ -197,7 +199,8 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         return Objects.hash(getClass(), getName());
     }
 
-    public void addListener(IEventHandler handler) {
-        playerCharacterDeathEvent.addPropertyChangeListener(handler);
+    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
+        playerCharacterDeathEvent.addPropertyChangeListener(deathHandler);
+        playerTurnEvent.addPropertyChangeListener(turnHandler);
     }
 }

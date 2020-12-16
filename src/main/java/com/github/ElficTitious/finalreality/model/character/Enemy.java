@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.github.ElficTitious.finalreality.model.controller.IEventHandler;
+import com.github.ElficTitious.finalreality.model.controller.handlers.IEventHandler;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,6 +26,8 @@ public class Enemy implements ICharacter{
     private final int attackPower;
 
     private final PropertyChangeSupport enemyDeathEvent =
+            new PropertyChangeSupport(this);
+    private final PropertyChangeSupport enemyTurnEvent =
             new PropertyChangeSupport(this);
 
     /**
@@ -62,8 +64,9 @@ public class Enemy implements ICharacter{
         }
     }
 
+    @Override
     public void turn() {
-
+        enemyTurnEvent.firePropertyChange("Enemy Turn", null, null);
     }
 
     @Override
@@ -152,7 +155,8 @@ public class Enemy implements ICharacter{
         return Objects.hash(Enemy.class, getName(), getWeight());
     }
 
-    public void addListener(IEventHandler handler) {
-        enemyDeathEvent.addPropertyChangeListener(handler);
+    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
+        enemyDeathEvent.addPropertyChangeListener(deathHandler);
+        enemyTurnEvent.addPropertyChangeListener(turnHandler);
     }
 }

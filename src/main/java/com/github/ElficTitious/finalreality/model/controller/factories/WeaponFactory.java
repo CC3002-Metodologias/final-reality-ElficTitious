@@ -1,4 +1,4 @@
-package com.github.ElficTitious.finalreality.model.controller;
+package com.github.ElficTitious.finalreality.model.controller.factories;
 
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;

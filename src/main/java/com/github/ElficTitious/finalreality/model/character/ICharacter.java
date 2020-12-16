@@ -44,15 +44,18 @@ public interface ICharacter {
     /**
      * Returns this character's name.
      */
-    public String getName();
+
+    String getName();
 
     /**
      * Returns this character's health points.
      */
-    public int getHealthPoints();
+    int getHealthPoints();
 
     /**
      * Returns this character's defense.
      */
-    public int getDefense();
+    int getDefense();
+
+    void turn();
 }

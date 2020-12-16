@@ -1,11 +1,13 @@
-package com.github.ElficTitious.finalreality.model.controller;
+package com.github.ElficTitious.finalreality.model.controller.factories;
 
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IMageCharacter;
 import com.github.ElficTitious.finalreality.model.character.player.playercharacters.*;
-import com.github.ElficTitious.finalreality.model.controller.EnemyDeathHandler;
-import com.github.ElficTitious.finalreality.model.controller.PlayerCharacterDeathHandler;
+import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.EnemyDeathHandler;
+import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.EnemyTurnHandler;
+import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
+import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.PlayerTurnHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
@@ -15,51 +17,57 @@ public class CharacterFactory {
     private final BlockingQueue<ICharacter> turnsQueue;
     private final PlayerCharacterDeathHandler playerCharacterDeathHandler;
     private final EnemyDeathHandler enemyDeathHandler;
+    private final PlayerTurnHandler playerTurnHandler;
+    private final EnemyTurnHandler enemyTurnHandler;
 
     public CharacterFactory(@NotNull BlockingQueue<ICharacter> turnsQueue,
                             PlayerCharacterDeathHandler playerCharacterDeathHandler,
-                            EnemyDeathHandler enemyDeathHandler) {
+                            EnemyDeathHandler enemyDeathHandler,
+                            PlayerTurnHandler playerTurnHandler,
+                            EnemyTurnHandler enemyTurnHandler) {
         this.turnsQueue = turnsQueue;
         this.playerCharacterDeathHandler = playerCharacterDeathHandler;
         this.enemyDeathHandler = enemyDeathHandler;
+        this.playerTurnHandler = playerTurnHandler;
+        this.enemyTurnHandler = enemyTurnHandler;
     }
 
     public ICharacter createDarkWizard(@NotNull String name, int healthPoints, int defense,
                                        int mana) {
         var temp = new DarkWizard(turnsQueue, name, healthPoints, defense, mana);
-        temp.addListener(playerCharacterDeathHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
     }
 
     public ICharacter createEngineer(@NotNull String name, int healthPoints, int defense) {
         var temp = new Engineer(turnsQueue, name, healthPoints, defense);
-        temp.addListener(playerCharacterDeathHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
     }
 
     public ICharacter createKnight(@NotNull String name, int healthPoints, int defense) {
         var temp = new Knight(turnsQueue, name, healthPoints, defense);
-        temp.addListener(playerCharacterDeathHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
     }
 
     public ICharacter createThief(@NotNull String name, int healthPoints, int defense) {
         var temp = new Thief(turnsQueue, name, healthPoints, defense);
-        temp.addListener(playerCharacterDeathHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
     }
 
     public ICharacter createWhiteWizard(@NotNull String name, int healthPoints, int defense,
                                        int mana) {
         var temp = new WhiteWizard(turnsQueue, name, healthPoints, defense, mana);
-        temp.addListener(playerCharacterDeathHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
     }
 
     public ICharacter createEnemy(@NotNull String name, int healthPoints, int defense,
                                         int mana, int weight, int attackPower) {
         var temp = new Enemy(turnsQueue, name, healthPoints, defense, weight, attackPower);
-        temp.addListener(enemyDeathHandler);
+        temp.addListeners(enemyDeathHandler, enemyTurnHandler);
         return temp;
     }
 

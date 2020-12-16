@@ -1,4 +1,4 @@
-package com.github.ElficTitious.finalreality.model.controller;
+package com.github.ElficTitious.finalreality.model.controller.handlers;
 
 import java.beans.PropertyChangeListener;
 

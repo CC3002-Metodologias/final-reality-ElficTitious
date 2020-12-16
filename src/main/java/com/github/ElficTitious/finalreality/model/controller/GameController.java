@@ -2,21 +2,17 @@ package com.github.ElficTitious.finalreality.model.controller;
 
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
-import com.github.ElficTitious.finalreality.model.character.player.IMageCharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
-import com.github.ElficTitious.finalreality.model.character.player.playercharacters.*;
+import com.github.ElficTitious.finalreality.model.controller.factories.CharacterFactory;
+import com.github.ElficTitious.finalreality.model.controller.factories.WeaponFactory;
+import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.EnemyDeathHandler;
+import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.EnemyTurnHandler;
+import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
+import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.PlayerTurnHandler;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
-import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.zip.CheckedOutputStream;
 
 /**
  * A class that works as an intermediary between the user and objects from the model.
@@ -33,6 +29,8 @@ public class GameController {
     protected final BlockingQueue<ICharacter> turnsQueue;
     private PlayerCharacterDeathHandler playerCharacterDeathHandler;
     private EnemyDeathHandler enemyDeathHandler;
+    private PlayerTurnHandler playerTurnHandler;
+    private EnemyTurnHandler enemyTurnHandler;
 
 
     /**
@@ -46,8 +44,10 @@ public class GameController {
         this.turnsQueue = new LinkedBlockingQueue<>();
         this.playerCharacterDeathHandler = new PlayerCharacterDeathHandler(this);
         this.enemyDeathHandler = new EnemyDeathHandler(this);
+        this.playerTurnHandler = new PlayerTurnHandler(this);
+        this.enemyTurnHandler = new EnemyTurnHandler(this);
         this.characterFactory = new CharacterFactory(turnsQueue, playerCharacterDeathHandler,
-                enemyDeathHandler);
+                enemyDeathHandler, playerTurnHandler, enemyTurnHandler);
         this.weaponFactory = new WeaponFactory();
     }
 
@@ -72,8 +72,17 @@ public class GameController {
 
     //Turn implementation:
 
+    public void playerTurn() {
+        ;
+    }
+
+    public void enemyTurn() {
+        ;
+    }
+
     public ICharacter getFirstCharacter() {
         var temp = turnsQueue.peek();
+        temp.turn();
         return temp;
     }
 
