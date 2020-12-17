@@ -60,7 +60,8 @@ public class EnemyTest {
     }
 
     /**
-     * Checks that the character waits the appropriate amount of time for it's turn.
+     * Checks that the character waits the appropriate amount of time for it's turn and
+     * can't enter the queue once its dead.
      */
     @Test
     void waitTurnTest() {
@@ -75,6 +76,19 @@ public class EnemyTest {
             Thread.sleep(200);
             assertEquals(1, turnsQueue.size());
             assertEquals(testEnemy, turnsQueue.peek());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // Let's test that a dead enemy can't enter the turns queue:
+        turnsQueue.poll();
+        assertTrue(turnsQueue.isEmpty());
+        testEnemy.waitTurn();
+        try {
+            Thread.sleep(900);
+            assertEquals(0, turnsQueue.size());
+            testEnemy.setHealthPoints(0);
+            Thread.sleep(200);
+            assertEquals(0, turnsQueue.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

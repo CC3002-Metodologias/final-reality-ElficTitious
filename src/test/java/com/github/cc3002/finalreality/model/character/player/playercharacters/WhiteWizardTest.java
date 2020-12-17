@@ -8,8 +8,7 @@ import com.github.cc3002.finalreality.model.character.player.AbstractPlayerChara
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * A class that holds a set of tests for the {@code WhiteWizard} class.
@@ -47,8 +46,8 @@ public class WhiteWizardTest extends AbstractMagePlayerCharacterTest {
     /**
      * Checks that the weapons that are equippable by this class get equipped and those who aren't
      * don't get equipped.
-     * Uses the {@code checkSuccesfulEquipWeapon} and {@code checkUnsuccesfulEquipWeapon} methods
-     * defined in the {@code AbstractPlayerCharacterTest} class.
+     * Uses the {@code checkSuccesfulEquipWeapon} method defined in the
+     * {@code AbstractPlayerCharacterTest} class.
      */
     @Test
     void equipWeaponTest() {

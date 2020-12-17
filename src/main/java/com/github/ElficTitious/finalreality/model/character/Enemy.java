@@ -1,11 +1,13 @@
 package com.github.ElficTitious.finalreality.model.character;
 
+import java.beans.PropertyChangeSupport;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.github.ElficTitious.finalreality.controller.handlers.IEventHandler;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,10 +20,15 @@ public class Enemy implements ICharacter{
     protected final BlockingQueue<ICharacter> turnsQueue;
     private ScheduledExecutorService scheduledExecutor;
     private final String name;
-    private final int healthPoints;
+    private int healthPoints;
     private final int defense;
     private final int weight;
     private final int attackPower;
+
+    private final PropertyChangeSupport enemyDeathEvent =
+            new PropertyChangeSupport(this);
+    private final PropertyChangeSupport enemyTurnEvent =
+            new PropertyChangeSupport(this);
 
     /**
      * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -39,6 +46,31 @@ public class Enemy implements ICharacter{
     }
 
     @Override
+    public void attack(ICharacter character) {
+        character.beingAttacked(this);
+    }
+
+    @Override
+    public void beingAttacked(ICharacter character) {
+        int currentHP = this.getHealthPoints();
+        int damage = Math.max(0, character.getAttackPower() - this.getDefense());
+        /*In order to not diminish the HP below zero, we define health points after
+          being attacked as follows*/
+        int afterAttackHP = Math.max(0, currentHP - damage);
+        this.setHealthPoints(afterAttackHP);
+        if (!this.isAlive()) {
+            enemyDeathEvent.firePropertyChange("Dead enemy",
+                    null, this);
+        }
+    }
+
+    @Override
+    public void turn() {
+        // This enemy is sent as newValue.
+        enemyTurnEvent.firePropertyChange("Enemy Turn", null, this);
+    }
+
+    @Override
     public void waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
         var enemy = (Enemy) this;
@@ -47,30 +79,33 @@ public class Enemy implements ICharacter{
     }
 
     /**
-     * Adds this enemy to the turns queue.
+     * Adds this enemy to the turns queue if its alive.
      */
     private void addToQueue() {
-        turnsQueue.add(this);
+        if (this.isAlive()) {
+            turnsQueue.add(this);
+        }
         scheduledExecutor.shutdown();
     }
 
-    /**
-     * Returns this enemy's name.
-     */
+    @Override
     public String getName() {
         return name;
     }
 
     /**
-     * Returns this enemy's health points.
+     * Checks if this enemy is alive.
      */
+    public boolean isAlive() {
+        return this.getHealthPoints() > 0;
+    }
+
+    @Override
     public int getHealthPoints() {
         return healthPoints;
     }
 
-    /**
-     * Returns this enemy's defense.
-     */
+    @Override
     public int getDefense() {
         return defense;
     }
@@ -87,6 +122,13 @@ public class Enemy implements ICharacter{
      */
     public int getAttackPower() {
         return attackPower;
+    }
+
+    /**
+     * Sets this enemy's health points to the given integer.
+     */
+    public void setHealthPoints(int newHP) {
+        this.healthPoints = newHP;
     }
 
     /**
@@ -114,5 +156,13 @@ public class Enemy implements ICharacter{
     @Override
     public int hashCode() {
         return Objects.hash(Enemy.class, getName(), getWeight());
+    }
+
+    /**
+     * Adds the enemy death and turn handlers to the enemy death and turn events.
+     */
+    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
+        enemyDeathEvent.addPropertyChangeListener(deathHandler);
+        enemyTurnEvent.addPropertyChangeListener(turnHandler);
     }
 }

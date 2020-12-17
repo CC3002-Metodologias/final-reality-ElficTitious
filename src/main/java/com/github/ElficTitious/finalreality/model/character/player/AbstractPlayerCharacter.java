@@ -1,10 +1,12 @@
 package com.github.ElficTitious.finalreality.model.character.player;
 
+import com.github.ElficTitious.finalreality.controller.handlers.IEventHandler;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.beans.PropertyChangeSupport;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
@@ -27,6 +29,11 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     private int defense;
     private IWeapon equippedWeapon = null;
 
+    private final PropertyChangeSupport playerCharacterDeathEvent =
+            new PropertyChangeSupport(this);
+    private final PropertyChangeSupport playerTurnEvent =
+            new PropertyChangeSupport(this);
+
 
     /**
      * Creates a new player character with a name, a given amount of health points, a given amount
@@ -45,19 +52,32 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         return name;
     }
 
-    /**
-     * Returns this player character's health points.
-     */
+    @Override
+    public boolean isAlive() {
+        return this.getHealthPoints() > 0;
+    }
+
+    @Override
     public int getHealthPoints() {
         return healthPoints;
     }
 
-    /**
-     * Returns this player character's defense.
-     */
+    @Override
     public int getDefense() {
         return defense;
     }
+
+    @Override
+    public int getAttackPower() {
+        IWeapon equippedWeapon = this.getEquippedWeapon();
+        if (equippedWeapon == null) {
+            return 0;
+        }
+        else {
+            return equippedWeapon.getDamage();
+        }
+    }
+
 
     @Override
     public IWeapon getEquippedWeapon() {
@@ -75,6 +95,13 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         this.equippedWeapon = weapon;
     }
 
+    /**
+     * Sets this player character's health points to the given integer.
+     */
+    public void setHealthPoints(int newHP) {
+        this.healthPoints = newHP;
+    }
+
     /*
     By default we define that equipping any weapon isn't possible (independent of the
     class that's trying to equip it).
@@ -82,27 +109,52 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     @Override
     public void equipAxe(Axe axe) {
-        System.out.println("Not possible to equip this weapon.");
+        ;
     }
 
     @Override
     public void equipSword(Sword sword) {
-        System.out.println("Not possible to equip this weapon.");
+        ;
     }
 
     @Override
     public void equipBow(Bow bow) {
-        System.out.println("Not possible to equip this weapon.");
+        ;
     }
 
     @Override
     public void equipKnife(Knife knife) {
-        System.out.println("Not possible to equip this weapon.");
+        ;
     }
 
     @Override
     public void equipStaff(Staff staff) {
-        System.out.println("Not possible to equip this weapon.");
+        ;
+    }
+
+    @Override
+    public void attack(ICharacter character) {
+        character.beingAttacked(this);
+    }
+
+    @Override
+    public void beingAttacked(ICharacter character) {
+        int currentHP = this.getHealthPoints();
+        int damage = Math.max(0, character.getAttackPower() - this.getDefense());
+        /*In order to not diminish the HP below zero, we define health points after
+          being attacked as follows*/
+        int afterAttackHP = Math.max(0, currentHP - damage);
+        this.setHealthPoints(afterAttackHP);
+        if (!this.isAlive()) {
+            playerCharacterDeathEvent.firePropertyChange("Dead character",
+                    null, this);
+        }
+    }
+
+    @Override
+    public void turn() {
+        // This player character is sent as newValue.
+        playerTurnEvent.firePropertyChange("Player Turn", null, this);
     }
 
     @Override
@@ -113,10 +165,12 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     }
 
     /**
-     * Adds this player character to the turns queue.
+     * Adds this player character to the turns queue if its alive.
      */
     private void addToQueue() {
-        turnsQueue.add(this);
+        if (this.isAlive()) {
+            turnsQueue.add(this);
+        }
         scheduledExecutor.shutdown();
     }
 
@@ -146,5 +200,14 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     @Override
     public int hashCode() {
         return Objects.hash(getClass(), getName());
+    }
+
+    /**
+     * Adds the player character death and turn handlers to the player character
+     * death and turn events.
+     */
+    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
+        playerCharacterDeathEvent.addPropertyChangeListener(deathHandler);
+        playerTurnEvent.addPropertyChangeListener(turnHandler);
     }
 }
