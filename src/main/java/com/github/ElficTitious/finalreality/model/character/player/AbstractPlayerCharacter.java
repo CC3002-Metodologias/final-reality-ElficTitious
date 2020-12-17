@@ -1,6 +1,6 @@
 package com.github.ElficTitious.finalreality.model.character.player;
 
-import com.github.ElficTitious.finalreality.model.controller.handlers.IEventHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.IEventHandler;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
@@ -153,7 +153,8 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     @Override
     public void turn() {
-        playerTurnEvent.firePropertyChange("Player Turn", null, null);
+        // This player character is sent as newValue.
+        playerTurnEvent.firePropertyChange("Player Turn", null, this);
     }
 
     @Override
@@ -164,10 +165,12 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     }
 
     /**
-     * Adds this player character to the turns queue.
+     * Adds this player character to the turns queue if its alive.
      */
     private void addToQueue() {
-        turnsQueue.add(this);
+        if (this.isAlive()) {
+            turnsQueue.add(this);
+        }
         scheduledExecutor.shutdown();
     }
 
@@ -199,6 +202,10 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         return Objects.hash(getClass(), getName());
     }
 
+    /**
+     * Adds the player character death and turn handlers to the player character
+     * death and turn events.
+     */
     public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
         playerCharacterDeathEvent.addPropertyChangeListener(deathHandler);
         playerTurnEvent.addPropertyChangeListener(turnHandler);

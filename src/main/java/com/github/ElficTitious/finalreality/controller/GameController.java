@@ -1,14 +1,14 @@
-package com.github.ElficTitious.finalreality.model.controller;
+package com.github.ElficTitious.finalreality.controller;
 
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
-import com.github.ElficTitious.finalreality.model.controller.factories.CharacterFactory;
-import com.github.ElficTitious.finalreality.model.controller.factories.WeaponFactory;
-import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.EnemyDeathHandler;
-import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.EnemyTurnHandler;
-import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
-import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.PlayerTurnHandler;
+import com.github.ElficTitious.finalreality.controller.factories.CharacterFactory;
+import com.github.ElficTitious.finalreality.controller.factories.WeaponFactory;
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyDeathHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyTurnHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerTurnHandler;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 
 import java.util.concurrent.BlockingQueue;
@@ -34,8 +34,8 @@ public class GameController {
 
 
     /**
-     * Creates a controller with an inventory, player and enemy parties and a queue to control
-     * the flow of the game.
+     * Creates a controller with an inventory, player and enemy parties, a queue to control
+     * the flow of the game, a weapon and character factory, and all the necessary handlers.
      */
     public GameController() {
         this.inventory = new Inventory();
@@ -53,6 +53,12 @@ public class GameController {
 
     //Equip weapon method:
 
+    /**
+     * Method that equips the weapon given as parameter to the character given as
+     * parameter. If the weapon was equippable by the character, the methods removes
+     * the weapon from the inventory, and if the previously equipped weapon
+     * wasn't null, it stores it in the inventory.
+     */
     public void equipWeapon(IWeapon weapon, IPlayerCharacter playerCharacter) {
         IWeapon previouslyEquippedWeapon = playerCharacter.getEquippedWeapon();
         weapon.equipToPlayerCharacter(playerCharacter);
@@ -66,41 +72,78 @@ public class GameController {
 
     //Attacking method:
 
+    /**
+     * Method that controls the attacking. The attacking character given as parameter
+     * attacks the attacked character, also given as parameter.
+     */
     public void attack(ICharacter attacker, ICharacter attacked) {
         attacker.attack(attacked);
     }
 
     //Turn implementation:
 
-    public void playerTurn() {
+    /**
+     * Method that holds the behaviour and game flow when in the turn of the player.
+     */
+    public void playerTurn(IPlayerCharacter playerCharacter) {
+        // At this point of the development, the method is empty.
         ;
     }
 
-    public void enemyTurn() {
+    /**
+     * Method that holds the behaviour and game flow when in the turn of the player.
+     */
+    public void enemyTurn(Enemy enemy) {
+        // At this point of the development, the method is empty.
         ;
     }
 
+    /**
+     * Method that takes the first character in the turns queue and returns it (the character
+     * isn't removed from the queue). In order to know if the next turn belongs to the player
+     * or enemy, the method calls the turn method of the character taken.
+     */
     public ICharacter getFirstCharacter() {
         var temp = turnsQueue.peek();
         temp.turn();
         return temp;
     }
 
+    /**
+     * Method that removes the character given as parameter from the turns queue after
+     * its turn ended.
+     */
     public void removeCharacter(ICharacter character) {
         turnsQueue.remove(character);
     }
 
-    public void startTimer(ICharacter character) {
+    /**
+     * Method that sets a timer for the character given as parameter after it was removed
+     * from the turns queue.
+     */
+    public void setTimer(ICharacter character) {
         character.waitTurn();
     }
 
+    /**
+     * Method that checks if the player lost after one of the characters in his party
+     * died. The method removes the character from the party and turns queue and returns
+     * true if after that, te size of the party is zero.
+     */
     public boolean checkLoss(IPlayerCharacter playerCharacter) {
         playerParty.removeCharacter(playerCharacter);
+        turnsQueue.remove(playerCharacter);
         return playerParty.getPartySize() == 0;
     }
 
+    /**
+     * Method that checks if the player won after one of the characters in the enemy party
+     * died. The method removes the enemy from the party and turns queue and returns
+     * true if after that, te size of the enemy party is zero.
+     */
     public boolean checkVictory(Enemy enemy) {
         enemyParty.removeCharacter(enemy);
+        turnsQueue.remove(enemy);
         return enemyParty.getPartySize() == 0;
     }
 

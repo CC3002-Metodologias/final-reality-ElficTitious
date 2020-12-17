@@ -1,4 +1,4 @@
-package com.github.ElficTitious.finalreality.model.controller;
+package com.github.ElficTitious.finalreality.controller;
 
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
@@ -37,7 +37,17 @@ public class Party {
         party.remove(character);
     }
 
+    /**
+     * Method that returns the size of this party.
+     */
     public int getPartySize() {
         return party.size();
+    }
+
+    /**
+     * Returns this party's party field.
+     */
+    public ArrayList<ICharacter> getParty() {
+        return this.party;
     }
 }

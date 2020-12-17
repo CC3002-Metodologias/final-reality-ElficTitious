@@ -1,25 +1,34 @@
-package com.github.ElficTitious.finalreality.model.controller.factories;
+package com.github.ElficTitious.finalreality.controller.factories;
 
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IMageCharacter;
 import com.github.ElficTitious.finalreality.model.character.player.playercharacters.*;
-import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.EnemyDeathHandler;
-import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.EnemyTurnHandler;
-import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
-import com.github.ElficTitious.finalreality.model.controller.handlers.concretehandlers.PlayerTurnHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyDeathHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyTurnHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerTurnHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * A class that holds all the character creation methods (including enemies) and getters
+ * for player characters and enemies.
+ *
+ * @author Ismael Correa Arellano.
+ */
 public class CharacterFactory {
 
-    private final BlockingQueue<ICharacter> turnsQueue;
+    private BlockingQueue<ICharacter> turnsQueue;
     private final PlayerCharacterDeathHandler playerCharacterDeathHandler;
     private final EnemyDeathHandler enemyDeathHandler;
     private final PlayerTurnHandler playerTurnHandler;
     private final EnemyTurnHandler enemyTurnHandler;
 
+    /**
+     * Creates a new character factory with a blocking queue and necessary handlers.
+     */
     public CharacterFactory(@NotNull BlockingQueue<ICharacter> turnsQueue,
                             PlayerCharacterDeathHandler playerCharacterDeathHandler,
                             EnemyDeathHandler enemyDeathHandler,
@@ -32,6 +41,10 @@ public class CharacterFactory {
         this.enemyTurnHandler = enemyTurnHandler;
     }
 
+    /**
+     * Creates a new dark wizard with all its fields initialized and adds the necessary
+     * listeners.
+     */
     public ICharacter createDarkWizard(@NotNull String name, int healthPoints, int defense,
                                        int mana) {
         var temp = new DarkWizard(turnsQueue, name, healthPoints, defense, mana);
@@ -39,24 +52,40 @@ public class CharacterFactory {
         return temp;
     }
 
+    /**
+     * Creates a new engineer with all its fields initialized and adds the necessary
+     * listeners.
+     */
     public ICharacter createEngineer(@NotNull String name, int healthPoints, int defense) {
         var temp = new Engineer(turnsQueue, name, healthPoints, defense);
         temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
     }
 
+    /**
+     * Creates a new knight with all its fields initialized and adds the necessary
+     * listeners.
+     */
     public ICharacter createKnight(@NotNull String name, int healthPoints, int defense) {
         var temp = new Knight(turnsQueue, name, healthPoints, defense);
         temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
     }
 
+    /**
+     * Creates a new thief with all its fields initialized and adds the necessary
+     * listeners.
+     */
     public ICharacter createThief(@NotNull String name, int healthPoints, int defense) {
         var temp = new Thief(turnsQueue, name, healthPoints, defense);
         temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
     }
 
+    /**
+     * Creates a new white wizard with all its fields initialized and adds the necessary
+     * listeners.
+     */
     public ICharacter createWhiteWizard(@NotNull String name, int healthPoints, int defense,
                                        int mana) {
         var temp = new WhiteWizard(turnsQueue, name, healthPoints, defense, mana);
@@ -64,8 +93,12 @@ public class CharacterFactory {
         return temp;
     }
 
+    /**
+     * Creates a new enemy with all its fields initialized and adds the necessary
+     * listeners.
+     */
     public ICharacter createEnemy(@NotNull String name, int healthPoints, int defense,
-                                        int mana, int weight, int attackPower) {
+                                  int weight, int attackPower) {
         var temp = new Enemy(turnsQueue, name, healthPoints, defense, weight, attackPower);
         temp.addListeners(enemyDeathHandler, enemyTurnHandler);
         return temp;
@@ -73,26 +106,44 @@ public class CharacterFactory {
 
     //Character getters:
 
+    /**
+     * Returns the name of the character given as parameter.
+     */
     public String getName(ICharacter character) {
         return character.getName();
     }
 
+    /**
+     * Returns the health points of the character given as parameter.
+     */
     public int getHealthPoints(ICharacter character) {
         return character.getHealthPoints();
     }
 
+    /**
+     * Returns the defense of the character given as parameter.
+     */
     public int getDefense(ICharacter character) {
         return character.getDefense();
     }
 
+    /**
+     * Returns the mana of the mage character given as parameter.
+     */
     public int getMana(IMageCharacter mage) {
         return mage.getMana();
     }
 
+    /**
+     * Returns the wight of the enemy given as parameter.
+     */
     public int getWeight(Enemy enemy) {
         return enemy.getWeight();
     }
 
+    /**
+     * Returns the attack power of the enemy given as parameter.
+     */
     public int getAttackPower(Enemy enemy) {
         return enemy.getAttackPower();
     }

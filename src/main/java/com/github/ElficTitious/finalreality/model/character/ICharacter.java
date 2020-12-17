@@ -57,5 +57,8 @@ public interface ICharacter {
      */
     int getDefense();
 
+    /**
+     * Method that triggers the enemy and player character turn events.
+     */
     void turn();
 }

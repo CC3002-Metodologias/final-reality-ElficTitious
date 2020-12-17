@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.github.ElficTitious.finalreality.model.controller.handlers.IEventHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.IEventHandler;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -66,7 +66,8 @@ public class Enemy implements ICharacter{
 
     @Override
     public void turn() {
-        enemyTurnEvent.firePropertyChange("Enemy Turn", null, null);
+        // This enemy is sent as newValue.
+        enemyTurnEvent.firePropertyChange("Enemy Turn", null, this);
     }
 
     @Override
@@ -78,10 +79,12 @@ public class Enemy implements ICharacter{
     }
 
     /**
-     * Adds this enemy to the turns queue.
+     * Adds this enemy to the turns queue if its alive.
      */
     private void addToQueue() {
-        turnsQueue.add(this);
+        if (this.isAlive()) {
+            turnsQueue.add(this);
+        }
         scheduledExecutor.shutdown();
     }
 
@@ -155,6 +158,9 @@ public class Enemy implements ICharacter{
         return Objects.hash(Enemy.class, getName(), getWeight());
     }
 
+    /**
+     * Adds the enemy death and turn handlers to the enemy death and turn events.
+     */
     public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
         enemyDeathEvent.addPropertyChangeListener(deathHandler);
         enemyTurnEvent.addPropertyChangeListener(turnHandler);

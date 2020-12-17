@@ -73,7 +73,8 @@ public class AbstractPlayerCharacterTest {
     }
 
     /**
-     * Checks that the character waits the appropriate amount of time for it's turn.
+     * Checks that the character waits the appropriate amount of time for it's turn and
+     * can't enter the queue once its dead.
      */
     @Test
     void waitTurnTest() {
@@ -89,6 +90,19 @@ public class AbstractPlayerCharacterTest {
             Thread.sleep(200);
             assertEquals(1, turnsQueue.size());
             assertEquals(testKnight, turnsQueue.peek());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // Let's test that a dead player character can't enter the turns queue:
+        turnsQueue.poll();
+        assertTrue(turnsQueue.isEmpty());
+        testKnight.waitTurn();
+        try {
+            Thread.sleep(900);
+            assertEquals(0, turnsQueue.size());
+            testKnight.setHealthPoints(0);
+            Thread.sleep(200);
+            assertEquals(0, turnsQueue.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

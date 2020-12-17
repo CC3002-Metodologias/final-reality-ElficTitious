@@ -1,4 +1,4 @@
-package com.github.ElficTitious.finalreality.model.controller;
+package com.github.ElficTitious.finalreality.controller;
 
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 
@@ -18,6 +18,13 @@ public class Inventory {
      */
     public Inventory() {
         this.inventory = new ArrayList<IWeapon>();
+    }
+
+    /**
+     * Returns this inventory's inventory field.
+     */
+    public ArrayList<IWeapon> getInventory() {
+        return this.inventory;
     }
 
     /**
