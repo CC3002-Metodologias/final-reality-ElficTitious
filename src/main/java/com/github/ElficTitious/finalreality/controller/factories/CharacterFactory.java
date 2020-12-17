@@ -3,6 +3,7 @@ package com.github.ElficTitious.finalreality.controller.factories;
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IMageCharacter;
+import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
 import com.github.ElficTitious.finalreality.model.character.player.playercharacters.*;
 import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyDeathHandler;
 import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyTurnHandler;
@@ -45,8 +46,8 @@ public class CharacterFactory {
      * Creates a new dark wizard with all its fields initialized and adds the necessary
      * listeners.
      */
-    public ICharacter createDarkWizard(@NotNull String name, int healthPoints, int defense,
-                                       int mana) {
+    public IPlayerCharacter createDarkWizard(@NotNull String name, int healthPoints, int defense,
+                                             int mana) {
         var temp = new DarkWizard(turnsQueue, name, healthPoints, defense, mana);
         temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
@@ -56,7 +57,7 @@ public class CharacterFactory {
      * Creates a new engineer with all its fields initialized and adds the necessary
      * listeners.
      */
-    public ICharacter createEngineer(@NotNull String name, int healthPoints, int defense) {
+    public IPlayerCharacter createEngineer(@NotNull String name, int healthPoints, int defense) {
         var temp = new Engineer(turnsQueue, name, healthPoints, defense);
         temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
@@ -66,7 +67,7 @@ public class CharacterFactory {
      * Creates a new knight with all its fields initialized and adds the necessary
      * listeners.
      */
-    public ICharacter createKnight(@NotNull String name, int healthPoints, int defense) {
+    public IPlayerCharacter createKnight(@NotNull String name, int healthPoints, int defense) {
         var temp = new Knight(turnsQueue, name, healthPoints, defense);
         temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
@@ -76,7 +77,7 @@ public class CharacterFactory {
      * Creates a new thief with all its fields initialized and adds the necessary
      * listeners.
      */
-    public ICharacter createThief(@NotNull String name, int healthPoints, int defense) {
+    public IPlayerCharacter createThief(@NotNull String name, int healthPoints, int defense) {
         var temp = new Thief(turnsQueue, name, healthPoints, defense);
         temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
         return temp;
@@ -86,7 +87,7 @@ public class CharacterFactory {
      * Creates a new white wizard with all its fields initialized and adds the necessary
      * listeners.
      */
-    public ICharacter createWhiteWizard(@NotNull String name, int healthPoints, int defense,
+    public IMageCharacter createWhiteWizard(@NotNull String name, int healthPoints, int defense,
                                        int mana) {
         var temp = new WhiteWizard(turnsQueue, name, healthPoints, defense, mana);
         temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
@@ -97,7 +98,7 @@ public class CharacterFactory {
      * Creates a new enemy with all its fields initialized and adds the necessary
      * listeners.
      */
-    public ICharacter createEnemy(@NotNull String name, int healthPoints, int defense,
+    public Enemy createEnemy(@NotNull String name, int healthPoints, int defense,
                                   int weight, int attackPower) {
         var temp = new Enemy(turnsQueue, name, healthPoints, defense, weight, attackPower);
         temp.addListeners(enemyDeathHandler, enemyTurnHandler);

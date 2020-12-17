@@ -103,7 +103,7 @@ public class GameController {
      * isn't removed from the queue). In order to know if the next turn belongs to the player
      * or enemy, the method calls the turn method of the character taken.
      */
-    public ICharacter getFirstCharacter() {
+    public ICharacter getNextCharacter() {
         var temp = turnsQueue.peek();
         temp.turn();
         return temp;
@@ -147,5 +147,45 @@ public class GameController {
         return enemyParty.getPartySize() == 0;
     }
 
+    /**
+     * Returns this controller's character factory.
+     */
+    public CharacterFactory getCharacterFactory() {
+        return this.characterFactory;
+    }
 
+    /**
+     * Returns this controller's weapon factory.
+     */
+    public WeaponFactory getWeaponFactory() {
+        return this.weaponFactory;
+    }
+
+    /**
+     * Returns this controller's inventory.
+     */
+    public Inventory getInventory() {
+        return this.inventory;
+    }
+
+    /**
+     * Returns this controller's player party.
+     */
+    public Party getPlayerParty() {
+        return this.playerParty;
+    }
+
+    /**
+     * Returns this controller's enemy party.
+     */
+    public Party getEnemyParty() {
+        return this.enemyParty;
+    }
+
+    /**
+     * Returns this controller's turns queue.
+     */
+    public BlockingQueue<ICharacter> getTurnsQueue() {
+        return this.turnsQueue;
+    }
 }
