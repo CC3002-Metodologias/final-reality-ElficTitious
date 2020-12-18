@@ -1,5 +1,6 @@
 package com.github.ElficTitious.finalreality.controller;
 
+import com.github.ElficTitious.finalreality.controller.state.State;
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
@@ -21,6 +22,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class GameController {
 
+    private State state;
     private Inventory inventory;
     private Party playerParty;
     private Party enemyParty;
@@ -49,6 +51,14 @@ public class GameController {
         this.characterFactory = new CharacterFactory(turnsQueue, playerCharacterDeathHandler,
                 enemyDeathHandler, playerTurnHandler, enemyTurnHandler);
         this.weaponFactory = new WeaponFactory();
+        this.setState(//aState);
+    }
+
+    //State methods:
+
+    public void setState(State state) {
+        this.state = state;
+        state.setController(this);
     }
 
     //Equip weapon method:
@@ -78,6 +88,10 @@ public class GameController {
      */
     public void attack(ICharacter attacker, ICharacter attacked) {
         attacker.attack(attacked);
+
+        this.removeCharacter(attacker);
+        this.setTimer(attacker);
+
     }
 
     //Turn implementation:
@@ -127,24 +141,28 @@ public class GameController {
 
     /**
      * Method that checks if the player lost after one of the characters in his party
-     * died. The method removes the character from the party and turns queue and returns
-     * true if after that, te size of the party is zero.
+     * died. The method removes the character from the party and turns queue and, if the
+     * size of the player's party is zero, changes the state to Defeated.
      */
-    public boolean checkLoss(IPlayerCharacter playerCharacter) {
+    public void checkLoss(IPlayerCharacter playerCharacter) {
         playerParty.removeCharacter(playerCharacter);
         turnsQueue.remove(playerCharacter);
-        return playerParty.getPartySize() == 0;
+        if (playerParty.getPartySize() == 0) {
+            state.defeat();
+        }
     }
 
     /**
      * Method that checks if the player won after one of the characters in the enemy party
-     * died. The method removes the enemy from the party and turns queue and returns
-     * true if after that, te size of the enemy party is zero.
+     * died. The method removes the enemy from the party and turns queue and, if the size
+     * of the enemy party is zero, changes the state to Victorious.
      */
-    public boolean checkVictory(Enemy enemy) {
+    public void checkVictory(Enemy enemy) {
         enemyParty.removeCharacter(enemy);
         turnsQueue.remove(enemy);
-        return enemyParty.getPartySize() == 0;
+        if (enemyParty.getPartySize() == 0) {
+            state.victory();
+        }
     }
 
     /**
@@ -188,4 +206,5 @@ public class GameController {
     public BlockingQueue<ICharacter> getTurnsQueue() {
         return this.turnsQueue;
     }
+
 }
