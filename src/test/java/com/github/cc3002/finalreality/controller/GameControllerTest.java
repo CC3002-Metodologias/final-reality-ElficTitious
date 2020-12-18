@@ -9,6 +9,8 @@ import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers
 import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyTurnHandler;
 import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
 import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerTurnHandler;
+import com.github.ElficTitious.finalreality.controller.state.concretestates.EnemyTurn;
+import com.github.ElficTitious.finalreality.controller.state.concretestates.PlayerTurn;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -135,10 +137,18 @@ public class GameControllerTest {
         enemyParty.addCharacter(firstTestEnemy);
         enemyParty.addCharacter(secondTestEnemy);
 
-        assertFalse(controller.checkLoss(testKnight));
-        assertFalse(controller.checkVictory(firstTestEnemy));
-        assertTrue(controller.checkLoss(testEngineer));
-        assertTrue(controller.checkVictory(secondTestEnemy));
+        controller.setState(new EnemyTurn());
+        controller.checkLoss(testKnight);
+        assertFalse(controller.isDefeated());
+        controller.setState(new PlayerTurn());
+        controller.checkVictory(firstTestEnemy);
+        assertFalse(controller.isVictorious());
+        controller.setState(new EnemyTurn());
+        controller.checkLoss(testEngineer);
+        assertTrue(controller.isDefeated());
+        controller.setState(new PlayerTurn());
+        controller.checkVictory(secondTestEnemy);
+        assertTrue(controller.isVictorious());
     }
 
     /**

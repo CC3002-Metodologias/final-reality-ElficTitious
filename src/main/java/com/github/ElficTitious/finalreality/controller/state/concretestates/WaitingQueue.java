@@ -1,8 +1,9 @@
 package com.github.ElficTitious.finalreality.controller.state.concretestates;
 
+import com.github.ElficTitious.finalreality.controller.GameController;
 import com.github.ElficTitious.finalreality.controller.state.State;
 
-public class CheckingQueue extends State {
+public class WaitingQueue extends State {
 
     @Override
     public void checkTurn() {
@@ -10,12 +11,13 @@ public class CheckingQueue extends State {
     }
 
     @Override
-    public void waitQueue() {
-        changeState(new WaitingQueue());
+    public void queueReady() {
+        GameController controller = getController();
+        controller.getNextCharacter();
     }
 
     @Override
-    public boolean isCheckingQueue() {
+    public boolean isWaitingQueue() {
         return true;
     }
 }

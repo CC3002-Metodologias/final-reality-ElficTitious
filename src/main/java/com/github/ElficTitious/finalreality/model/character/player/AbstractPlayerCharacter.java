@@ -33,6 +33,8 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
             new PropertyChangeSupport(this);
     private final PropertyChangeSupport playerTurnEvent =
             new PropertyChangeSupport(this);
+    private final PropertyChangeSupport nonEmptyQueueEvent =
+            new PropertyChangeSupport(this);
 
 
     /**
@@ -170,6 +172,8 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     private void addToQueue() {
         if (this.isAlive()) {
             turnsQueue.add(this);
+            nonEmptyQueueEvent.firePropertyChange("Non Empty Queue",
+                    null, null);
         }
         scheduledExecutor.shutdown();
     }
@@ -203,11 +207,13 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     }
 
     /**
-     * Adds the player character death and turn handlers to the player character
-     * death and turn events.
+     * Adds the player character death, turn and non empty queue handlers to the player
+     * character death, turn and non empty queue events.
      */
-    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
+    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler,
+                             IEventHandler nonEmptyQueueHandler) {
         playerCharacterDeathEvent.addPropertyChangeListener(deathHandler);
         playerTurnEvent.addPropertyChangeListener(turnHandler);
+        nonEmptyQueueEvent.addPropertyChangeListener(nonEmptyQueueHandler);
     }
 }

@@ -1,15 +1,13 @@
 package com.github.ElficTitious.finalreality.controller;
 
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.*;
 import com.github.ElficTitious.finalreality.controller.state.State;
+import com.github.ElficTitious.finalreality.controller.state.concretestates.Starting;
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
 import com.github.ElficTitious.finalreality.controller.factories.CharacterFactory;
 import com.github.ElficTitious.finalreality.controller.factories.WeaponFactory;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyDeathHandler;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyTurnHandler;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerTurnHandler;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 
 import java.util.concurrent.BlockingQueue;
@@ -33,7 +31,7 @@ public class GameController {
     private EnemyDeathHandler enemyDeathHandler;
     private PlayerTurnHandler playerTurnHandler;
     private EnemyTurnHandler enemyTurnHandler;
-
+    private NonEmptyQueueHandler nonEmptyQueueHandler;
 
     /**
      * Creates a controller with an inventory, player and enemy parties, a queue to control
@@ -48,10 +46,12 @@ public class GameController {
         this.enemyDeathHandler = new EnemyDeathHandler(this);
         this.playerTurnHandler = new PlayerTurnHandler(this);
         this.enemyTurnHandler = new EnemyTurnHandler(this);
+        this.nonEmptyQueueHandler = new NonEmptyQueueHandler(this);
         this.characterFactory = new CharacterFactory(turnsQueue, playerCharacterDeathHandler,
-                enemyDeathHandler, playerTurnHandler, enemyTurnHandler);
+                enemyDeathHandler, playerTurnHandler, enemyTurnHandler,
+                nonEmptyQueueHandler);
         this.weaponFactory = new WeaponFactory();
-        this.setState(//aState);
+        this.setState(new Starting());
     }
 
     //State methods:
@@ -59,6 +59,38 @@ public class GameController {
     public void setState(State state) {
         this.state = state;
         state.setController(this);
+    }
+
+    public boolean isStarting() {
+        return state.isStarting();
+    }
+
+    public boolean isCheckingTurn() {
+        return state.isCheckingTurn();
+    }
+
+    public boolean isEnemyTurn() {
+        return state.isEnemyTurn();
+    }
+
+    public boolean isPlayerTurn() {
+        return state.isPlayerTurn();
+    }
+
+    public boolean isDefeated() {
+        return state.isDefeated();
+    }
+
+    public boolean isVictorious() {
+        return state.isVictorious();
+    }
+
+    public boolean isCheckingQueue() {
+        return state.isCheckingQueue();
+    }
+
+    public boolean isWaitingQueue() {
+        return state.isWaitingQueue();
     }
 
     //Equip weapon method:
@@ -88,10 +120,7 @@ public class GameController {
      */
     public void attack(ICharacter attacker, ICharacter attacked) {
         attacker.attack(attacked);
-
-        this.removeCharacter(attacker);
-        this.setTimer(attacker);
-
+        endTurn(attacker);
     }
 
     //Turn implementation:
@@ -100,16 +129,14 @@ public class GameController {
      * Method that holds the behaviour and game flow when in the turn of the player.
      */
     public void playerTurn(IPlayerCharacter playerCharacter) {
-        // At this point of the development, the method is empty.
-        ;
+        state.playerTurn();
     }
 
     /**
      * Method that holds the behaviour and game flow when in the turn of the player.
      */
     public void enemyTurn(Enemy enemy) {
-        // At this point of the development, the method is empty.
-        ;
+        state.enemyTurn();
     }
 
     /**
@@ -119,8 +146,25 @@ public class GameController {
      */
     public ICharacter getNextCharacter() {
         var temp = turnsQueue.peek();
+        state.checkTurn();
         temp.turn();
         return temp;
+    }
+
+    public void endTurn(ICharacter character) {
+        this.removeCharacter(character);
+        this.setTimer(character);
+        state.checkQueue();
+        if (turnsQueue.size() != 0) {
+            getNextCharacter();
+        }
+        else {
+            state.waitQueue();
+        }
+    }
+
+    public void queueReady() {
+        state.queueReady();
     }
 
     /**

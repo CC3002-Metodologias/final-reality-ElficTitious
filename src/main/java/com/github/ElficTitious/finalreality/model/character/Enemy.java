@@ -29,6 +29,8 @@ public class Enemy implements ICharacter{
             new PropertyChangeSupport(this);
     private final PropertyChangeSupport enemyTurnEvent =
             new PropertyChangeSupport(this);
+    private final PropertyChangeSupport nonEmptyQueueEvent =
+            new PropertyChangeSupport(this);
 
     /**
      * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -84,6 +86,8 @@ public class Enemy implements ICharacter{
     private void addToQueue() {
         if (this.isAlive()) {
             turnsQueue.add(this);
+            nonEmptyQueueEvent.firePropertyChange("Non Empty Queue",
+                    null, null);
         }
         scheduledExecutor.shutdown();
     }
@@ -159,10 +163,13 @@ public class Enemy implements ICharacter{
     }
 
     /**
-     * Adds the enemy death and turn handlers to the enemy death and turn events.
+     * Adds the enemy death, turn and non empty queue handlers to the enemy death,
+     * non empty queue and turn events.
      */
-    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
+    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler,
+                             IEventHandler nonEmptyQueueHandler) {
         enemyDeathEvent.addPropertyChangeListener(deathHandler);
         enemyTurnEvent.addPropertyChangeListener(turnHandler);
+        nonEmptyQueueEvent.addPropertyChangeListener(nonEmptyQueueHandler);
     }
 }

@@ -10,6 +10,10 @@ public class State {
         this.controller = controller;
     }
 
+    public GameController getController() {
+        return this.controller;
+    }
+
     protected void changeState(State state) {
         controller.setState(state);
     }
@@ -21,6 +25,14 @@ public class State {
     }
 
     public void checkQueue() {
+        error();
+    }
+
+    public void waitQueue() {
+        error();
+    }
+
+    public void queueReady() {
         error();
     }
 
@@ -44,7 +56,7 @@ public class State {
         return false;
     }
 
-    public boolean isTakingCharacter() {
+    public boolean isCheckingTurn() {
         return false;
     }
 
@@ -65,6 +77,10 @@ public class State {
     }
 
     public boolean isCheckingQueue() {
+        return false;
+    }
+
+    public boolean isWaitingQueue() {
         return false;
     }
 }

@@ -1,14 +1,11 @@
 package com.github.ElficTitious.finalreality.controller.factories;
 
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.*;
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IMageCharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
 import com.github.ElficTitious.finalreality.model.character.player.playercharacters.*;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyDeathHandler;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyTurnHandler;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerTurnHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
@@ -26,6 +23,7 @@ public class CharacterFactory {
     private final EnemyDeathHandler enemyDeathHandler;
     private final PlayerTurnHandler playerTurnHandler;
     private final EnemyTurnHandler enemyTurnHandler;
+    private final NonEmptyQueueHandler nonEmptyQueueHandler;
 
     /**
      * Creates a new character factory with a blocking queue and necessary handlers.
@@ -34,12 +32,14 @@ public class CharacterFactory {
                             PlayerCharacterDeathHandler playerCharacterDeathHandler,
                             EnemyDeathHandler enemyDeathHandler,
                             PlayerTurnHandler playerTurnHandler,
-                            EnemyTurnHandler enemyTurnHandler) {
+                            EnemyTurnHandler enemyTurnHandler,
+                            NonEmptyQueueHandler nonEmptyQueueHandler) {
         this.turnsQueue = turnsQueue;
         this.playerCharacterDeathHandler = playerCharacterDeathHandler;
         this.enemyDeathHandler = enemyDeathHandler;
         this.playerTurnHandler = playerTurnHandler;
         this.enemyTurnHandler = enemyTurnHandler;
+        this.nonEmptyQueueHandler = nonEmptyQueueHandler;
     }
 
     /**
@@ -49,7 +49,8 @@ public class CharacterFactory {
     public IPlayerCharacter createDarkWizard(@NotNull String name, int healthPoints, int defense,
                                              int mana) {
         var temp = new DarkWizard(turnsQueue, name, healthPoints, defense, mana);
-        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler,
+                nonEmptyQueueHandler);
         return temp;
     }
 
@@ -59,7 +60,8 @@ public class CharacterFactory {
      */
     public IPlayerCharacter createEngineer(@NotNull String name, int healthPoints, int defense) {
         var temp = new Engineer(turnsQueue, name, healthPoints, defense);
-        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler,
+                nonEmptyQueueHandler);
         return temp;
     }
 
@@ -69,7 +71,8 @@ public class CharacterFactory {
      */
     public IPlayerCharacter createKnight(@NotNull String name, int healthPoints, int defense) {
         var temp = new Knight(turnsQueue, name, healthPoints, defense);
-        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler,
+                nonEmptyQueueHandler);
         return temp;
     }
 
@@ -79,7 +82,8 @@ public class CharacterFactory {
      */
     public IPlayerCharacter createThief(@NotNull String name, int healthPoints, int defense) {
         var temp = new Thief(turnsQueue, name, healthPoints, defense);
-        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler,
+                nonEmptyQueueHandler);
         return temp;
     }
 
@@ -90,7 +94,8 @@ public class CharacterFactory {
     public IMageCharacter createWhiteWizard(@NotNull String name, int healthPoints, int defense,
                                        int mana) {
         var temp = new WhiteWizard(turnsQueue, name, healthPoints, defense, mana);
-        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler,
+                nonEmptyQueueHandler);
         return temp;
     }
 
@@ -101,7 +106,8 @@ public class CharacterFactory {
     public Enemy createEnemy(@NotNull String name, int healthPoints, int defense,
                                   int weight, int attackPower) {
         var temp = new Enemy(turnsQueue, name, healthPoints, defense, weight, attackPower);
-        temp.addListeners(enemyDeathHandler, enemyTurnHandler);
+        temp.addListeners(playerCharacterDeathHandler, playerTurnHandler,
+                nonEmptyQueueHandler);
         return temp;
     }
 

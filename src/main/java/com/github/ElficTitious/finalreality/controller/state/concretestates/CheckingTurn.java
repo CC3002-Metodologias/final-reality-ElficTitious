@@ -15,7 +15,7 @@ public class CheckingTurn extends State {
     }
 
     @Override
-    public boolean isTakingCharacter() {
+    public boolean isCheckingTurn() {
         return true;
     }
 }
