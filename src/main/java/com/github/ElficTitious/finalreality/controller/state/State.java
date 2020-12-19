@@ -10,7 +10,7 @@ public class State {
         this.controller = controller;
     }
 
-    public GameController getController() {
+    protected GameController getController() {
         return this.controller;
     }
 

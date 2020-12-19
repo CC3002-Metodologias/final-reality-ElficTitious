@@ -6,6 +6,11 @@ import com.github.ElficTitious.finalreality.model.character.Enemy;
 
 import java.beans.PropertyChangeEvent;
 
+/**
+ * Class that handles the non empty queue events.
+ *
+ * @author Ismael Correa Arellano.
+ */
 public class NonEmptyQueueHandler implements IEventHandler {
 
     private final GameController controller;

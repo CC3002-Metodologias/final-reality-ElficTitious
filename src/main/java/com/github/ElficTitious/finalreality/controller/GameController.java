@@ -56,6 +56,7 @@ public class GameController {
 
     //State methods:
 
+
     public void setState(State state) {
         this.state = state;
         state.setController(this);
@@ -116,7 +117,8 @@ public class GameController {
 
     /**
      * Method that controls the attacking. The attacking character given as parameter
-     * attacks the attacked character, also given as parameter.
+     * attacks the attacked character, also given as parameter. It invokes the endTurn
+     * method in order to continue with the turn flow.
      */
     public void attack(ICharacter attacker, ICharacter attacked) {
         attacker.attack(attacked);
@@ -126,23 +128,27 @@ public class GameController {
     //Turn implementation:
 
     /**
-     * Method that holds the behaviour and game flow when in the turn of the player.
+     * Method that holds the behaviour when it's the turn of the player. It sets the state
+     * to PlayerTurn.
      */
     public void playerTurn(IPlayerCharacter playerCharacter) {
         state.playerTurn();
     }
 
     /**
-     * Method that holds the behaviour and game flow when in the turn of the player.
+     * Method that holds the behaviour when it's the turn of the enemy. It sets the state
+     * to EnemyTurn and attacks a random character from the player's party.
      */
     public void enemyTurn(Enemy enemy) {
         state.enemyTurn();
+        attack(enemy, getPlayerParty().getRandomCharacter());
     }
 
     /**
      * Method that takes the first character in the turns queue and returns it (the character
      * isn't removed from the queue). In order to know if the next turn belongs to the player
-     * or enemy, the method calls the turn method of the character taken.
+     * or enemy, the method calls the turn method of the character taken. It sets the state
+     * to CheckingTurn.
      */
     public ICharacter getNextCharacter() {
         var temp = turnsQueue.peek();
@@ -151,6 +157,13 @@ public class GameController {
         return temp;
     }
 
+    /**
+     * Method in charge of removing from the turns queue and setting a timer for the
+     * character that just ended his turn, after which it sets the state to CheckingQueue
+     * (if possible). If the turns queue contains characters it invokes the getNextCharacter
+     * method to return to the first phase of the turns flow, if not, it sets the state to
+     * WaitingQueue where it waits for a character to enter the turns queue.
+     */
     public void endTurn(ICharacter character) {
         this.removeCharacter(character);
         this.setTimer(character);
@@ -163,6 +176,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Method that notifies the WaitingQueue state that it can return to the first phase
+     * of the turns flow.
+     */
     public void queueReady() {
         state.queueReady();
     }

@@ -81,7 +81,8 @@ public class Enemy implements ICharacter{
     }
 
     /**
-     * Adds this enemy to the turns queue if its alive.
+     * Adds this enemy to the turns queue if its alive. If a enemy is added to the
+     * turns queue, it triggers a non empty queue event.
      */
     private void addToQueue() {
         if (this.isAlive()) {

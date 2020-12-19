@@ -167,7 +167,8 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     }
 
     /**
-     * Adds this player character to the turns queue if its alive.
+     * Adds this player character to the turns queue if its alive. If a player's
+     * character is added to the turns queue, it triggers a non empty queue event.
      */
     private void addToQueue() {
         if (this.isAlive()) {
