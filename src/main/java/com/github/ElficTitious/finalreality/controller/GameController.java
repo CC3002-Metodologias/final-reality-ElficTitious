@@ -35,7 +35,8 @@ public class GameController {
 
     /**
      * Creates a controller with an inventory, player and enemy parties, a queue to control
-     * the flow of the game, a weapon and character factory, and all the necessary handlers.
+     * the flow of the game, a weapon and character factory, all the necessary handlers, and
+     * the state initialized as Starting.
      */
     public GameController() {
         this.inventory = new Inventory();
@@ -56,40 +57,67 @@ public class GameController {
 
     //State methods:
 
-
+    /**
+     * Method that sets this controller's state to the given state, it also sets the
+     * given state's controller to this controller.
+     */
     public void setState(State state) {
         this.state = state;
         state.setController(this);
     }
 
+    /**
+     * Method that returns if this controller is in the Starting state or not.
+     */
     public boolean isStarting() {
         return state.isStarting();
     }
 
+    /**
+     * Method that returns if this controller is in the CheckingTurn state or not.
+     */
     public boolean isCheckingTurn() {
         return state.isCheckingTurn();
     }
 
+    /**
+     * Method that returns if this controller is in the EnemyTurn state or not.
+     */
     public boolean isEnemyTurn() {
         return state.isEnemyTurn();
     }
 
+    /**
+     * Method that returns if this controller is in the PlayerTurn state or not.
+     */
     public boolean isPlayerTurn() {
         return state.isPlayerTurn();
     }
 
+    /**
+     * Method that returns if this controller is in the Defeated state or not.
+     */
     public boolean isDefeated() {
         return state.isDefeated();
     }
 
+    /**
+     * Method that returns if this controller is in the Victorious state or not.
+     */
     public boolean isVictorious() {
         return state.isVictorious();
     }
 
+    /**
+     * Method that returns if this controller is in the CheckingQueue state or not.
+     */
     public boolean isCheckingQueue() {
         return state.isCheckingQueue();
     }
 
+    /**
+     * Method that returns if this controller is in the WaitingQueue state or not.
+     */
     public boolean isWaitingQueue() {
         return state.isWaitingQueue();
     }
