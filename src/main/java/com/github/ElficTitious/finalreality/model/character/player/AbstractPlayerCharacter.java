@@ -141,6 +141,7 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     @Override
     public void beingAttacked(ICharacter character) {
+        System.out.println("Player Character being attacked");
         int currentHP = this.getHealthPoints();
         int damage = Math.max(0, character.getAttackPower() - this.getDefense());
         /*In order to not diminish the HP below zero, we define health points after
@@ -172,6 +173,7 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
      */
     private void addToQueue() {
         if (this.isAlive()) {
+            System.out.println("Player Character entered the turns queue");
             turnsQueue.add(this);
             nonEmptyQueueEvent.firePropertyChange("Non Empty Queue",
                     null, null);
@@ -191,12 +193,10 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         if (!(obj instanceof IPlayerCharacter)) {
             return false;
         }
-        /* A player character is defined equal to another one if they belong to the same class
-        and have the same name.
+        /* A player character is defined equal to another one if they have the same name.
         */
         final var playerCharacter = (IPlayerCharacter) obj;
-        return getName().equals(playerCharacter.getName()) &&
-                getClass() == playerCharacter.getClass();
+        return getName().equals(playerCharacter.getName());
     }
 
     /**
@@ -204,7 +204,7 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(getClass(), getName());
+        return Objects.hash(getName());
     }
 
     /**

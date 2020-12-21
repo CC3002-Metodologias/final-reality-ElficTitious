@@ -50,8 +50,8 @@ public class GameController {
         this.nonEmptyQueueHandler = new NonEmptyQueueHandler(this);
         this.characterFactory = new CharacterFactory(turnsQueue, playerCharacterDeathHandler,
                 enemyDeathHandler, playerTurnHandler, enemyTurnHandler,
-                nonEmptyQueueHandler);
-        this.weaponFactory = new WeaponFactory();
+                nonEmptyQueueHandler, playerParty, enemyParty);
+        this.weaponFactory = new WeaponFactory(inventory);
         this.setState(new Starting());
     }
 
@@ -197,7 +197,7 @@ public class GameController {
         this.setTimer(character);
         state.checkQueue();
         if (turnsQueue.size() != 0) {
-            getNextCharacter();
+            this.getNextCharacter();
         }
         else {
             state.waitQueue();
@@ -296,4 +296,10 @@ public class GameController {
         return this.turnsQueue;
     }
 
+    /**
+     * Returns this controller's state (intended for testing purposes).
+     */
+    public State getState() {
+        return this.state;
+    }
 }

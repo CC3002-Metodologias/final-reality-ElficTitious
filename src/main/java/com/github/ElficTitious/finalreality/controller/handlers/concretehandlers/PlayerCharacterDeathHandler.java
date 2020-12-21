@@ -26,6 +26,7 @@ public class PlayerCharacterDeathHandler implements IEventHandler {
     public void propertyChange(PropertyChangeEvent evt) {
         /*If a player character death event is triggered, the controller checks for the
          * players loss with the player character that died as its parameter*/
+        System.out.println("Character Died");
         controller.checkLoss((IPlayerCharacter) evt.getNewValue());
     }
 }

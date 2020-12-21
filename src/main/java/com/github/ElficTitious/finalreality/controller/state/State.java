@@ -22,7 +22,7 @@ public class State {
     /**
      * Method that returns this state's controller.
      */
-    protected GameController getController() {
+    public GameController getController() {
         return this.controller;
     }
 
@@ -34,74 +34,93 @@ public class State {
     }
 
     /**
-     * Method that defines the error thrown when trying to transition to an inaccessible
-     * state from the current one.
-     */
-    void error() { throw new AssertionError("Wrong State"); }
-
-    /**
-     * Method that change's the controller's state to CheckingTurn. (here it throws an
-     * error, but the behaviour is overriden in concrete states).
+     * Method that change's the controller's state to CheckingTurn. (here it doesn't
+     * do anything, but the behaviour is overriden in concrete states).
      */
     public void checkTurn() {
-        error();
+        ;
     }
 
     /**
-     * Method that change's the controller's state to CheckingQueue. (here it throws an
-     * error, but the behaviour is overriden in concrete states).
+     * Method that change's the controller's state to CheckingQueue. (here it doesn't
+     * do anything, but the behaviour is overriden in concrete states).
      */
     public void checkQueue() {
-        error();
+        ;
     }
 
     /**
-     * Method that change's the controller's state to WaitingQueue. (here it throws an
-     * error, but the behaviour is overriden in concrete states).
+     * Method that change's the controller's state to WaitingQueue. (here it doesn't
+     * do anything, but the behaviour is overriden in concrete states).
      */
     public void waitQueue() {
-        error();
+        ;
     }
 
     /**
      * Method that returns to the first phase of the turns flow when the turns queue of
      * the game controller isn't empty; it's only accessible from the WaitingQueue state.
-     * (here it throws an error, but the behaviour is overriden in the WaitingQueue state).
+     * (here it doesn't do anything, but the behaviour is overriden in the WaitingQueue
+     * state).
      */
     public void queueReady() {
-        error();
+        ;
     }
 
     /**
-     * Method that change's the controller's state to EnemyTurn. (here it throws an
-     * error, but the behaviour is overriden in concrete states).
+     * Method that change's the controller's state to EnemyTurn. (here it doesn't
+     * do anything, but the behaviour is overriden in concrete states).
      */
     public void enemyTurn() {
-        error();
+        ;
     }
 
     /**
-     * Method that change's the controller's state to PlayerTurn. (here it throws an
-     * error, but the behaviour is overriden in concrete states).
+     * Method that change's the controller's state to PlayerTurn. (here it doesn't
+     * do anything, but the behaviour is overriden in concrete states).
      */
     public void playerTurn() {
-        error();
+        ;
     }
 
     /**
-     * Method that change's the controller's state to Victorious. (here it throws an
-     * error, but the behaviour is overriden in concrete states).
+     * Method that change's the controller's state to SelectingEnemy. (here it doesn't
+     * do anything, but the behaviour is overriden in the PlayerTurn state).
+     */
+    public void selectEnemy() {
+        ;
+    }
+
+    /**
+     * Method that change's the controller's state to SelectingWeapon. (here it doesn't
+     * do anything, but the behaviour is overriden in the PlayerTurn state).
+     */
+    public void selectWeapon() {
+        ;
+    }
+
+    /**
+     * Method used to confirm actions like weapon equipping and attacking. (here it doesn't
+     * do anything, but the behaviour is overriden in concrete states).
+     */
+    public void confirmAction() {
+        ;
+    }
+
+    /**
+     * Method that change's the controller's state to Victorious. (here it doesn't
+     * do anything, but the behaviour is overriden in concrete states).
      */
     public void victory() {
-        error();
+        ;
     }
 
     /**
-     * Method that change's the controller's state to Defeated. (here it throws an
-     * error, but the behaviour is overriden in concrete states).
+     * Method that change's the controller's state to Defeated. (here it doesn't
+     * do anything, but the behaviour is overriden in concrete states).
      */
     public void defeat() {
-        error();
+        ;
     }
 
     /**
@@ -167,4 +186,21 @@ public class State {
     public boolean isWaitingQueue() {
         return false;
     }
+
+    /**
+     * Method that returns if the controller's state is SelectingEnemy or not. (here it's
+     * defined as false by default, but the behaviour is overriden in concrete states).
+     */
+    public boolean isSelectingEnemy() {
+        return false;
+    }
+
+    /**
+     * Method that returns if the controller's state is SelectingWeapon or not. (here it's
+     * defined as false by default, but the behaviour is overriden in concrete states).
+     */
+    public boolean isSelectingWeapon() {
+        return false;
+    }
+
 }

@@ -55,6 +55,19 @@ public class Party {
     }
 
     /**
+     * Method that returns the character with the given name on the party array (if
+     * it's present).
+     */
+    public ICharacter getCharacterByName(String name) {
+        for (ICharacter character : party) {
+            if (character.getName().equals(name)) {
+                return character;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Returns this party's party field.
      */
     public ArrayList<ICharacter> getParty() {
@@ -78,7 +91,7 @@ public class Party {
             return true;
         }
 
-        if (!(obj instanceof IPlayerCharacter)) {
+        if (!(obj instanceof Party)) {
             return false;
         }
         /* A Party is defined equal to another one if their party arrays are

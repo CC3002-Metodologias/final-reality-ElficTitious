@@ -1,5 +1,6 @@
 package com.github.ElficTitious.finalreality.controller;
 
+import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 
@@ -38,6 +39,19 @@ public class Inventory {
     }
 
     /**
+     * Method that returns the weapon with the given name on the inventory array (if
+     * it's present).
+     */
+    public IWeapon getWeaponByName(String name) {
+        for (IWeapon weapon : inventory) {
+            if (weapon.getName().equals(name)) {
+                return weapon;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Method that removes the weapon given as a parameter from the inventory.
      */
     public void removeWeapon(IWeapon weapon) {
@@ -53,7 +67,7 @@ public class Inventory {
             return true;
         }
 
-        if (!(obj instanceof IPlayerCharacter)) {
+        if (!(obj instanceof Inventory)) {
             return false;
         }
         /* An Inventory is defined equal to another one if their inventory arrays are

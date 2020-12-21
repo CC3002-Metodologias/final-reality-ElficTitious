@@ -1,10 +1,14 @@
 package com.github.cc3002.finalreality.controller.factories;
 
+import com.github.ElficTitious.finalreality.controller.Inventory;
 import com.github.ElficTitious.finalreality.controller.factories.WeaponFactory;
 import com.github.ElficTitious.finalreality.model.character.player.playercharacters.Knight;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.swing.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -16,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class WeaponFactoryTest {
 
     private WeaponFactory weaponFactory;
+    private Inventory inventory;
 
     private static final String AXE_NAME  = "Test Axe";
     private static final String BOW_NAME  = "Test Bow";
@@ -39,7 +44,8 @@ public class WeaponFactoryTest {
      */
     @BeforeEach
     void setUp() {
-        weaponFactory = new WeaponFactory();
+        inventory = new Inventory();
+        weaponFactory = new WeaponFactory(inventory);
         testAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
         testBow = new Bow(BOW_NAME, DAMAGE, WEIGHT);
         testKnife = new Knife(KNIFE_NAME, DAMAGE, WEIGHT);

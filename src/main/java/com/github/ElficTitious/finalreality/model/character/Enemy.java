@@ -54,6 +54,7 @@ public class Enemy implements ICharacter{
 
     @Override
     public void beingAttacked(ICharacter character) {
+        System.out.println("Enemy being attacked");
         int currentHP = this.getHealthPoints();
         int damage = Math.max(0, character.getAttackPower() - this.getDefense());
         /*In order to not diminish the HP below zero, we define health points after
@@ -86,6 +87,7 @@ public class Enemy implements ICharacter{
      */
     private void addToQueue() {
         if (this.isAlive()) {
+            System.out.println("Enemy entered the turns queue");
             turnsQueue.add(this);
             nonEmptyQueueEvent.firePropertyChange("Non Empty Queue",
                     null, null);
@@ -148,11 +150,10 @@ public class Enemy implements ICharacter{
             return false;
         }
         /* An enemy is defined equal to another one if they have the
-        same name and same weight.
+        same name.
         */
         final var enemy = (Enemy) obj;
-        return getWeight() == enemy.getWeight() &&
-                getName().equals(enemy.getName());
+        return getName().equals(enemy.getName());
     }
 
     /**
@@ -160,7 +161,7 @@ public class Enemy implements ICharacter{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(Enemy.class, getName(), getWeight());
+        return Objects.hash(getName());
     }
 
     /**
