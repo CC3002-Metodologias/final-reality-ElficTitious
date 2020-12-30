@@ -1,5 +1,6 @@
 package com.github.ElficTitious.finalreality.controller.factories;
 
+import com.github.ElficTitious.finalreality.controller.Inventory;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
 
@@ -11,40 +12,56 @@ import com.github.ElficTitious.finalreality.model.weapon.weapons.*;
  */
 public class WeaponFactory {
 
+    private Inventory inventory;
+
+    public WeaponFactory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
     /**
-     * Creates a new axe with all its fields initialized.
+     * Creates a new axe with all its fields initialized and adds it to the inventory.
      */
     public IWeapon createAxe(final String name, final int damage, final int weight) {
-        return new Axe(name, damage, weight);
+        var temp = new Axe(name, damage, weight);
+        inventory.addWeapon(temp);
+        return temp;
     }
 
     /**
-     * Creates a new bow with all its fields initialized.
+     * Creates a new bow with all its fields initialized and adds it to the inventory.
      */
     public IWeapon createBow(final String name, final int damage, final int weight) {
-        return new Bow(name, damage, weight);
+        var temp = new Bow(name, damage, weight);
+        inventory.addWeapon(temp);
+        return temp;
     }
 
     /**
-     * Creates a new knife with all its fields initialized.
+     * Creates a new knife with all its fields initialized and adds it to the inventory.
      */
     public IWeapon createKnife(final String name, final int damage, final int weight) {
-        return new Knife(name, damage, weight);
+        var temp = new Knife(name, damage, weight);
+        inventory.addWeapon(temp);
+        return temp;
     }
 
     /**
-     * Creates a new staff with all its fields initialized.
+     * Creates a new staff with all its fields initialized and adds it to the inventory.
      */
     public IWeapon createStaff(final String name, final int damage, final int magicDamage,
                                final int weight) {
-        return new Staff(name, damage, magicDamage, weight);
+        var temp = new Staff(name, damage, magicDamage, weight);
+        inventory.addWeapon(temp);
+        return temp;
     }
 
     /**
-     * Creates a new sword with all its fields initialized.
+     * Creates a new sword with all its fields initialized and adds it to the inventory.
      */
     public IWeapon createSword(final String name, final int damage, final int weight) {
-        return new Sword(name, damage, weight);
+        var temp = new Sword(name, damage, weight);
+        inventory.addWeapon(temp);
+        return temp;
     }
 
     //Weapon getters:

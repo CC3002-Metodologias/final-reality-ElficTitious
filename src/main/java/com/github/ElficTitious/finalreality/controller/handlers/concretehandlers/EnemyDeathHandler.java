@@ -5,6 +5,7 @@ import com.github.ElficTitious.finalreality.controller.GameController;
 import com.github.ElficTitious.finalreality.controller.handlers.IEventHandler;
 
 import java.beans.PropertyChangeEvent;
+import java.io.PrintStream;
 
 /**
  * Class that handles enemy death events.

@@ -29,6 +29,8 @@ public class Enemy implements ICharacter{
             new PropertyChangeSupport(this);
     private final PropertyChangeSupport enemyTurnEvent =
             new PropertyChangeSupport(this);
+    private final PropertyChangeSupport nonEmptyQueueEvent =
+            new PropertyChangeSupport(this);
 
     /**
      * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -79,11 +81,14 @@ public class Enemy implements ICharacter{
     }
 
     /**
-     * Adds this enemy to the turns queue if its alive.
+     * Adds this enemy to the turns queue if its alive. If a enemy is added to the
+     * turns queue, it triggers a non empty queue event.
      */
     private void addToQueue() {
         if (this.isAlive()) {
             turnsQueue.add(this);
+            nonEmptyQueueEvent.firePropertyChange("Non Empty Queue",
+                    null, null);
         }
         scheduledExecutor.shutdown();
     }
@@ -143,11 +148,10 @@ public class Enemy implements ICharacter{
             return false;
         }
         /* An enemy is defined equal to another one if they have the
-        same name and same weight.
+        same name.
         */
         final var enemy = (Enemy) obj;
-        return getWeight() == enemy.getWeight() &&
-                getName().equals(enemy.getName());
+        return getName().equals(enemy.getName());
     }
 
     /**
@@ -155,14 +159,17 @@ public class Enemy implements ICharacter{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(Enemy.class, getName(), getWeight());
+        return Objects.hash(getName());
     }
 
     /**
-     * Adds the enemy death and turn handlers to the enemy death and turn events.
+     * Adds the enemy death, turn and non empty queue handlers to the enemy death,
+     * non empty queue and turn events.
      */
-    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
+    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler,
+                             IEventHandler nonEmptyQueueHandler) {
         enemyDeathEvent.addPropertyChangeListener(deathHandler);
         enemyTurnEvent.addPropertyChangeListener(turnHandler);
+        nonEmptyQueueEvent.addPropertyChangeListener(nonEmptyQueueHandler);
     }
 }

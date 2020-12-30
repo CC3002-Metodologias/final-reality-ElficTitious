@@ -52,13 +52,10 @@ public abstract class AbstractWeapon implements IWeapon{
         if (!(obj instanceof IWeapon)) {
             return false;
         }
-        /* A weapon is defined equal to another one if they belong to the same class, have the
-        same name and same weight.
+        /* A weapon is defined equal to another one if they have the same name.
         */
         final var weapon = (IWeapon) obj;
-        return getWeight() == weapon.getWeight() &&
-                getName().equals(weapon.getName()) &&
-                getClass() == weapon.getClass();
+        return getName().equals(weapon.getName());
     }
 
     /**
@@ -66,6 +63,6 @@ public abstract class AbstractWeapon implements IWeapon{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(getClass(), getName(), getWeight());
+        return Objects.hash(getName());
     }
 }

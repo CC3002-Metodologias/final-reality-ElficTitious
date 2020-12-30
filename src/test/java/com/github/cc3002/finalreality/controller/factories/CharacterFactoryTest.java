@@ -4,10 +4,7 @@ import com.github.ElficTitious.finalreality.controller.GameController;
 import com.github.ElficTitious.finalreality.controller.Inventory;
 import com.github.ElficTitious.finalreality.controller.Party;
 import com.github.ElficTitious.finalreality.controller.factories.CharacterFactory;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyDeathHandler;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.EnemyTurnHandler;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerCharacterDeathHandler;
-import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.PlayerTurnHandler;
+import com.github.ElficTitious.finalreality.controller.handlers.concretehandlers.*;
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.character.ICharacter;
 import com.github.ElficTitious.finalreality.model.character.player.playercharacters.*;
@@ -28,10 +25,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CharacterFactoryTest {
 
     private BlockingQueue<ICharacter> turnsQueue;
+    private Party playerParty;
+    private Party enemyParty;
     private PlayerCharacterDeathHandler playerCharacterDeathHandler;
     private EnemyDeathHandler enemyDeathHandler;
     private PlayerTurnHandler playerTurnHandler;
     private EnemyTurnHandler enemyTurnHandler;
+    private NonEmptyQueueHandler nonEmptyQueueHandler;
 
     private GameController controller;
 
@@ -66,12 +66,16 @@ public class CharacterFactoryTest {
     void setUp() {
         controller = new GameController();
         turnsQueue = new LinkedBlockingQueue<>();
+        playerParty = new Party();
+        enemyParty = new Party();
         playerCharacterDeathHandler = new PlayerCharacterDeathHandler(controller);
         enemyDeathHandler = new EnemyDeathHandler(controller);
         playerTurnHandler = new PlayerTurnHandler(controller);
         enemyTurnHandler = new EnemyTurnHandler(controller);
+        nonEmptyQueueHandler = new NonEmptyQueueHandler(controller);
         characterFactory = new CharacterFactory(turnsQueue, playerCharacterDeathHandler,
-                enemyDeathHandler, playerTurnHandler, enemyTurnHandler);
+                enemyDeathHandler, playerTurnHandler, enemyTurnHandler,
+                nonEmptyQueueHandler, playerParty, enemyParty);
 
         testDarkWizard = new DarkWizard(turnsQueue, DARK_WIZARD_NAME, HEALTH_POINTS,
                 DEFENSE, MANA);

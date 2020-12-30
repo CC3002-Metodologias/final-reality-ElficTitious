@@ -145,7 +145,6 @@ public class EnemyTest {
         assertEquals(expectedTestEnemy, expectedTestEnemy);
         assertEquals(expectedTestEnemy, testEnemy);
         assertNotEquals(expectedTestEnemy, testEnemyDifferentName);
-        assertNotEquals(expectedTestEnemy, testEnemyDifferentWeight);
         assertNotEquals(expectedTestEnemy, testAxe);
     }
 

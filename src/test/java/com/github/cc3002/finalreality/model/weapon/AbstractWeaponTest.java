@@ -36,7 +36,7 @@ public class AbstractWeaponTest {
      * Creates new test weapons.
      */
     @BeforeEach
-    void BasicSetUp() {
+    void basicSetUp() {
         testAxe = new Axe(AXE_NAME, DAMAGE, WEIGHT);
         testAxeDifferentName = new Axe(SECOND_AXE_NAME, DAMAGE, WEIGHT);
         testAxeDifferentWeight = new Axe(AXE_NAME, DAMAGE, SECOND_WEIGHT);
@@ -53,8 +53,7 @@ public class AbstractWeaponTest {
         assertEquals(expectedTestAxe, expectedTestAxe);
         assertEquals(expectedTestAxe, testAxe);
         assertNotEquals(expectedTestAxe, testAxeDifferentName);
-        assertNotEquals(expectedTestAxe, testAxeDifferentWeight);
-        assertNotEquals(expectedTestAxe, testSwordWithAxeName);
+        assertEquals(expectedTestAxe, testSwordWithAxeName);
     }
 
     /**

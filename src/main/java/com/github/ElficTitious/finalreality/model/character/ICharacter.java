@@ -23,7 +23,8 @@ public interface ICharacter {
 
     /**
      * Method that determines if it can be attacked by the character given as parameter and
-     * if so, by how much its health points diminish.
+     * if so, by how much its health points diminish. If the character being attacked dies,
+     * it triggers a character death event (enemy or player character).
      *
      * @param character
      *      character which is attacking.

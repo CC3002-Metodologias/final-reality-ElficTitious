@@ -4,6 +4,7 @@ import com.github.ElficTitious.finalreality.controller.Inventory;
 import com.github.ElficTitious.finalreality.model.character.Enemy;
 import com.github.ElficTitious.finalreality.model.weapon.IWeapon;
 import com.github.ElficTitious.finalreality.model.weapon.weapons.Axe;
+import com.github.ElficTitious.finalreality.model.weapon.weapons.Sword;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,6 +21,7 @@ public class InventoryTest {
 
     private Inventory testInventory;
     private Axe testAxe;
+    private Sword testSword;
 
     /**
      * Setup method.
@@ -29,17 +31,47 @@ public class InventoryTest {
     void setUp() {
         testInventory = new Inventory();
         testAxe = new Axe("Test Axe", 10, 10);
+        testSword = new Sword("Test Sword", 10, 10);
     }
 
     /**
-     * Checks that the {@code Inventory} constructor works properly, and to do so, we compare
-     * the testInventory's inventory field with an equal array list, and by doing so, we are
-     * testing the getInventory method as well.
+     * Checks that the {@code Inventory} constructor works properly.
      */
     @Test
     void constructorTest() {
-        var expectedTestInventory = new ArrayList<>();
-        assertEquals(expectedTestInventory, testInventory.getInventory());
+        var expectedTestInventory = new Inventory();
+        assertEquals(expectedTestInventory, testInventory);
+    }
+
+    /**
+     * Checks that the equals method from the {@code Inventory} class works
+     * as intended.
+     */
+    @Test
+    void equalsTest() {
+        var expectedTestInventory = new Inventory();
+        assertEquals(expectedTestInventory, expectedTestInventory);
+        assertEquals(expectedTestInventory, testInventory);
+        assertNotEquals(expectedTestInventory, testAxe);
+        expectedTestInventory.addWeapon(testAxe);
+        assertNotEquals(expectedTestInventory, testInventory);
+        testInventory.addWeapon(testAxe);
+        assertEquals(expectedTestInventory, testInventory);
+        testInventory.removeWeapon(testAxe);
+        testInventory.addWeapon(testSword);
+        assertNotEquals(expectedTestInventory, testInventory);
+    }
+
+    /**
+     * Checks that the hashCode method from the {@code Inventory} class works
+     * as intended, that is, according to the definition of the equals method.
+     */
+    @Test
+    void hashCodeTest() {
+        var expectedTestInventory = new Inventory();
+        assertEquals(expectedTestInventory.hashCode(), testInventory.hashCode());
+        testInventory.addWeapon(testAxe);
+        assertNotEquals(expectedTestInventory.hashCode(), testInventory.hashCode());
     }
 
     /**
@@ -47,12 +79,12 @@ public class InventoryTest {
      */
     @Test
     void addAndRemoveWeaponTest() {
-        var expectedTestInventory = new ArrayList<>();
-        expectedTestInventory.add(testAxe);
+        var expectedTestInventory = new Inventory();
+        expectedTestInventory.addWeapon(testAxe);
         testInventory.addWeapon(testAxe);
-        assertEquals(expectedTestInventory, testInventory.getInventory());
-        expectedTestInventory.remove(testAxe);
+        assertEquals(expectedTestInventory, testInventory);
+        expectedTestInventory.removeWeapon(testAxe);
         testInventory.removeWeapon(testAxe);
-        assertEquals(expectedTestInventory, testInventory.getInventory());
+        assertEquals(expectedTestInventory, testInventory);
     }
 }

@@ -33,6 +33,8 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
             new PropertyChangeSupport(this);
     private final PropertyChangeSupport playerTurnEvent =
             new PropertyChangeSupport(this);
+    private final PropertyChangeSupport nonEmptyQueueEvent =
+            new PropertyChangeSupport(this);
 
 
     /**
@@ -165,11 +167,14 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
     }
 
     /**
-     * Adds this player character to the turns queue if its alive.
+     * Adds this player character to the turns queue if its alive. If a player's
+     * character is added to the turns queue, it triggers a non empty queue event.
      */
     private void addToQueue() {
         if (this.isAlive()) {
             turnsQueue.add(this);
+            nonEmptyQueueEvent.firePropertyChange("Non Empty Queue",
+                    null, null);
         }
         scheduledExecutor.shutdown();
     }
@@ -186,12 +191,10 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
         if (!(obj instanceof IPlayerCharacter)) {
             return false;
         }
-        /* A player character is defined equal to another one if they belong to the same class
-        and have the same name.
+        /* A player character is defined equal to another one if they have the same name.
         */
         final var playerCharacter = (IPlayerCharacter) obj;
-        return getName().equals(playerCharacter.getName()) &&
-                getClass() == playerCharacter.getClass();
+        return getName().equals(playerCharacter.getName());
     }
 
     /**
@@ -199,15 +202,17 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(getClass(), getName());
+        return Objects.hash(getName());
     }
 
     /**
-     * Adds the player character death and turn handlers to the player character
-     * death and turn events.
+     * Adds the player character death, turn and non empty queue handlers to the player
+     * character death, turn and non empty queue events.
      */
-    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler) {
+    public void addListeners(IEventHandler deathHandler, IEventHandler turnHandler,
+                             IEventHandler nonEmptyQueueHandler) {
         playerCharacterDeathEvent.addPropertyChangeListener(deathHandler);
         playerTurnEvent.addPropertyChangeListener(turnHandler);
+        nonEmptyQueueEvent.addPropertyChangeListener(nonEmptyQueueHandler);
     }
 }
