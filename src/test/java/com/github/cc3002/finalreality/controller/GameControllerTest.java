@@ -67,6 +67,9 @@ public class GameControllerTest {
         assertEquals(expectedInventory, inventory);
     }
 
+    /**
+     * Checks that the combat works as intended.
+     */
     @RepeatedTest(1)
     void turnFlowAndCombatTest() {
         var turnsQueue = controller.getTurnsQueue();
