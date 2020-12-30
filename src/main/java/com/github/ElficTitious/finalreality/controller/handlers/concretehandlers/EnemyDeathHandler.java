@@ -27,7 +27,6 @@ public class EnemyDeathHandler implements IEventHandler {
     public void propertyChange(PropertyChangeEvent evt) {
         /*If a enemy death event is triggered, the controller checks for the
         * players victory with the enemy that died as its parameter*/
-        System.out.println("Enemy Died");
         controller.checkVictory((Enemy) evt.getNewValue());
     }
 }

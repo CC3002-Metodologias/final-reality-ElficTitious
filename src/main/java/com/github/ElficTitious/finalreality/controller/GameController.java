@@ -161,6 +161,7 @@ public class GameController {
      */
     public void playerTurn(IPlayerCharacter playerCharacter) {
         state.playerTurn();
+        state.setPlayerCharacter(playerCharacter);
     }
 
     /**

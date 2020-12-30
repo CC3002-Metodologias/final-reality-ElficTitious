@@ -118,7 +118,7 @@ public class AbstractPlayerCharacterTest {
         assertEquals(expectedTestKnight, expectedTestKnight);
         assertEquals(expectedTestKnight, testKnight);
         assertNotEquals(expectedTestKnight, testKnightDifferentName);
-        assertNotEquals(expectedTestKnight, testThiefWithKnightName);
+        assertEquals(expectedTestKnight, testThiefWithKnightName);
         assertNotEquals(expectedTestKnight, testAxe);
     }
 

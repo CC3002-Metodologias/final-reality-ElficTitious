@@ -141,7 +141,6 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
 
     @Override
     public void beingAttacked(ICharacter character) {
-        System.out.println("Player Character being attacked");
         int currentHP = this.getHealthPoints();
         int damage = Math.max(0, character.getAttackPower() - this.getDefense());
         /*In order to not diminish the HP below zero, we define health points after
@@ -173,7 +172,6 @@ public abstract class AbstractPlayerCharacter implements IPlayerCharacter {
      */
     private void addToQueue() {
         if (this.isAlive()) {
-            System.out.println("Player Character entered the turns queue");
             turnsQueue.add(this);
             nonEmptyQueueEvent.firePropertyChange("Non Empty Queue",
                     null, null);

@@ -67,7 +67,7 @@ public class GameControllerTest {
         assertEquals(expectedInventory, inventory);
     }
 
-    @RepeatedTest(20)
+    @RepeatedTest(1)
     void turnFlowAndCombatTest() {
         var turnsQueue = controller.getTurnsQueue();
         var playerParty = controller.getPlayerParty();
@@ -111,7 +111,8 @@ public class GameControllerTest {
 
         while (!controller.isDefeated() && !controller.isVictorious()) {
             if (controller.isPlayerTurn()) {
-                var attacker = (IPlayerCharacter) turnsQueue.peek();
+                var attacker = (IPlayerCharacter)
+                        controller.getState().getPlayerCharacter();
                 controller.attack(attacker, enemyParty.getRandomCharacter());
                 var weapon = attacker.getEquippedWeapon();
                 var millis = 1000 * (weapon.getWeight()/10);

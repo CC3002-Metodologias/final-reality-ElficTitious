@@ -39,19 +39,6 @@ public class Inventory {
     }
 
     /**
-     * Method that returns the weapon with the given name on the inventory array (if
-     * it's present).
-     */
-    public IWeapon getWeaponByName(String name) {
-        for (IWeapon weapon : inventory) {
-            if (weapon.getName().equals(name)) {
-                return weapon;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Method that removes the weapon given as a parameter from the inventory.
      */
     public void removeWeapon(IWeapon weapon) {

@@ -4,6 +4,7 @@ import com.github.ElficTitious.finalreality.controller.GameController;
 import com.github.ElficTitious.finalreality.controller.Party;
 import com.github.ElficTitious.finalreality.controller.state.State;
 import com.github.ElficTitious.finalreality.controller.state.concretestates.*;
+import com.github.ElficTitious.finalreality.model.character.player.playercharacters.Knight;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +23,8 @@ public class StateTest {
     private GameController testController;
     private State testState;
 
+    private Knight testKnight;
+
     /**
      * Setup method.
      * Creates a new test state and game controller.
@@ -30,6 +33,8 @@ public class StateTest {
     void basicSetUp () {
         testController = new GameController();
         testState = new State();
+        testKnight = (Knight) testController.getCharacterFactory().createKnight("Test Knight",
+                100, 0);
     }
 
     /**
@@ -72,6 +77,8 @@ public class StateTest {
         assertTrue(testController.isStarting());
         expectedState.defeat();
         assertTrue(testController.isStarting());
+        expectedState.setPlayerCharacter(testKnight);
+        assertEquals(null, expectedState.getPlayerCharacter());
         expectedState.checkTurn();
         assertTrue(testController.isCheckingTurn());
     }
@@ -103,6 +110,8 @@ public class StateTest {
         assertTrue(testController.isCheckingTurn());
         expectedState.defeat();
         assertTrue(testController.isCheckingTurn());
+        expectedState.setPlayerCharacter(testKnight);
+        assertEquals(null, expectedState.getPlayerCharacter());
         expectedState.enemyTurn();
         assertTrue(testController.isEnemyTurn());
         testController.setState(new CheckingTurn());
@@ -137,6 +146,8 @@ public class StateTest {
         assertTrue(testController.isEnemyTurn());
         expectedState.victory();
         assertTrue(testController.isEnemyTurn());
+        expectedState.setPlayerCharacter(testKnight);
+        assertEquals(null, expectedState.getPlayerCharacter());
         expectedState.defeat();
         assertTrue(testController.isDefeated());
         testController.setState(new EnemyTurn());
@@ -175,6 +186,8 @@ public class StateTest {
         assertTrue(testController.isDefeated());
         expectedState.defeat();
         assertTrue(testController.isDefeated());
+        expectedState.setPlayerCharacter(testKnight);
+        assertEquals(null, expectedState.getPlayerCharacter());
     }
 
     /**
@@ -204,6 +217,8 @@ public class StateTest {
         assertTrue(testController.isPlayerTurn());
         expectedState.defeat();
         assertTrue(testController.isPlayerTurn());
+        expectedState.setPlayerCharacter(testKnight);
+        assertEquals(testKnight, expectedState.getPlayerCharacter());
         expectedState.victory();
         assertTrue(testController.isVictorious());
         testController.setState(new PlayerTurn());
@@ -242,6 +257,8 @@ public class StateTest {
         assertTrue(testController.isVictorious());
         expectedState.defeat();
         assertTrue(testController.isVictorious());
+        expectedState.setPlayerCharacter(testKnight);
+        assertEquals(null, expectedState.getPlayerCharacter());
     }
 
     /**
@@ -271,6 +288,8 @@ public class StateTest {
         assertTrue(testController.isCheckingQueue());
         expectedState.defeat();
         assertTrue(testController.isCheckingQueue());
+        expectedState.setPlayerCharacter(testKnight);
+        assertEquals(null, expectedState.getPlayerCharacter());
         expectedState.waitQueue();
         assertTrue(testController.isWaitingQueue());
         testController.setState(new CheckingTurn());
@@ -305,6 +324,8 @@ public class StateTest {
         assertTrue(testController.isWaitingQueue());
         expectedState.defeat();
         assertTrue(testController.isWaitingQueue());
+        expectedState.setPlayerCharacter(testKnight);
+        assertEquals(null, expectedState.getPlayerCharacter());
         expectedState.checkTurn();
         assertTrue(testController.isCheckingTurn());
     }

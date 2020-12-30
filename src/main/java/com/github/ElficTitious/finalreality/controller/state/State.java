@@ -1,6 +1,8 @@
 package com.github.ElficTitious.finalreality.controller.state;
 
 import com.github.ElficTitious.finalreality.controller.GameController;
+import com.github.ElficTitious.finalreality.model.character.ICharacter;
+import com.github.ElficTitious.finalreality.model.character.player.IPlayerCharacter;
 
 /**
  * A class that represents all possible states the game can be in; It holds common behaviour
@@ -20,10 +22,26 @@ public class State {
     }
 
     /**
+     * Method that sets the player character (Of the state PlayerTurn) to the given player
+     * character (here it does nothing, but overriden in the PlayerTurn state).
+     */
+    public void setPlayerCharacter(IPlayerCharacter playerCharacter) {
+        ;
+    }
+
+    /**
      * Method that returns this state's controller.
      */
     public GameController getController() {
         return this.controller;
+    }
+
+    /**
+     * Method that returns the player character (Of the state PlayerTurn)
+     * (here it returns null, but overriden in the PlayerTurn state).
+     */
+    public ICharacter getPlayerCharacter() {
+        return null;
     }
 
     /**
@@ -83,29 +101,6 @@ public class State {
         ;
     }
 
-    /**
-     * Method that change's the controller's state to SelectingEnemy. (here it doesn't
-     * do anything, but the behaviour is overriden in the PlayerTurn state).
-     */
-    public void selectEnemy() {
-        ;
-    }
-
-    /**
-     * Method that change's the controller's state to SelectingWeapon. (here it doesn't
-     * do anything, but the behaviour is overriden in the PlayerTurn state).
-     */
-    public void selectWeapon() {
-        ;
-    }
-
-    /**
-     * Method used to confirm actions like weapon equipping and attacking. (here it doesn't
-     * do anything, but the behaviour is overriden in concrete states).
-     */
-    public void confirmAction() {
-        ;
-    }
 
     /**
      * Method that change's the controller's state to Victorious. (here it doesn't
@@ -184,22 +179,6 @@ public class State {
      * defined as false by default, but the behaviour is overriden in concrete states).
      */
     public boolean isWaitingQueue() {
-        return false;
-    }
-
-    /**
-     * Method that returns if the controller's state is SelectingEnemy or not. (here it's
-     * defined as false by default, but the behaviour is overriden in concrete states).
-     */
-    public boolean isSelectingEnemy() {
-        return false;
-    }
-
-    /**
-     * Method that returns if the controller's state is SelectingWeapon or not. (here it's
-     * defined as false by default, but the behaviour is overriden in concrete states).
-     */
-    public boolean isSelectingWeapon() {
         return false;
     }
 
